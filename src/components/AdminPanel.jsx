@@ -22,21 +22,29 @@ export default function AdminPanel() {
   const { setStage, logout, perfiles, idioma } = useActua();
   const ui = textos[idioma].ui;
 
-  const [data, setData] = useState(null);
+  // Estado para datos y carga
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Estados para el modal de login en Panel
+  // Estados para autenticación al panel
   const [showLogin, setShowLogin] = useState(true);
-  const [senha, setSenha] = useState('');
+  const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [panelToken, setPanelToken] = useState('');
 
-  // Función para cargar datos una vez autenticado
-  const loadData = async () => {
+  // Carga de datos tras autenticarse
+  useEffect(() => {
+    if (!showLogin && panelToken) {
+      loadData(panelToken);
+    }
+  }, [showLogin, panelToken]);
+
+  // Función para obtener alumnos desde la API con token de panel
+  const loadData = async (token) => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('docente_token');
       const res = await fetch('/api/getAlumnos', {
-        headers: { 'Authorization': 'Bearer ' + token }
+        headers: { Authorization: 'Bearer ' + token }
       });
       if (!res.ok) throw new Error('No autorizado');
       const json = await res.json();
@@ -54,16 +62,10 @@ export default function AdminPanel() {
     }
   };
 
-  // Cuando se cierra el login modal (login exitoso), cargamos datos
-  useEffect(() => {
-    if (!showLogin) {
-      loadData();
-    }
-  }, [showLogin]);
-
+  // Manejador de login para panel
   const handleLogin = async () => {
     setLoginError('');
-    if (!senha) {
+    if (!password) {
       setLoginError('Introduce la contraseña');
       return;
     }
@@ -71,7 +73,7 @@ export default function AdminPanel() {
       const response = await fetch('/api/loginDocente', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: senha })
+        body: JSON.stringify({ password })
       });
       const text = await response.text();
       let dataResp;
@@ -85,22 +87,24 @@ export default function AdminPanel() {
         setLoginError(dataResp.error || 'Contraseña incorrecta');
         return;
       }
-      localStorage.setItem('docente_token', dataResp.token);
+      // Guardamos token solo para panel
+      setPanelToken(dataResp.token);
       setShowLogin(false);
+      setPassword('');
     } catch {
       setLoginError('Error de conexión');
     }
   };
 
+  // Logout del panel (no borra token de creación)
   const handleLogout = () => {
-    localStorage.removeItem('docente_token');
     logout();
     setStage('ingreso');
   };
 
   return (
     <>
-      {/* Modal de login para Panel del Docente */}
+      {/* Modal de login para acceder al panel */}
       <Dialog open={showLogin} disableEscapeKeyDown>
         <DialogTitle>{ui.adminPanelTitle}</DialogTitle>
         <DialogContent>
@@ -110,8 +114,8 @@ export default function AdminPanel() {
             label="Contraseña"
             type="password"
             fullWidth
-            value={senha}
-            onChange={e => setSenha(e.target.value)}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
             error={!!loginError}
             helperText={loginError}
           />
@@ -126,7 +130,7 @@ export default function AdminPanel() {
         </DialogActions>
       </Dialog>
 
-      {/* Vista del Panel tras login exitoso */}
+      {/* Panel de datos tras login exitoso */}
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
           <Button onClick={handleLogout} sx={{ mr: 1 }}>
