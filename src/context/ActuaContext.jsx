@@ -1,3 +1,4 @@
+// src/context/ActuaContext.jsx
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import useIdioma from '../hooks/useIdioma'
 
@@ -11,6 +12,9 @@ export function ActuaProvider({ children }) {
   const [indiceEscena, setIndiceEscena] = useState(0)
   const [paso, setPaso] = useState(0)
   const reiniciarPaso = () => setPaso(0)
+
+  // Nuevo estado: docente autenticado para registrar alumnos (no para panel)
+  const [isDocente, setDocente] = useState(false)
 
   const [idioma, cambiarIdioma] = useIdioma()
 
@@ -30,10 +34,7 @@ export function ActuaProvider({ children }) {
     if (user) {
       setPerfiles(prev => ({
         ...prev,
-        [user.name]: {
-          date: user.date,
-          elecciones
-        }
+        [user.name]: { date: user.date, elecciones }
       }))
     }
   }, [elecciones])
@@ -61,6 +62,8 @@ export function ActuaProvider({ children }) {
     setIndiceEscena(0)
     setPaso(0)
     setStage('portada')
+    // Al cerrar sesión, también revocamos permiso de docente para registro
+    setDocente(false)
   }
 
   return (
@@ -72,7 +75,9 @@ export function ActuaProvider({ children }) {
         idioma, cambiarIdioma,
         elecciones, setElecciones,
         indiceEscena, setIndiceEscena,
-        paso, setPaso, reiniciarPaso
+        paso, setPaso, reiniciarPaso,
+        // Exponemos estado de Docente
+        isDocente, setDocente
       }}
     >
       {children}
