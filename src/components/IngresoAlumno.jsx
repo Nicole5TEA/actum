@@ -16,7 +16,7 @@ import textos from '../textos';
 const isValidName = name => /^[A-Za-zÀ-ÿ\s]{2,30}$/.test(name.trim());
 
 export default function IngresoAlumno() {
-  const { login, idioma, setDocente } = useActua();
+  const { login, idioma, setDocente, setStage } = useActua();
   const ui = textos[idioma].ui;
 
   const [usuarios, setUsuarios] = useState([]);
@@ -29,14 +29,9 @@ export default function IngresoAlumno() {
   const [senha, setSenha] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  // Al montar, carga lista de alumnos (si ya estás autenticado como docente)
+  // Carga inicial de usuarios
   useEffect(() => {
-    const token = localStorage.getItem('docente_token');
-    fetch('/api/getAlumnos', {
-      headers: token
-        ? { Authorization: 'Bearer ' + token }
-        : {}
-    })
+    fetch('/api/getAlumnos')
       .then(res => res.json())
       .then(json => setUsuarios(json.map(a => a.nombre)))
       .catch(() => setUsuarios([]))
@@ -50,13 +45,9 @@ export default function IngresoAlumno() {
     }
     setError(false);
 
-    const token = localStorage.getItem('docente_token');
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers.Authorization = `Bearer ${token}`;
-
     const res = await fetch('/api/crearAlumno', {
       method: 'POST',
-      headers,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre: name.trim() })
     });
 
@@ -68,14 +59,13 @@ export default function IngresoAlumno() {
     }
   };
 
-  // Función para hacer login de docente
   const handleDocenteLogin = async () => {
     setLoginError('');
     if (!senha) {
       setLoginError('Introduce la contraseña');
       return;
     }
-  
+
     let response, text, data;
     try {
       response = await fetch('/api/loginDocente', {
@@ -88,8 +78,7 @@ export default function IngresoAlumno() {
       setLoginError('Error de conexión');
       return;
     }
-  
-    // Leemos la respuesta como texto para no escapar directo al catch si viene mal JSON
+
     try {
       text = await response.text();
       data = text ? JSON.parse(text) : {};
@@ -98,20 +87,19 @@ export default function IngresoAlumno() {
       setLoginError('Respuesta no válida del servidor');
       return;
     }
-  
+
     if (!response.ok) {
-      // Si la API manda { error: "mensaje" }, lo mostramos
       setLoginError(data.error || 'Contraseña incorrecta');
       return;
     }
-  
-    // Si todo va bien, guardamos el token y salimos del diálogo
+
+    // ✅ Login correcto:
     localStorage.setItem('docente_token', data.token);
     setDocente(true);
+    setStage('panelDocente');       // <-- aquí forzamos la vista de AdminPanel
     setShowLogin(false);
     setSenha('');
   };
-  
 
   return (
     <>
