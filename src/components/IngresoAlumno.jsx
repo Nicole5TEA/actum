@@ -75,25 +75,43 @@ export default function IngresoAlumno() {
       setLoginError('Introduce la contraseña');
       return;
     }
+  
+    let response, text, data;
     try {
-      const res = await fetch('/api/loginDocente', {
+      response = await fetch('/api/loginDocente', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: senha })
       });
-      if (!res.ok) {
-        setLoginError('Contraseña incorrecta');
-        return;
-      }
-      const { token } = await res.json();
-      localStorage.setItem('docente_token', token);
-      setDocente(true);
-      setShowLogin(false);
-      setSenha('');
-    } catch {
+    } catch (netErr) {
+      console.error('Network error en loginDocente:', netErr);
       setLoginError('Error de conexión');
+      return;
     }
+  
+    // Leemos la respuesta como texto para no escapar directo al catch si viene mal JSON
+    try {
+      text = await response.text();
+      data = text ? JSON.parse(text) : {};
+    } catch (parseErr) {
+      console.error('No pude parsear JSON:', text, parseErr);
+      setLoginError('Respuesta no válida del servidor');
+      return;
+    }
+  
+    if (!response.ok) {
+      // Si la API manda { error: "mensaje" }, lo mostramos
+      setLoginError(data.error || 'Contraseña incorrecta');
+      return;
+    }
+  
+    // Si todo va bien, guardamos el token y salimos del diálogo
+    localStorage.setItem('docente_token', data.token);
+    setDocente(true);
+    setShowLogin(false);
+    setSenha('');
   };
+  
 
   return (
     <>
