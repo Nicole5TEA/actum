@@ -1,0 +1,9 @@
+En local para probar, des de un terminal:
+cd api
+func start
+
+Des de otro:
+npm run dev
+
+Y finalmente des de otro:
+npx swa start http://localhost:5173 --api-devserver-url http://localhost:7071

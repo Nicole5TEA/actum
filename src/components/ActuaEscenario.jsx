@@ -136,19 +136,25 @@ const ActuaEscenario = () => {
     // Si es elección
     if (pasoActual.tipo === 'eleccion') {
       if (!id) return
-      // Guardar elección
+      // Guardar elección en el estado local
       setElecciones(prev => ({ ...prev, [escena.id]: id }))
-      fetch('/api/guardarRespuesta', {
+
+      // Llamada a la nueva API que actualiza el array `respuestas` en Cosmos DB
+      fetch('/api/guardarRespuestas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          alumno: user.name,
-          datetime: new Date().toISOString(),
-          situacionId: escena.id,
-          paso,
-          tipoPaso: 'eleccion',
-          respuesta: id,
-          idioma
+          id: user.name,
+          respuestas: [
+            {
+              datetime: new Date().toISOString(),
+              situacionId: escena.id,
+              paso,
+              tipoPaso: 'eleccion',
+              respuesta: id,
+              idioma
+            }
+          ]
         })
       }).catch(console.error)
 
@@ -223,7 +229,9 @@ const ActuaEscenario = () => {
               >
                 {commentSaved ? data.ui.comentarioGuardado || 'Guardado' : data.ui.guardar || 'Guardar'}
               </Button>
-              <Button variant="outlined" onClick={() => setCommentText('')}> {data.ui.cancelar || 'Cancelar'} </Button>
+              <Button variant="outlined" onClick={() => setCommentText('')}>
+                {data.ui.cancelar || 'Cancelar'}
+              </Button>
             </Box>
           </Stack>
         </Box>
@@ -316,18 +324,26 @@ const ActuaEscenario = () => {
             <MenuIcon />
             <Typography sx={{ ml: 0.5 }}>{data.ui.menu}</Typography>
           </IconButton>
-          <Button variant="outlined" size="small" onClick={() => cambiarIdioma(idioma === 'es' ? 'ca' : 'es')}> {idioma === 'es' ? 'CAT' : 'ES'} </Button>
+          <Button variant="outlined" size="small" onClick={() => cambiarIdioma(idioma === 'es' ? 'ca' : 'es')}>
+            {idioma === 'es' ? 'CAT' : 'ES'}
+          </Button>
         </Stack>
 
         {/* Título y pictos */}
-        <Typography variant="h5" align="center" gutterBottom> {escena.titulo} </Typography>
+        <Typography variant="h5" align="center" gutterBottom>
+          {escena.titulo}
+        </Typography>
         {pasoActual.tipo === 'situacion' && escena.pictos && (
           <Stack direction="row" spacing={2} justifyContent="center" mb={2}>
-            {escena.pictos.map((pic, i) => (<Box key={i} component="img" src={`/${pic}`} alt={`Picto ${i+1}`} width={40} height={40} />))}
+            {escena.pictos.map((pic, i) => (
+              <Box key={i} component="img" src={`/${pic}`} alt={`Picto ${i + 1}`} width={40} height={40} />
+            ))}
           </Stack>
         )}
 
-        <Typography variant="subtitle1" align="center" mb={0}> {pasoActual.titulo} </Typography>
+        <Typography variant="subtitle1" align="center" mb={0}>
+          {pasoActual.titulo}
+        </Typography>
 
         {/* Contenido central */}
         {renderContenido()}
@@ -355,10 +371,7 @@ const ActuaEscenario = () => {
                 >
                   {commentSaved ? data.ui.comentarioGuardado || 'Guardado' : data.ui.guardar || 'Guardar'}
                 </Button>
-                <Button
-                  variant="outlined"
-                  onClick={() => setCommentText('')}
-                >
+                <Button variant="outlined" onClick={() => setCommentText('')}>
                   {data.ui.cancelar || 'Cancelar'}
                 </Button>
               </Box>
@@ -368,23 +381,82 @@ const ActuaEscenario = () => {
 
         <Stack direction="row" spacing={1} justifyContent="center" mt={2}>
           {Array.from({ length: totalPasos }).map((_, i) => (
-            <Box key={i} sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: i <= paso ? 'text.primary' : 'grey.300' }} />
+            <Box
+              key={i}
+              sx={{
+                width: 12,
+                height: 12,
+                borderRadius: '50%',
+                bgcolor: i <= paso ? 'text.primary' : 'grey.300'
+              }}
+            />
           ))}
         </Stack>
-        <Typography align="center" variant="body2" mt={1}> {data.ui.pasoTexto(paso + 1, totalPasos)} </Typography>
+        <Typography align="center" variant="body2" mt={1}>
+          {data.ui.pasoTexto(paso + 1, totalPasos)}
+        </Typography>
 
         {/* Navegación */}
         {isSmUp ? (
           <>
-            <Button onClick={handleBack} sx={{ position: 'fixed', top: '50%', left: theme.spacing(1), transform: 'translateY(-50%)', minWidth: 48, p: 1, borderRadius: 1, zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 70, height: 70, backgroundColor: 'transparent', color: 'inherit' }} variant="outlined">
+            <Button
+              onClick={handleBack}
+              sx={{
+                position: 'fixed',
+                top: '50%',
+                left: theme.spacing(1),
+                transform: 'translateY(-50%)',
+                minWidth: 48,
+                p: 1,
+                borderRadius: 1,
+                zIndex: 10,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 70,
+                height: 70,
+                backgroundColor: 'transparent',
+                color: 'inherit'
+              }}
+              variant="outlined"
+            >
               <ArrowBackIosNewIcon />
-              <Typography variant="caption" sx={{ mt: 1 }}>{data.ui.atras}</Typography>
+              <Typography variant="caption" sx={{ mt: 1 }}>
+                {data.ui.atras}
+              </Typography>
             </Button>
-            {(showFeedback || pasoActual.tipo === 'situacion' || (pasoActual.tipo === 'resultado' && indiceEscena < escenas.length - 1)) && (
-            <Button onClick={() => showFeedback ? finishFeedback() : avanzar()} sx={{ position: 'fixed', top: '50%', right: theme.spacing(1), transform: 'translateY(-50%)', minWidth: 48, p: 1, borderRadius: 1, zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 70, height: 70, backgroundColor: 'transparent', color: 'inherit' }} variant="outlined" disabled={!showFeedback && (pasoActual.tipo === 'eleccion' && !eleccion)}>
-              <ArrowForwardIosIcon />
-              <Typography variant="caption" sx={{ mt: 1 }}>{data.ui.siguiente}</Typography>
-            </Button>
+            {(showFeedback ||
+              pasoActual.tipo === 'situacion' ||
+              (pasoActual.tipo === 'resultado' && indiceEscena < escenas.length - 1)) && (
+              <Button
+                onClick={() => (showFeedback ? finishFeedback() : avanzar())}
+                sx={{
+                  position: 'fixed',
+                  top: '50%',
+                  right: theme.spacing(1),
+                  transform: 'translateY(-50%)',
+                  minWidth: 48,
+                  p: 1,
+                  borderRadius: 1,
+                  zIndex: 10,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 70,
+                  height: 70,
+                  backgroundColor: 'transparent',
+                  color: 'inherit'
+                }}
+                variant="outlined"
+                disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
+              >
+                <ArrowForwardIosIcon />
+                <Typography variant="caption" sx={{ mt: 1 }}>
+                  {data.ui.siguiente}
+                </Typography>
+              </Button>
             )}
           </>
         ) : (
@@ -392,8 +464,13 @@ const ActuaEscenario = () => {
             <Button onClick={handleBack}>
               <ArrowBackIosNewIcon /> {data.ui.atras}
             </Button>
-            <Button onClick={() => showFeedback ? finishFeedback() : avanzar()} disabled={!showFeedback && (pasoActual.tipo === 'eleccion' && !eleccion)}>
-              {data.ui.siguiente}<ArrowForwardIosIcon /></Button>
+            <Button
+              onClick={() => (showFeedback ? finishFeedback() : avanzar())}
+              disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
+            >
+              {data.ui.siguiente}
+              <ArrowForwardIosIcon />
+            </Button>
           </Box>
         )}
       </Container>
