@@ -7,7 +7,7 @@ function autorizar(req) {
   if (!auth.startsWith('Bearer ')) return false;
   const token = auth.slice(7);
   try {
-    const payload = jwt.verify(token, 'escolaplanco');
+    const payload = jwt.verify(token, 'as90ml39kl19skl21854kv');
     return payload.role === 'docente';
   } catch {
     return false;
