@@ -1,6 +1,33 @@
 const { CosmosClient } = require('@azure/cosmos');
 const jwt = require('jsonwebtoken');
 
+module.exports = async function(context, req) {
+  // --- MODO DEBUG 2: decodifica y prueba la verificación ---
+  if (req.query.debug === '2') {
+    const auth = req.headers.authorization || '';
+    const token = auth.startsWith('Bearer ')
+      ? auth.slice(7)
+      : null;
+    let decoded = token ? jwt.decode(token) : null;
+    let verifyResult;
+    try {
+      verifyResult = jwt.verify(token, process.env.JWT_SECRET);
+    } catch(err) {
+      verifyResult = { error: err.message };
+    }
+    context.res = {
+      status: 200,
+      body: { 
+        rawAuthorizationHeader: auth,
+        token,
+        decoded,
+        verifyResult,
+        JWT_SECRET: process.env.JWT_SECRET 
+      }
+    };
+    return;
+  }
+
 function autorizar(req) {
   const auth = req.headers.authorization || '';
   if (!auth.startsWith('Bearer ')) return false;
