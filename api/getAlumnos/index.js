@@ -1,3 +1,6 @@
+context.log('>> JWT_SECRET en Function:', process.env.JWT_SECRET);
+context.log('>> Authorization header:', req.headers.authorization);
+
 const { CosmosClient } = require('@azure/cosmos');
 const jwt = require('jsonwebtoken');
 
