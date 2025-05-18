@@ -18,6 +18,17 @@ function autorizar(req) {
 module.exports = async function (context, req) {
   context.log('>> JWT_SECRET en Function:', process.env.JWT_SECRET);
   context.log('>> Authorization header:', req.headers.authorization);
+    // Si pides debug, devuelve las vars de entorno
+    if (req.query.debug === '1') {
+      context.res = {
+        status: 200,
+        body: {
+          JWT_SECRET: process.env.JWT_SECRET,
+          DOCENTE_PW_HASH: process.env.DOCENTE_PW_HASH
+        }
+      };
+      return;
+    }
 
   if (!autorizar(req)) {
     context.res = { status: 401, body: 'No autorizado' };
