@@ -1,3 +1,5 @@
+// src/components/IngresoAlumno.jsx
+
 import React, { useState, useEffect } from 'react'
 import {
   Stack,
@@ -29,13 +31,13 @@ export default function IngresoAlumno() {
   const [senha, setSenha] = useState('')
   const [loginError, setLoginError] = useState('')
 
-  // Cargo la lista de alumnos al montar
+  // Cargo la lista de alumnos al montar o cuando cambie isDocente
   useEffect(() => {
-    fetch('/api/getAlumnos', {
-      headers: isDocente
-        ? { Authorization: 'Bearer ' + localStorage.getItem('docente_token') }
-        : {}
-    })
+    setLoading(true)
+    const headers = isDocente
+      ? { 'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token') }
+      : {}
+    fetch('/api/getAlumnos', { headers })
       .then(res => res.json())
       .then(json => setUsuarios(json.map(a => a.nombre)))
       .catch(() => setUsuarios([]))
@@ -45,7 +47,8 @@ export default function IngresoAlumno() {
   // Registra un alumno (solo si isDocente)
   const handleNew = async () => {
     if (!isDocente) return
-    if (!isValidName(name)) {
+    const trimmed = name.trim()
+    if (!isValidName(trimmed)) {
       setError(true)
       return
     }
@@ -55,17 +58,19 @@ export default function IngresoAlumno() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('docente_token')
+        'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token')
       },
-      body: JSON.stringify({ nombre: name.trim() })
+      body: JSON.stringify({ nombre: trimmed })
     })
 
     if (res.ok) {
-      setUsuarios(prev => [...prev, name.trim()])
-      login(name.trim())
+      setUsuarios(prev => [...prev, trimmed])
+      login(trimmed)
+      setName('')
     } else {
       const text = await res.text()
       console.error('Error al crear alumno:', text)
+      setError(true)
     }
   }
 
@@ -106,7 +111,12 @@ export default function IngresoAlumno() {
             <Typography variant="h6" gutterBottom>
               {ui.ingresoPrompt}:
             </Typography>
-            <Stack direction="row" spacing={1} flexWrap="wrap" justifyContent="center">
+            <Stack
+              direction="row"
+              spacing={1}
+              flexWrap="wrap"
+              justifyContent="center"
+            >
               {usuarios.map(u => (
                 <Button key={u} variant="outlined" onClick={() => login(u)}>
                   {u}
@@ -120,13 +130,16 @@ export default function IngresoAlumno() {
         <TextField
           label={ui.ingresoLabel}
           value={name}
-          onChange={e => { setName(e.target.value); setError(false) }}
+          onChange={e => {
+            setName(e.target.value)
+            setError(false)
+          }}
           error={error}
           helperText={error ? ui.ingresoError : ''}
           disabled={!isDocente}
         />
         {!isDocente && (
-          <Typography color="error">
+          <Typography color="error" align="center">
             Debes autenticarte como Docente para registrar nuevos alumnos.
           </Typography>
         )}
@@ -139,23 +152,27 @@ export default function IngresoAlumno() {
         </Button>
 
         {!isDocente ? (
-          <Button variant="text" color="secondary" onClick={() => setShowLogin(true)}>
-            ACCEDER COMO DOCENTE
+          <Button
+            variant="text"
+            color="secondary"
+            onClick={() => setShowLogin(true)}
+          >
+            {ui.accederDocente}
           </Button>
         ) : (
           <Button variant="outlined" onClick={() => setStage('admin')}>
-            IR AL PANEL DEL DOCENTE
+            {ui.irPanelDocente}
           </Button>
         )}
       </Stack>
 
       <Dialog open={showLogin} onClose={() => setShowLogin(false)}>
-        <DialogTitle>Acceso Docente</DialogTitle>
+        <DialogTitle>{ui.loginDocenteTitle}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
-            label="Contraseña"
+            label={ui.loginDocenteLabel}
             type="password"
             fullWidth
             value={senha}
@@ -165,9 +182,11 @@ export default function IngresoAlumno() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowLogin(false)}>Cancelar</Button>
+          <Button onClick={() => setShowLogin(false)}>
+            {ui.cancelar}
+          </Button>
           <Button variant="contained" onClick={handleDocenteLogin}>
-            Acceder
+            {ui.acceder}
           </Button>
         </DialogActions>
       </Dialog>

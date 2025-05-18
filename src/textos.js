@@ -10,6 +10,12 @@ const textos = {
       ingresoLabel: 'Nombre',
       ingresoError: 'Nombre no válido',
       ingresoButton: 'REGISTRARSE',
+      accederDocente: 'ACCEDER COMO DOCENTE',
+      irPanelDocente: 'IR AL PANEL DEL DOCENTE',
+      loginDocenteTitle: 'Acceso Docente',
+      loginDocenteLabel: 'CONTRASEÑA',
+      cancelar: 'CANCELAR',
+      acceder: 'ACCEDER',
 
       // Menú principal
       greeting: 'Hola,',
@@ -259,6 +265,12 @@ const textos = {
       ingresoLabel: 'Nom',
       ingresoError: 'Nom no vàlid',
       ingresoButton: 'REGISTRAR-SE',
+      accederDocente: 'ACCEDER COMO DOCENTE',
+      irPanelDocente: 'IR AL PANEL DEL DOCENTE',
+      loginDocenteTitle: 'Acceso Docente',
+      loginDocenteLabel: 'CONTRASEÑA',
+      cancelar: 'CANCELAR',
+      acceder: 'ACCEDER',
 
       greeting: 'Hola,',
       logout: 'SORTIR',

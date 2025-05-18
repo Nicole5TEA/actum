@@ -1,8 +1,10 @@
+// api/crearAlumno/index.js
+
 const { CosmosClient } = require('@azure/cosmos');
 const jwt = require('jsonwebtoken');
 
 function autorizar(req) {
-  const auth = req.headers.authorization || '';
+  const auth = req.headers['x-docente-token'] || '';
   if (!auth.startsWith('Bearer ')) return false;
   const token = auth.slice(7);
   try {
@@ -32,17 +34,19 @@ module.exports = async function (context, req) {
       .container(process.env.COSMOS_DB_CONTAINER);
 
     // Evita duplicados
-    const q = {
+    const querySpec = {
       query: 'SELECT * FROM c WHERE c.id = @id',
       parameters: [{ name: '@id', value: nombre }]
     };
-    const { resources: existentes } = await container.items.query(q).fetchAll();
-    if (existentes.length) {
+    const { resources: existentes } = await container.items
+      .query(querySpec)
+      .fetchAll();
+    if (existentes.length > 0) {
       context.res = { status: 409, body: 'El alumno ya existe' };
       return;
     }
 
-    // Inserta
+    // Crea el alumno
     await container.items.create({
       id: nombre,
       nombre,
@@ -50,7 +54,6 @@ module.exports = async function (context, req) {
       elecciones: {},
       respuestas: []
     });
-
     context.res = { status: 201, body: { nombre } };
   } catch (err) {
     context.log.error('crearAlumno error:', err);
