@@ -17,7 +17,13 @@ import CheckIcon from '@mui/icons-material/Check'
  * @param {Object}   categories  – { key: label }
  * @param {fn}       onSelect    – fn(newIndex)
  */
-const DrawerMenu = ({ items, currentIndex, completed, categories, onSelect }) => {
+const DrawerMenu = ({
+  items = [],
+  currentIndex = 0,
+  completed = {},
+  categories = {},
+  onSelect = () => {}
+}) => {
   return (
     <Box
       sx={{
