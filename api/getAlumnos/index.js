@@ -1,6 +1,3 @@
-context.log('>> JWT_SECRET en Function:', process.env.JWT_SECRET);
-context.log('>> Authorization header:', req.headers.authorization);
-
 const { CosmosClient } = require('@azure/cosmos');
 const jwt = require('jsonwebtoken');
 
@@ -17,6 +14,8 @@ function autorizar(req) {
 }
 
 module.exports = async function(context, req) {
+  context.log('>> JWT_SECRET en Function:', process.env.JWT_SECRET);
+  context.log('>> Authorization header:', req.headers.authorization);
   if (!autorizar(req)) {
     context.res = { status: 401, body: 'No autorizado' };
     return;
