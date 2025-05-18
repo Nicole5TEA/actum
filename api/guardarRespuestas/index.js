@@ -1,29 +1,41 @@
 // api/guardarRespuestas/index.js
-
 const { CosmosClient } = require('@azure/cosmos');
 
-const endpoint = process.env.COSMOS_ENDPOINT;
-const key      = process.env.COSMOS_KEY;
-const dbName   = process.env.COSMOS_DB_NAME;
-const contName = process.env.COSMOS_CONTAINER_NAME;
-
-const client    = new CosmosClient({ endpoint, key });
-const container = client.database(dbName).container(contName);
-
-
 module.exports = async function (context, req) {
+  // 1) Leer y validar configuración
+  const endpoint = process.env.COSMOS_ENDPOINT;
+  const key      = process.env.COSMOS_KEY;
+  const dbName   = process.env.COSMOS_DB_NAME;
+  const contName = process.env.COSMOS_CONTAINER_NAME;
+
+  if (!endpoint || !key || !dbName || !contName) {
+    context.log.error('Faltan variables de entorno de Cosmos DB');
+    context.res = {
+      status: 500,
+      body: { error: 'Configuración de Cosmos DB incompleta.' }
+    };
+    return;
+  }
+
+  // 2) Instanciar aquí el cliente
+  let container;
   try {
-    // 1. Validación mínima
+    const client    = new CosmosClient({ endpoint, key });
+    container = client.database(dbName).container(contName);
+  } catch (e) {
+    context.log.error('Error inicializando CosmosClient:', e);
+    context.res = { status: 500, body: { error: e.message } };
+    return;
+  }
+
+  // 3) Body esperado y lógica de actualización
+  try {
     const { id, respuestas } = req.body || {};
     if (!id || !Array.isArray(respuestas)) {
-      context.res = {
-        status: 400,
-        body: { error: 'Falta el id o el array de respuestas.' }
-      };
+      context.res = { status: 400, body: { error: 'Falta id o array de respuestas.' } };
       return;
     }
 
-    // 2. Leer el documento existente
     const item = container.item(id, id);
     const { resource: alumno } = await item.read();
     if (!alumno) {
@@ -31,23 +43,12 @@ module.exports = async function (context, req) {
       return;
     }
 
-    // 3. Actualizar el array de respuestas
-    // Si quieres añadir al final:
     alumno.respuestas = (alumno.respuestas || []).concat(respuestas);
-
-    // 4. Reemplazar el documento en Cosmos
     const { resource: updated } = await item.replace(alumno);
 
-    // 5. Devolver el documento actualizado
-    context.res = {
-      status: 200,
-      body: updated
-    };
+    context.res = { status: 200, body: updated };
   } catch (err) {
     context.log.error('guardarRespuestas error:', err);
-    context.res = {
-      status: 500,
-      body: { error: err.message }
-    };
+    context.res = { status: 500, body: { error: err.message } };
   }
 };
