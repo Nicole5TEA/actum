@@ -49,7 +49,7 @@ export default function AdminPanel() {
       const json = await res.json();
       setData(json);
     } catch {
-      const arr = Object.entries(perfiles).map(([nombre, p]) => ({
+      const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
         nombre,
         fechaRegistro: p.date,
         respuestas: p.elecciones
@@ -135,9 +135,9 @@ export default function AdminPanel() {
                     <TableCell>{alum.nombre}</TableCell>
                     <TableCell>{alum.fechaRegistro}</TableCell>
                     <TableCell>
-                      {alum.respuestas && Object.entries(alum.respuestas).map(([sit, resp]) => (
-                        <Box key={sit} component="div">{sit}: {resp}</Box>
-                      ))}
+                    {Object.entries(alum.respuestas || {}).map(([sit, resp]) => (
+                      <Box key={sit}>{sit}: {resp}</Box>
+                    ))}
                     </TableCell>
                   </TableRow>
                 ))}
