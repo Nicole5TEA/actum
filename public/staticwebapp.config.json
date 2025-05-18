@@ -2,5 +2,19 @@
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [ "/api/*" ]
-  }
+  },
+  "routes": [
+    {
+      "route": "/api/loginDocente",
+      "allowedRoles": [ "anonymous" ]
+    },
+    {
+      "route": "/api/getAlumnos",
+      "allowedRoles": [ "anonymous" ]
+    },
+    {
+      "route": "/api/crearAlumno",
+      "allowedRoles": [ "anonymous" ]
+    }
+  ]
 }
