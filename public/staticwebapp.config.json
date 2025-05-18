@@ -5,15 +5,7 @@
   },
   "routes": [
     {
-      "route": "/api/loginDocente",
-      "allowedRoles": [ "anonymous" ]
-    },
-    {
-      "route": "/api/getAlumnos",
-      "allowedRoles": [ "anonymous" ]
-    },
-    {
-      "route": "/api/crearAlumno",
+      "route": "/api/*",
       "allowedRoles": [ "anonymous" ]
     }
   ]
