@@ -19,7 +19,7 @@ import { useActua } from '../context/ActuaContext';
 import textos from '../textos';
 
 export default function AdminPanel() {
-  const { setStage, logout, perfiles, idioma } = useActua();
+  const { setStage, logout, perfiles, idioma, setDocente } = useActua();
   const ui = textos[idioma].ui;
 
   const [data, setData] = useState([]);
@@ -78,6 +78,7 @@ export default function AdminPanel() {
         return;
       }
       localStorage.setItem('docente_token', dataResp.token);
+      setDocente(true); // <-- permitimos registro tras login en panel
       setShowLogin(false);
       setPassword('');
     } catch {
@@ -135,9 +136,9 @@ export default function AdminPanel() {
                     <TableCell>{alum.nombre}</TableCell>
                     <TableCell>{alum.fechaRegistro}</TableCell>
                     <TableCell>
-                    {Object.entries(alum.respuestas || {}).map(([sit, resp]) => (
-                      <Box key={sit}>{sit}: {resp}</Box>
-                    ))}
+                      {Object.entries(alum.respuestas || {}).map(([sit, resp]) => (
+                        <Box key={sit}>{sit}: {resp}</Box>
+                      ))}
                     </TableCell>
                   </TableRow>
                 ))}
