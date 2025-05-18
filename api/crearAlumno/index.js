@@ -1,7 +1,7 @@
 const { CosmosClient } = require('@azure/cosmos');
-const jwt              = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-// Valida el JWT (tal cual en getAlumnos)
+// Valida el JWT para operaciones de registro
 function autorizar(req) {
   const auth = req.headers.authorization || '';
   if (!auth.startsWith('Bearer ')) return false;
@@ -15,8 +15,12 @@ function autorizar(req) {
 }
 
 module.exports = async function (context, req) {
+  // Requiere autenticar como docente
   if (!autorizar(req)) {
-    context.res = { status: 401, body: 'No autorizado' };
+    context.res = {
+      status: 401,
+      body: 'No autorizado para registrar alumno'
+    };
     return;
   }
 
@@ -34,8 +38,8 @@ module.exports = async function (context, req) {
 
     // Comprueba duplicados
     const querySpec = {
-      query: "SELECT * FROM c WHERE c.id = @id",
-      parameters: [{ name: "@id", value: nombre }]
+      query: 'SELECT * FROM c WHERE c.id = @id',
+      parameters: [{ name: '@id', value: nombre }]
     };
     const { resources: existentes } = await container.items
       .query(querySpec)
@@ -55,15 +59,9 @@ module.exports = async function (context, req) {
       respuestas: []
     });
 
-    context.res = {
-      status: 201,
-      body: { nombre }
-    };
+    context.res = { status: 201, body: { nombre } };
   } catch (err) {
     context.log.error('crearAlumno error:', err);
-    context.res = {
-      status: 500,
-      body: { error: err.message }
-    };
+    context.res = { status: 500, body: { error: err.message } };
   }
 };

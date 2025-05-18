@@ -1,8 +1,4 @@
-
-
-// ----------------------------------------------------------
-// src/components/IngresoAlumno.jsx
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   Stack,
   Typography,
@@ -13,30 +9,25 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions
-} from '@mui/material'
-import { useActua } from '../context/ActuaContext'
-import textos from '../textos'
+} from '@mui/material';
+import { useActua } from '../context/ActuaContext';
+import textos from '../textos';
 
-const isValidName = name => /^[A-Za-zÀ-ÿ\s]{2,30}$/.test(name.trim())
+const isValidName = name => /^[A-Za-zÀ-ÿ\s]{2,30}$/.test(name.trim());
 
 export default function IngresoAlumno() {
-  const {
-    login,
-    idioma,
-    isDocente,
-    setDocente // para autenticar registro
-  } = useActua()
-  const ui = textos[idioma].ui
+  const { login, idioma, isDocente, setDocente, setStage } = useActua();
+  const ui = textos[idioma].ui;
 
-  const [usuarios, setUsuarios] = useState([])
-  const [name, setName] = useState('')
-  const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [usuarios, setUsuarios] = useState([]);
+  const [name, setName] = useState('');
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Estados para login docente (registro)
-  const [showLogin, setShowLogin] = useState(false)
-  const [senha, setSenha] = useState('')
-  const [loginError, setLoginError] = useState('')
+  // Login docente para habilitar registro
+  const [showLogin, setShowLogin] = useState(false);
+  const [senha, setSenha] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   // Carga inicial de usuarios
   useEffect(() => {
@@ -44,62 +35,65 @@ export default function IngresoAlumno() {
       .then(res => res.json())
       .then(json => setUsuarios(json.map(a => a.nombre)))
       .catch(() => setUsuarios([]))
-      .finally(() => setLoading(false))
-  }, [])
+      .finally(() => setLoading(false));
+  }, []);
 
+  // Registrar nuevo alumno (solo si isDocente)
   const handleNew = async () => {
-    if (!isDocente) return
+    if (!isDocente) return;
     if (!isValidName(name)) {
-      setError(true)
-      return
+      setError(true);
+      return;
     }
-    setError(false)
+    setError(false);
 
-    const token = localStorage.getItem('docente_token')
-    const headers = { 'Content-Type': 'application/json' }
-    if (token) headers.Authorization = 'Bearer ' + token
+    const token = localStorage.getItem('docente_token');
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers.Authorization = 'Bearer ' + token;
 
     const res = await fetch('/api/crearAlumno', {
       method: 'POST',
       headers,
       body: JSON.stringify({ nombre: name.trim() })
-    })
+    });
 
     if (res.ok) {
-      setUsuarios([...usuarios, name.trim()])
-      login(name.trim())
+      setUsuarios(prev => [...prev, name.trim()]);
+      login(name.trim());
     } else {
-      console.error('Error al crear alumno', await res.text())
+      const text = await res.text();
+      console.error('Error al crear alumno:', text);
     }
-  }
+  };
 
+  // Login docente para registro
   const handleDocenteLogin = async () => {
-    setLoginError('')
+    setLoginError('');
     if (!senha) {
-      setLoginError('Introduce la contraseña')
-      return
+      setLoginError('Introduce la contraseña');
+      return;
     }
-
     try {
       const response = await fetch('/api/loginDocente', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: senha })
-      })
-      const data = await response.json()
+      });
+      const data = await response.json();
       if (!response.ok) {
-        setLoginError(data.error || 'Contraseña incorrecta')
-        return
+        setLoginError(data.error || 'Contraseña incorrecta');
+        return;
       }
-      localStorage.setItem('docente_token', data.token)
-      setDocente(true)
-      setShowLogin(false)
-      setSenha('')
+      // Guarda token para registro
+      localStorage.setItem('docente_token', data.token);
+      setDocente(true);
+      setShowLogin(false);
+      setSenha('');
     } catch (err) {
-      console.error(err)
-      setLoginError('Error de conexión')
+      console.error('Error de conexión en loginDocente:', err);
+      setLoginError('Error de conexión');
     }
-  }
+  };
 
   return (
     <>
@@ -123,7 +117,7 @@ export default function IngresoAlumno() {
         <TextField
           label={ui.ingresoLabel}
           value={name}
-          onChange={e => { setName(e.target.value); setError(false) }}
+          onChange={e => { setName(e.target.value); setError(false); }}
           error={error}
           helperText={error ? ui.ingresoError : ''}
           disabled={!isDocente}
@@ -141,13 +135,16 @@ export default function IngresoAlumno() {
           {ui.ingresoButton}
         </Button>
 
-        <Button
-          variant="text"
-          color="secondary"
-          onClick={() => setShowLogin(true)}
-        >
-          ACCEDER COMO DOCENTE
-        </Button>
+        {/* Botones de autenticación y acceso a panel */}
+        {!isDocente ? (
+          <Button variant="text" color="secondary" onClick={() => setShowLogin(true)}>
+            ACCEDER COMO DOCENTE
+          </Button>
+        ) : (
+          <Button variant="outlined" onClick={() => setStage('admin')}>
+            IR AL PANEL DEL DOCENTE
+          </Button>
+        )}
       </Stack>
 
       {/* Diálogo de login de docente para registro */}
@@ -174,5 +171,5 @@ export default function IngresoAlumno() {
         </DialogActions>
       </Dialog>
     </>
-  )
+  );
 }
