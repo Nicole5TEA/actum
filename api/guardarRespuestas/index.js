@@ -2,14 +2,23 @@
 const { CosmosClient } = require('@azure/cosmos');
 
 module.exports = async function (context, req) {
-  // 1) Leer y validar configuración
-  const endpoint = process.env.COSMOS_ENDPOINT;
-  const key      = process.env.COSMOS_KEY;
-  const dbName   = process.env.COSMOS_DB_NAME;
-  const contName = process.env.COSMOS_CONTAINER_NAME;
+  // 1) Leer y validar configuración de Cosmos DB
+  const connectionString = process.env.COSMOS_DB_CONNECTION;
+  const endpoint         = process.env.COSMOS_ENDPOINT;
+  const key              = process.env.COSMOS_KEY;
+  const dbName           = process.env.COSMOS_DB_DATABASE;
+  const contName         = process.env.COSMOS_DB_CONTAINER;
 
-  if (!endpoint || !key || !dbName || !contName) {
-    context.log.error('Faltan variables de entorno de Cosmos DB');
+  // Comprobamos que tengamos o bien connectionString o bien endpoint+key,
+  // y además dbName y contName
+  if ((!connectionString && !(endpoint && key)) || !dbName || !contName) {
+    context.log.error('Faltan variables de entorno de Cosmos DB:', {
+      connectionString: !!connectionString,
+      endpoint:         !!endpoint,
+      key:              !!key,
+      dbName:           !!dbName,
+      contName:         !!contName
+    });
     context.res = {
       status: 500,
       body: { error: 'Configuración de Cosmos DB incompleta.' }
@@ -18,13 +27,20 @@ module.exports = async function (context, req) {
   }
 
   // 2) Instanciar aquí el cliente
-  let container;
+  let client, container;
   try {
-    const client    = new CosmosClient({ endpoint, key });
+    if (connectionString) {
+      client = new CosmosClient(connectionString);
+    } else {
+      client = new CosmosClient({ endpoint, key });
+    }
     container = client.database(dbName).container(contName);
   } catch (e) {
     context.log.error('Error inicializando CosmosClient:', e);
-    context.res = { status: 500, body: { error: e.message } };
+    context.res = {
+      status: 500,
+      body: { error: 'No se pudo inicializar el cliente de Cosmos DB.' }
+    };
     return;
   }
 
@@ -32,7 +48,10 @@ module.exports = async function (context, req) {
   try {
     const { id, respuestas } = req.body || {};
     if (!id || !Array.isArray(respuestas)) {
-      context.res = { status: 400, body: { error: 'Falta id o array de respuestas.' } };
+      context.res = {
+        status: 400,
+        body: { error: 'Falta id o array de respuestas.' }
+      };
       return;
     }
 
