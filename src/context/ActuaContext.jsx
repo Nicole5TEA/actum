@@ -1,35 +1,38 @@
-// src/context/ActuaContext.jsx
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import useIdioma from '../hooks/useIdioma'
 
 const ActuaContext = createContext()
 
 export function ActuaProvider({ children }) {
-  const [stage, setStage]       = useState('portada')       // portada → ingreso → menu → escenario → admin
-  const [user, setUser]         = useState(null)            // { name, date }
-  const [perfiles, setPerfiles] = useState({})              // { [name]: { date, elecciones } }
-  const [elecciones, setElecciones] = useState({})          // estado actual de elecciones
+  const [stage, setStage]       = useState('portada')   // portada → ingreso → menu → escenario → admin
+  const [user, setUser]         = useState(null)        // { name, date }
+  const [perfiles, setPerfiles] = useState({})          // { [name]: { date, elecciones } }
+  const [elecciones, setElecciones] = useState({})      // estado de elecciones
   const [indiceEscena, setIndiceEscena] = useState(0)
   const [paso, setPaso] = useState(0)
   const reiniciarPaso = () => setPaso(0)
 
-  // Nuevo estado: docente autenticado para registrar alumnos (no para panel)
-  const [isDocente, setDocente] = useState(false)
+  // 🚀 Inicializa isDocente desde localStorage para no pedir login de nuevo tras reload
+  const [isDocente, setDocente] = useState(() => {
+    try {
+      return !!localStorage.getItem('docente_token')
+    } catch {
+      return false
+    }
+  })
 
   const [idioma, cambiarIdioma] = useIdioma()
 
-  // Carga perfiles desde localStorage
+  // Carga y persiste perfiles en localStorage
   useEffect(() => {
     const stored = localStorage.getItem('perfiles')
     if (stored) setPerfiles(JSON.parse(stored))
   }, [])
-
-  // Persiste perfiles
   useEffect(() => {
     localStorage.setItem('perfiles', JSON.stringify(perfiles))
   }, [perfiles])
 
-  // Actualiza el perfil actual cuando cambian elecciones
+  // Mantiene actualizado el perfil actual
   useEffect(() => {
     if (user) {
       setPerfiles(prev => ({
@@ -62,7 +65,7 @@ export function ActuaProvider({ children }) {
     setIndiceEscena(0)
     setPaso(0)
     setStage('portada')
-    // Al cerrar sesión, también revocamos permiso de docente para registro
+    // Revocamos permiso docente, pero dejamos token en localStorage para reload si lo deseas
     setDocente(false)
   }
 
@@ -76,7 +79,6 @@ export function ActuaProvider({ children }) {
         elecciones, setElecciones,
         indiceEscena, setIndiceEscena,
         paso, setPaso, reiniciarPaso,
-        // Exponemos estado de Docente
         isDocente, setDocente
       }}
     >
