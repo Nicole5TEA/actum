@@ -22,24 +22,23 @@ export default function AdminPanel() {
   const { setStage, logout, perfiles, idioma } = useActua();
   const ui = textos[idioma].ui;
 
-  // Estado para datos y carga
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // Estados para autenticación al panel
   const [showLogin, setShowLogin] = useState(true);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [panelToken, setPanelToken] = useState('');
 
-  // Carga de datos tras autenticarse
   useEffect(() => {
-    if (!showLogin && panelToken) {
-      loadData(panelToken);
+    if (!showLogin) {
+      const token = localStorage.getItem('docente_token');
+      if (!token) {
+        setShowLogin(true);
+        return;
+      }
+      loadData(token);
     }
-  }, [showLogin, panelToken]);
+  }, [showLogin]);
 
-  // Función para obtener alumnos desde la API con token de panel
   const loadData = async (token) => {
     setLoading(true);
     try {
@@ -50,7 +49,6 @@ export default function AdminPanel() {
       const json = await res.json();
       setData(json);
     } catch {
-      // Fallback local
       const arr = Object.entries(perfiles).map(([nombre, p]) => ({
         nombre,
         fechaRegistro: p.date,
@@ -62,7 +60,6 @@ export default function AdminPanel() {
     }
   };
 
-  // Manejador de login para panel
   const handleLogin = async () => {
     setLoginError('');
     if (!password) {
@@ -75,20 +72,12 @@ export default function AdminPanel() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password })
       });
-      const text = await response.text();
-      let dataResp;
-      try {
-        dataResp = text ? JSON.parse(text) : {};
-      } catch {
-        setLoginError('Respuesta no válida');
-        return;
-      }
+      const dataResp = await response.json();
       if (!response.ok) {
         setLoginError(dataResp.error || 'Contraseña incorrecta');
         return;
       }
-      // Guardamos token solo para panel
-      setPanelToken(dataResp.token);
+      localStorage.setItem('docente_token', dataResp.token);
       setShowLogin(false);
       setPassword('');
     } catch {
@@ -96,15 +85,14 @@ export default function AdminPanel() {
     }
   };
 
-  // Logout del panel (no borra token de creación)
   const handleLogout = () => {
+    localStorage.removeItem('docente_token');
     logout();
     setStage('ingreso');
   };
 
   return (
     <>
-      {/* Modal de login para acceder al panel */}
       <Dialog open={showLogin} disableEscapeKeyDown>
         <DialogTitle>{ui.adminPanelTitle}</DialogTitle>
         <DialogContent>
@@ -121,29 +109,15 @@ export default function AdminPanel() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setStage('ingreso')} color="secondary">
-            {ui.cambiarUsuario}
-          </Button>
-          <Button variant="contained" onClick={handleLogin}>
-            Acceder
-          </Button>
+          <Button onClick={handleLogout} color="secondary">{ui.cambiarUsuario}</Button>
+          <Button variant="contained" onClick={handleLogin}>Acceder</Button>
         </DialogActions>
       </Dialog>
-
-      {/* Panel de datos tras login exitoso */}
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
-          <Button onClick={handleLogout} sx={{ mr: 1 }}>
-            {ui.volverPortada}
-          </Button>
-          <Button onClick={() => setStage('ingreso')}>
-            {ui.cambiarUsuario}
-          </Button>
-
-          <Typography variant="h5" gutterBottom sx={{ mt: 2 }}>
-            {ui.adminPanelTitle}
-          </Typography>
-
+          <Button onClick={handleLogout} sx={{ mr: 1 }}>{ui.volverPortada}</Button>
+          <Button onClick={() => setStage('ingreso')}>{ui.cambiarUsuario}</Button>
+          <Typography variant="h5" gutterBottom sx={{ mt: 2 }}>{ui.adminPanelTitle}</Typography>
           {loading ? (
             <CircularProgress sx={{ mt: 4 }} />
           ) : (
@@ -161,12 +135,9 @@ export default function AdminPanel() {
                     <TableCell>{alum.nombre}</TableCell>
                     <TableCell>{alum.fechaRegistro}</TableCell>
                     <TableCell>
-                      {alum.respuestas &&
-                        Object.entries(alum.respuestas).map(([sit, resp]) => (
-                          <Box key={sit} component="div">
-                            {sit}: {resp}
-                          </Box>
-                        ))}
+                      {alum.respuestas && Object.entries(alum.respuestas).map(([sit, resp]) => (
+                        <Box key={sit} component="div">{sit}: {resp}</Box>
+                      ))}
                     </TableCell>
                   </TableRow>
                 ))}
