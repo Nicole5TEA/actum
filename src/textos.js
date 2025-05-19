@@ -5,6 +5,13 @@ const textos = {
       portadaTitle: 'ACTUM',
       portadaButton: 'EMPEZAR',
 
+      frontTitle: 'Acceso a la aplicación',
+      frontLabel: 'Contraseña',
+      frontAccess: 'Acceder',
+      frontCancel: 'Volver',
+      frontErrorEmpty: 'Introduce la contraseña',
+      frontErrorInvalid: 'Contraseña incorrecta',
+
       // Ingreso alumno
       ingresoPrompt: 'Introduce el nombre del alumno',
       ingresoLabel: 'Nombre',
@@ -262,6 +269,13 @@ const textos = {
     ui: {
       portadaTitle: 'ACTUM',
       portadaButton: 'COMENÇA',
+
+      frontTitle: "Accés a l'aplicació",
+      frontLabel: 'Contrasenya',
+      frontAccess: 'Accedir',
+      frontCancel: 'Tornar',
+      frontErrorEmpty: 'Introdueix la contrasenya',
+      frontErrorInvalid: 'Contrasenya incorrecta',
 
       ingresoPrompt: 'Introdueix el nom de l’alumne',
       ingresoLabel: 'Nom',
