@@ -1,16 +1,21 @@
 // api/getAlumnos/index.js
-
 const { CosmosClient } = require('@azure/cosmos');
 const jwt = require('jsonwebtoken');
 
 function autorizar(req) {
-  // Leemos nuestro header custom
-  const auth = req.headers['x-docente-token'] || '';
-  if (!auth.startsWith('Bearer ')) return false;
-  const token = auth.slice(7);
+  // Aceptamos **dos** encabezados: X-Docente-Token o X-Acceso-Token
+  const hdr =
+    req.headers['x-docente-token'] ||
+    req.headers['x-acceso-token'] ||
+    '';
+
+  if (!hdr.toLowerCase().startsWith('bearer ')) return false;
+  const token = hdr.slice(7).trim();
+
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    return payload.role === 'docente';
+    // Permitimos roles “docente” (panel) **o** “ingreso” (lista pública)
+    return ['docente', 'ingreso'].includes(payload.role);
   } catch {
     return false;
   }

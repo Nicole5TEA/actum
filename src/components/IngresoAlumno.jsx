@@ -17,23 +17,23 @@ export default function IngresoAlumno() {
   const { login, idioma, isDocente, setDocente, setStage } = useActua();
   const ui = textos[idioma].ui;
 
-  /* ─────────────────── CONTRASEÑA 1 (Acceso) ─────────────────── */
+  /* ───────── CONTRASEÑA 1 ───────── */
   const [showAcceso, setShowAcceso] = useState(
     () => !localStorage.getItem('access_token')
   );
   const [passAcceso, setPassAcceso] = useState('');
   const [errAcceso, setErrAcceso] = useState('');
 
-  /* ─────────────────── LISTA DE USUARIOS ─────────────────── */
+  /* ───────── LISTA DE ALUMNOS ───────── */
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /* ─────────────────── LOGIN DOCENTE (Contraseña 2) ─────────────────── */
-  const [showLogin, setShowLogin] = useState(false); // Ya no aparece al inicio
+  /* ───────── CONTRASEÑA 2 (Docente) ───────── */
+  const [showLogin, setShowLogin] = useState(false);
   const [senha, setSenha] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  /* ─────────────────── HANDLER CONTRASEÑA 1 ─────────────────── */
+  /* ───────── Login Acceso ───────── */
   const handleAcceso = async () => {
     setErrAcceso('');
     if (!passAcceso.trim()) {
@@ -54,19 +54,25 @@ export default function IngresoAlumno() {
       localStorage.setItem('access_token', data.token);
       setShowAcceso(false);
       setPassAcceso('');
-    } catch (e) {
-      console.error('Error loginAcceso:', e);
+    } catch {
       setErrAcceso(ui.accesoErr);
     }
   };
 
-  /* ─────────────────── CARGA DE ALUMNOS ─────────────────── */
+  /* ───────── Cargar alumnos ───────── */
   useEffect(() => {
     if (showAcceso) return;
+
     setLoading(true);
-    const headers = isDocente
-      ? { 'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token') }
-      : {};
+    const headers = {
+      ...(isDocente && {
+        'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token'),
+      }),
+      ...(localStorage.getItem('access_token') && {
+        'X-Acceso-Token': 'Bearer ' + localStorage.getItem('access_token'),
+      }),
+    };
+
     fetch('/api/getAlumnos', { headers })
       .then((res) => res.json())
       .then((json) => setUsuarios(json.map((a) => a.nombre)))
@@ -74,7 +80,7 @@ export default function IngresoAlumno() {
       .finally(() => setLoading(false));
   }, [isDocente, showAcceso]);
 
-  /* ─────────────────── LOGIN DOCENTE ─────────────────── */
+  /* ───────── Login Docente ───────── */
   const handleDocenteLogin = async () => {
     setLoginError('');
     if (!senha) {
@@ -82,13 +88,13 @@ export default function IngresoAlumno() {
       return;
     }
     try {
-      const response = await fetch('/api/loginDocente', {
+      const r = await fetch('/api/loginDocente', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: senha }),
       });
-      const data = await response.json();
-      if (!response.ok) {
+      const data = await r.json();
+      if (!r.ok) {
         setLoginError(data.error || 'Contraseña incorrecta');
         return;
       }
@@ -96,16 +102,14 @@ export default function IngresoAlumno() {
       setDocente(true);
       setShowLogin(false);
       setSenha('');
-    } catch (err) {
-      console.error('Error de conexión en loginDocente:', err);
+    } catch {
       setLoginError('Error de conexión');
     }
   };
 
-  /* ─────────────────── RENDER ─────────────────── */
   return (
     <>
-      {/* ───── Diálogo CONTRASEÑA 1 ───── */}
+      {/* ── Diálogo contraseña 1 ── */}
       <Dialog open={showAcceso} disableEscapeKeyDown>
         <DialogTitle>{ui.accesoTitle}</DialogTitle>
         <DialogContent>
@@ -127,10 +131,9 @@ export default function IngresoAlumno() {
         </DialogActions>
       </Dialog>
 
-      {/* ───── Contenido principal ───── */}
+      {/* ── Contenido principal ── */}
       {!showAcceso && (
         <Stack spacing={4} alignItems="center" sx={{ mt: 6 }}>
-          {/* Botón volver a Portada */}
           <Button
             variant="text"
             onClick={() => {
@@ -141,7 +144,6 @@ export default function IngresoAlumno() {
             {ui.volverAPortada}
           </Button>
 
-          {/* Lista de alumnos */}
           {!loading && usuarios.length > 0 && (
             <Box sx={{ textAlign: 'center' }}>
               <Typography variant="h6" gutterBottom>
@@ -162,7 +164,6 @@ export default function IngresoAlumno() {
             </Box>
           )}
 
-          {/* Botón para ir al Panel del Docente o pedir login */}
           {!isDocente ? (
             <Button
               variant="text"
@@ -179,7 +180,7 @@ export default function IngresoAlumno() {
         </Stack>
       )}
 
-      {/* ───── Diálogo LOGIN DOCENTE ───── */}
+      {/* ── Diálogo contraseña 2 ── */}
       <Dialog open={showLogin} onClose={() => setShowLogin(false)}>
         <DialogTitle>{ui.loginDocenteTitle}</DialogTitle>
         <DialogContent>

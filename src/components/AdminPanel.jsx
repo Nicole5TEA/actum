@@ -26,60 +26,49 @@ export default function AdminPanel() {
   const { setStage, logout, perfiles, idioma } = useActua();
   const ui = textos[idioma].ui;
 
-  /* ─────────────────────────────────────────────────────────────
-   * ESTADOS PRINCIPALES
-   * ────────────────────────────────────────────────────────────*/
+  /* ────────────────── ESTADOS ────────────────── */
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showLogin, setShowLogin] = useState(true);
+  // si ya hay token, no mostramos el diálogo
+  const [showLogin, setShowLogin] = useState(
+    () => !localStorage.getItem('docente_token')
+  );
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-
-  /* Alta de alumno (Req. 5) */
   const [newName, setNewName] = useState('');
   const [errNew, setErrNew] = useState(false);
-
-  /* Vista tabla */
-  const [viewMode, setViewMode] = useState('all'); // 'all' | 'single'
+  const [viewMode, setViewMode] = useState('all');
   const [selectedAlumno, setSelectedAlumno] = useState('');
   const escenas = textos[idioma].escenas;
 
-  /* ─────────────────────────────────────────────────────────────
-   * USE EFFECT → CARGA TRAS LOGIN
-   * ────────────────────────────────────────────────────────────*/
+  /* ────────────────── EFFECT CARGA ────────────────── */
   useEffect(() => {
-    if (!showLogin) {
-      const token = localStorage.getItem('docente_token');
-      if (!token) {
-        setShowLogin(true);
-        return;
-      }
-      loadData(token);
-    }
+    if (showLogin) return;
+    loadData(localStorage.getItem('docente_token'));
   }, [showLogin]);
 
-  /* ─────────────────────────────────────────────────────────────
-   * FUNCIONES
-   * ────────────────────────────────────────────────────────────*/
+  /* ────────────────── FUNCIONES ────────────────── */
   const loadData = async (token) => {
+    if (!token) return;
     setLoading(true);
     try {
-      const res = await fetch('/api/getAlumnos', {
+      const r = await fetch('/api/getAlumnos', {
         headers: {
           'Content-Type': 'application/json',
           'X-Docente-Token': 'Bearer ' + token,
         },
       });
-      if (!res.ok) throw new Error('No autorizado');
-      const json = await res.json();
-      const arr = json.map((item) => ({
-        nombre: item.id || item.nombre,
-        fechaRegistro: item.date || item.fechaRegistro,
-        respuestas: item.respuestas || [],
-      }));
-      setData(arr);
+      if (!r.ok) throw new Error();
+      const json = await r.json();
+      setData(
+        json.map((i) => ({
+          nombre: i.id || i.nombre,
+          fechaRegistro: i.date || i.fechaRegistro,
+          respuestas: i.respuestas || [],
+        }))
+      );
     } catch {
-      // fallback local (modo offline)
+      // fallback local
       const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
         nombre,
         fechaRegistro: p.date,
@@ -99,7 +88,7 @@ export default function AdminPanel() {
     }
     setErrNew(false);
     try {
-      const res = await fetch('/api/crearAlumno', {
+      const r = await fetch('/api/crearAlumno', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -107,12 +96,11 @@ export default function AdminPanel() {
         },
         body: JSON.stringify({ nombre: trimmed }),
       });
-      if (!res.ok) throw new Error('err');
+      if (!r.ok) throw new Error();
       setNewName('');
       loadData(localStorage.getItem('docente_token'));
-    } catch (e) {
+    } catch {
       setErrNew(true);
-      console.error('Error crearAlumno:', e);
     }
   };
 
@@ -123,17 +111,17 @@ export default function AdminPanel() {
       return;
     }
     try {
-      const response = await fetch('/api/loginDocente', {
+      const r = await fetch('/api/loginDocente', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
       });
-      const dataResp = await response.json();
-      if (!response.ok) {
-        setLoginError(dataResp.error || 'Contraseña incorrecta');
+      const data = await r.json();
+      if (!r.ok) {
+        setLoginError(data.error || 'Contraseña incorrecta');
         return;
       }
-      localStorage.setItem('docente_token', dataResp.token);
+      localStorage.setItem('docente_token', data.token);
       setShowLogin(false);
       setPassword('');
     } catch {
@@ -141,86 +129,62 @@ export default function AdminPanel() {
     }
   };
 
-  const getRespuesta = (alum, sitId) => {
-    const lista = (alum.respuestas || []).filter((r) => r.situacionId === sitId);
-    if (!lista.length) return '';
-    return lista[lista.length - 1].respuesta;
+  const getResp = (al, id) => {
+    const l = (al.respuestas || []).filter((r) => r.situacionId === id);
+    return l.length ? l[l.length - 1].respuesta : '';
   };
 
-  const handleViewModeChange = (e) => {
-    const vm = e.target.value;
-    setViewMode(vm);
-    if (vm === 'all') setSelectedAlumno('');
-  };
-
-  /* ─────────────────────────────────────────────────────────────
-   * RENDER
-   * ────────────────────────────────────────────────────────────*/
+  /* ────────────────── RENDER ────────────────── */
   return (
     <>
-      {/* ───────── Diálogo LOGIN DOCENTE ───────── */}
+      {/* ── LOGIN DOCENTE ── */}
       <Dialog open={showLogin} disableEscapeKeyDown>
         <DialogTitle>{ui.adminPanelTitle}</DialogTitle>
         <DialogContent>
           <TextField
-            autoFocus
-            margin="dense"
-            label="Contraseña"
-            type="password"
-            fullWidth
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            error={!!loginError}
-            helperText={loginError}
+            autoFocus fullWidth margin="dense"
+            label="Contraseña" type="password"
+            value={password} onChange={(e) => setPassword(e.target.value)}
+            error={!!loginError} helperText={loginError}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={logout} color="secondary">
-            {ui.cambiarUsuario}
-          </Button>
-          <Button variant="contained" onClick={handleLogin}>
-            {ui.acceder}
-          </Button>
+          <Button onClick={logout} color="secondary">{ui.cambiarUsuario}</Button>
+          <Button variant="contained" onClick={handleLogin}>{ui.acceder}</Button>
         </DialogActions>
       </Dialog>
 
-      {/* ───────── PANEL PRINCIPAL ───────── */}
+      {/* ── PANEL ── */}
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
-          {/* Botón único para volver a Página de ingreso */}
           <Box mb={2}>
-            <Button onClick={() => setStage('ingreso')}>
-              {ui.volverPortada}
-            </Button>
+            <Button onClick={() => setStage('ingreso')}>{ui.volverPortada}</Button>
           </Box>
 
-          <Typography variant="h5" gutterBottom>
-            {ui.adminPanelTitle}
-          </Typography>
+          <Typography variant="h5" gutterBottom>{ui.adminPanelTitle}</Typography>
 
-          {/* Alta de alumno */}
+          {/* Alta */}
           <Box mb={4} display="flex" gap={2} alignItems="center">
             <TextField
               label={ui.nuevoAlumnoLabel}
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              error={errNew}
-              helperText={errNew ? ui.crearAlumnoErr : ''}
+              value={newName} onChange={(e) => setNewName(e.target.value)}
+              error={errNew} helperText={errNew ? ui.crearAlumnoErr : ''}
             />
-            <Button variant="contained" onClick={crearAlumno}>
-              {ui.crearAlumnoBtn}
-            </Button>
+            <Button variant="contained" onClick={crearAlumno}>{ui.crearAlumnoBtn}</Button>
           </Box>
 
-          {/* Controles de vista */}
-          <Box mb={3} display="flex" alignItems="center" flexWrap="wrap" gap={2}>
+          {/* Controles vista */}
+          <Box mb={3} display="flex" gap={2} flexWrap="wrap" alignItems="center">
             <FormControl sx={{ minWidth: 200 }}>
-              <InputLabel id="view-select-label">Vista</InputLabel>
+              <InputLabel id="vLabel">Vista</InputLabel>
               <Select
-                labelId="view-select-label"
+                labelId="vLabel" label="Vista"
                 value={viewMode}
-                label="Vista"
-                onChange={handleViewModeChange}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setViewMode(v);
+                  if (v === 'all') setSelectedAlumno('');
+                }}
               >
                 <MenuItem value="all">Todos los alumnos</MenuItem>
                 <MenuItem value="single">Un solo alumno</MenuItem>
@@ -229,17 +193,14 @@ export default function AdminPanel() {
 
             {viewMode === 'single' && (
               <FormControl sx={{ minWidth: 200 }}>
-                <InputLabel id="alumno-select-label">Alumno</InputLabel>
+                <InputLabel id="aLabel">Alumno</InputLabel>
                 <Select
-                  labelId="alumno-select-label"
+                  labelId="aLabel" label="Alumno"
                   value={selectedAlumno}
-                  label="Alumno"
                   onChange={(e) => setSelectedAlumno(e.target.value)}
                 >
-                  {data.map((alum) => (
-                    <MenuItem key={alum.nombre} value={alum.nombre}>
-                      {alum.nombre}
-                    </MenuItem>
+                  {data.map((al) => (
+                    <MenuItem key={al.nombre} value={al.nombre}>{al.nombre}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -248,64 +209,47 @@ export default function AdminPanel() {
 
           {loading ? (
             <CircularProgress />
+          ) : viewMode === 'all' ? (
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Alumno</TableCell>
+                  <TableCell>Fecha Registro</TableCell>
+                  {escenas.map((s) => <TableCell key={s.id}>{s.titulo}</TableCell>)}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data.map((al) => (
+                  <TableRow key={al.nombre}>
+                    <TableCell>{al.nombre}</TableCell>
+                    <TableCell>{al.fechaRegistro}</TableCell>
+                    {escenas.map((s) => <TableCell key={s.id}>{getResp(al, s.id)}</TableCell>)}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : !selectedAlumno ? (
+            <Typography>Selecciona un alumno para ver sus respuestas.</Typography>
           ) : (
-            <>
-              {/* ───── TABLA TODOS ───── */}
-              {viewMode === 'all' && (
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Alumno</TableCell>
-                      <TableCell>Fecha Registro</TableCell>
-                      {escenas.map((s) => (
-                        <TableCell key={s.id}>{s.titulo}</TableCell>
-                      ))}
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Situación</TableCell>
+                  <TableCell>Respuesta</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {escenas.map((s) => {
+                  const al = data.find((x) => x.nombre === selectedAlumno);
+                  return (
+                    <TableRow key={s.id}>
+                      <TableCell>{s.titulo}</TableCell>
+                      <TableCell>{getResp(al, s.id)}</TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data.map((alum) => (
-                      <TableRow key={alum.nombre}>
-                        <TableCell>{alum.nombre}</TableCell>
-                        <TableCell>{alum.fechaRegistro}</TableCell>
-                        {escenas.map((s) => (
-                          <TableCell key={s.id}>{getRespuesta(alum, s.id)}</TableCell>
-                        ))}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
-
-              {viewMode === 'single' && (
-                <>
-                  {!selectedAlumno ? (
-                    <Typography>
-                      Selecciona un alumno para ver sus respuestas.
-                    </Typography>
-                  ) : (
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Situación</TableCell>
-                          <TableCell>Respuesta</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {escenas.map((s) => {
-                          const alum = data.find((a) => a.nombre === selectedAlumno);
-                          return (
-                            <TableRow key={s.id}>
-                              <TableCell>{s.titulo}</TableCell>
-                              <TableCell>{getRespuesta(alum, s.id)}</TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    </Table>
-                  )}
-                </>
-              )}
-            </>
+                  );
+                })}
+              </TableBody>
+            </Table>
           )}
         </Box>
       )}
