@@ -158,7 +158,14 @@ export default function AdminPanel() {
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
           <Box mb={2}>
-            <Button onClick={() => setStage('ingreso')}>{ui.volverPortada}</Button>
+          <Button
+            onClick={() => {
+              localStorage.removeItem('docente_token'); // obliga a re-autenticar
+              setStage('ingreso');
+            }}
+          >
+            {ui.volverPortada}
+          </Button>
           </Box>
 
           <Typography variant="h5" gutterBottom>{ui.adminPanelTitle}</Typography>

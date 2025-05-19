@@ -100,6 +100,7 @@ export default function IngresoAlumno() {
       }
       localStorage.setItem('docente_token', data.token);
       setDocente(true);
+      setStage('admin'); 
       setShowLogin(false);
       setSenha('');
     } catch {
