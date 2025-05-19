@@ -97,12 +97,24 @@ export function ActuaProvider({ children }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password })
     })
-    if (!res.ok) {
-      const err = await res.json()
-      throw new Error(err.error || 'Error login front')
+    
+    // primero leemos lo que haya en body (o nada)
+    let payload = null
+    try {
+      payload = await res.json()
+    } catch {
+      // no era JSON o no había body
+      payload = null
     }
-    const { token } = await res.json()
-    localStorage.setItem('front_token', token)
+    
+    if (!res.ok || !payload?.token) {
+      // si payload.error existe, lo usamos; sino un texto por defecto
+      const msg = payload?.error || 'Contraseña incorrecta'
+      throw new Error(msg)
+    }
+    
+    // OK: guardamos el token
+    localStorage.setItem('front_token', payload.token)
     setFront(true)
   }
 
