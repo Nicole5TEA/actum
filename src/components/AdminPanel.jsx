@@ -1,5 +1,3 @@
-// src/components/AdminPanel.jsx
-
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -19,7 +17,7 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
 } from '@mui/material';
 import { useActua } from '../context/ActuaContext';
 import textos from '../textos';
@@ -34,13 +32,47 @@ export default function AdminPanel() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  // Nueva: modo de vista y alumno seleccionado
+  /* -------------------------------------------------------------------
+   * Alta de nuevo alumno — trasladado aquí (Req. 5)
+   * -----------------------------------------------------------------*/
+  const [newName, setNewName] = useState('');
+  const [errNew, setErrNew] = useState(false);
+
+  const crearAlumno = async () => {
+    const trimmed = newName.trim();
+    if (!/^([A-Za-zÀ-ÿ\s]{2,30})$/.test(trimmed)) {
+      setErrNew(true);
+      return;
+    }
+    setErrNew(false);
+    try {
+      const res = await fetch('/api/crearAlumno', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token'),
+        },
+        body: JSON.stringify({ nombre: trimmed }),
+      });
+      if (!res.ok) throw new Error('err');
+      setNewName('');
+      loadData(localStorage.getItem('docente_token'));
+    } catch (e) {
+      setErrNew(true);
+      console.error('Error crearAlumno:', e);
+    }
+  };
+
+  /* -------------------------------------------------------------------
+   * Vista / filtros
+   * -----------------------------------------------------------------*/
   const [viewMode, setViewMode] = useState('all'); // 'all' | 'single'
   const [selectedAlumno, setSelectedAlumno] = useState('');
-
-  // Lista de situaciones (orden)
   const escenas = textos[idioma].escenas;
 
+  /* -------------------------------------------------------------------
+   * Carga inicial tras login
+   * -----------------------------------------------------------------*/
   useEffect(() => {
     if (!showLogin) {
       const token = localStorage.getItem('docente_token');
@@ -58,24 +90,22 @@ export default function AdminPanel() {
       const res = await fetch('/api/getAlumnos', {
         headers: {
           'Content-Type': 'application/json',
-          'X-Docente-Token': 'Bearer ' + token
-        }
+          'X-Docente-Token': 'Bearer ' + token,
+        },
       });
       if (!res.ok) throw new Error('No autorizado');
       const json = await res.json();
-      // Ajustamos nombres de campos
-      const arr = json.map(item => ({
+      const arr = json.map((item) => ({
         nombre: item.id || item.nombre,
         fechaRegistro: item.date || item.fechaRegistro,
-        respuestas: item.respuestas || []
+        respuestas: item.respuestas || [],
       }));
       setData(arr);
     } catch {
-      // fallback local
       const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
         nombre,
         fechaRegistro: p.date,
-        respuestas: p.elecciones  // aquí p.elecciones era objeto, pero en tu backend ya vienen arrays
+        respuestas: p.elecciones,
       }));
       setData(arr);
     } finally {
@@ -83,6 +113,9 @@ export default function AdminPanel() {
     }
   };
 
+  /* -------------------------------------------------------------------
+   * Login docente (Password 2)
+   * -----------------------------------------------------------------*/
   const handleLogin = async () => {
     setLoginError('');
     if (!password) {
@@ -93,7 +126,7 @@ export default function AdminPanel() {
       const response = await fetch('/api/loginDocente', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password })
+        body: JSON.stringify({ password }),
       });
       const dataResp = await response.json();
       if (!response.ok) {
@@ -108,29 +141,27 @@ export default function AdminPanel() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('docente_token');
-    logout();
-    setStage('ingreso');
-  };
-
-  // Extrae la última respuesta de un alumno para una situación
+  /* -------------------------------------------------------------------
+   * Helpers
+   * -----------------------------------------------------------------*/
   const getRespuesta = (alum, sitId) => {
-    const lista = (alum.respuestas || []).filter(r => r.situacionId === sitId);
+    const lista = (alum.respuestas || []).filter((r) => r.situacionId === sitId);
     if (!lista.length) return '';
-    return lista[ lista.length - 1 ].respuesta;
+    return lista[lista.length - 1].respuesta;
   };
 
-  // Cuando cambiamos de vista, reseteamos alumno seleccionado
   const handleViewModeChange = (e) => {
     const vm = e.target.value;
     setViewMode(vm);
     if (vm === 'all') setSelectedAlumno('');
   };
 
+  /* -------------------------------------------------------------------
+   * RENDER
+   * -----------------------------------------------------------------*/
   return (
     <>
-      {/* Diálogo de login */}
+      {/* Diálogo login docente */}
       <Dialog open={showLogin} disableEscapeKeyDown>
         <DialogTitle>{ui.adminPanelTitle}</DialogTitle>
         <DialogContent>
@@ -141,26 +172,46 @@ export default function AdminPanel() {
             type="password"
             fullWidth
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             error={!!loginError}
             helperText={loginError}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleLogout} color="secondary">{ui.cambiarUsuario}</Button>
-          <Button variant="contained" onClick={handleLogin}>Acceder</Button>
+          <Button onClick={logout} color="secondary">
+            {ui.cambiarUsuario}
+          </Button>
+          <Button variant="contained" onClick={handleLogin}>
+            {ui.acceder}
+          </Button>
         </DialogActions>
       </Dialog>
 
       {/* Panel principal */}
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
-          <Box mb={2} display="flex" alignItems="center" flexWrap="wrap" gap={2}>
+          {/* Botón único para volver a página de ingreso */}
+          <Box mb={2}>
             <Button onClick={() => setStage('ingreso')}>{ui.volverPortada}</Button>
-            <Button onClick={handleLogout}>{ui.cambiarUsuario}</Button>
           </Box>
 
-          <Typography variant="h5" gutterBottom>{ui.adminPanelTitle}</Typography>
+          <Typography variant="h5" gutterBottom>
+            {ui.adminPanelTitle}
+          </Typography>
+
+          {/* Alta de alumno */}
+          <Box mb={4} display="flex" gap={2} alignItems="center">
+            <TextField
+              label={ui.nuevoAlumnoLabel}
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              error={errNew}
+              helperText={errNew ? ui.crearAlumnoErr : ''}
+            />
+            <Button variant="contained" onClick={crearAlumno}>
+              {ui.crearAlumnoBtn}
+            </Button>
+          </Box>
 
           {/* Controles de vista */}
           <Box mb={3} display="flex" alignItems="center" flexWrap="wrap" gap={2}>
@@ -184,9 +235,9 @@ export default function AdminPanel() {
                   labelId="alumno-select-label"
                   value={selectedAlumno}
                   label="Alumno"
-                  onChange={e => setSelectedAlumno(e.target.value)}
+                  onChange={(e) => setSelectedAlumno(e.target.value)}
                 >
-                  {data.map(alum => (
+                  {data.map((alum) => (
                     <MenuItem key={alum.nombre} value={alum.nombre}>
                       {alum.nombre}
                     </MenuItem>
@@ -206,20 +257,18 @@ export default function AdminPanel() {
                     <TableRow>
                       <TableCell>Alumno</TableCell>
                       <TableCell>Fecha Registro</TableCell>
-                      {escenas.map(s => (
+                      {escenas.map((s) => (
                         <TableCell key={s.id}>{s.titulo}</TableCell>
                       ))}
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data.map(alum => (
+                    {data.map((alum) => (
                       <TableRow key={alum.nombre}>
                         <TableCell>{alum.nombre}</TableCell>
                         <TableCell>{alum.fechaRegistro}</TableCell>
-                        {escenas.map(s => (
-                          <TableCell key={s.id}>
-                            {getRespuesta(alum, s.id)}
-                          </TableCell>
+                        {escenas.map((s) => (
+                          <TableCell key={s.id}>{getRespuesta(alum, s.id)}</TableCell>
                         ))}
                       </TableRow>
                     ))}
@@ -230,7 +279,9 @@ export default function AdminPanel() {
               {viewMode === 'single' && (
                 <>
                   {!selectedAlumno ? (
-                    <Typography>Selecciona un alumno para ver sus respuestas.</Typography>
+                    <Typography>
+                      Selecciona un alumno para ver sus respuestas.
+                    </Typography>
                   ) : (
                     <Table>
                       <TableHead>
@@ -240,8 +291,8 @@ export default function AdminPanel() {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {escenas.map(s => {
-                          const alum = data.find(a => a.nombre === selectedAlumno);
+                        {escenas.map((s) => {
+                          const alum = data.find((a) => a.nombre === selectedAlumno);
                           return (
                             <TableRow key={s.id}>
                               <TableCell>{s.titulo}</TableCell>

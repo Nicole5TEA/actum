@@ -27,9 +27,26 @@ const textos = {
       inicio: 'INICIO',
       menu: 'MENÚ',
 
-      adminPanelTitle: 'Panel de Administrador',
+      adminPanelTitle: 'Panel del Docente',
       cambiarUsuario: 'CAMBIAR USUARIO',
-      volverPortada: 'VOLVER A PORTADA',
+      volverPortada  : 'VOLVER A PÁGINA DE INGRESO',
+
+      /* ───────── ACCESO (password 1) ───────── */
+      accesoTitle : 'Acceso',                // título del diálogo
+      accesoLabel : 'CONTRASEÑA',            // etiqueta del campo
+      accesoErr   : 'Contraseña incorrecta', // o genérico «Error de acceso»
+
+      /* ───────── BOTÓN PORTADA ───────── */
+      volverAPortada : 'VOLVER A PORTADA',   // sale en la Página de ingreso
+
+      /* ───────── MENSAJE SIN PERMISOS ───────── */
+      necesitasDocente :                           // texto bajo el input
+        'Debes autenticarte como Docente para registrar nuevos alumnos.',
+
+      /* ───────── ALTA DE ALUMNO (en Panel) ───────── */
+      nuevoAlumnoLabel : 'Nuevo alumno',
+      crearAlumnoBtn   : 'CREAR',
+      crearAlumnoErr   : 'No se pudo crear el alumno. Inténtalo de nuevo.',
 
       atras: 'ATRÁS',
       siguiente: 'SIGUIENTE',
@@ -281,9 +298,26 @@ const textos = {
       inicio: 'INICI',
       menu: 'MENÚ',
 
-      adminPanelTitle: 'Panel de Administrador',
+      adminPanelTitle: 'Panell del Docent',
       cambiarUsuario: 'CANVIAR USUARI',     // en ca
-      volverPortada: 'TORNAR A PORTADA',     // en ca
+      volverPortada  : 'TORNAR A LA PÀGINA D’INGRÉS',     // en ca
+
+      /* ───────── ACCÉS (contrasenya 1) ───────── */
+      accesoTitle : 'Accés',
+      accesoLabel : 'CONTRASENYA',
+      accesoErr   : 'Contrasenya incorrecta',
+
+      /* ───────── BOTÓ PORTADA ───────── */
+      volverAPortada : 'TORNAR A LA PORTADA',
+
+      /* ───────── MISSATGE SENSE PERMIS ───────── */
+      necesitasDocente :
+        'Has d’autenticar-te com a Docent per registrar nous alumnes.',
+
+      /* ───────── ALTA D’ALUMNE (al Panell) ───────── */
+      nuevoAlumnoLabel : 'Alumne nou',
+      crearAlumnoBtn   : 'CREAR',
+      crearAlumnoErr   : "No s'ha pogut crear l'alumne. Torna-ho a provar.",
 
       atras: 'ENRERE',
       siguiente: 'SEGÜENT',
