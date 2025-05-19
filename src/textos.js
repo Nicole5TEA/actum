@@ -27,9 +27,7 @@ const textos = {
       inicio: 'INICIO',
       menu: 'MENÚ',
 
-      adminPanelTitle: 'Panel del Docente',
-      ingresoPageTitle: 'Página de ingreso',
-      volverPaginaIngreso: 'VOLVER A PÁGINA DE INGRESO',
+      adminPanelTitle: 'Panel de Administrador',
       cambiarUsuario: 'CAMBIAR USUARIO',
       volverPortada: 'VOLVER A PORTADA',
 
@@ -283,9 +281,7 @@ const textos = {
       inicio: 'INICI',
       menu: 'MENÚ',
 
-      adminPanelTitle: 'Panell del Docent',
-      ingresoPageTitle: 'Pàgina d\'ingrés',
-      volverPaginaIngreso: 'TORNAR A LA PÀGINA D\'INGRÉS',
+      adminPanelTitle: 'Panel de Administrador',
       cambiarUsuario: 'CANVIAR USUARI',     // en ca
       volverPortada: 'TORNAR A PORTADA',     // en ca
 
