@@ -10,7 +10,7 @@ module.exports = async function (context, req) {
   }
 
   // Compara contra el hash de entorno
-  const match = await bcrypt.compare(password, process.env.DOCENTE_PW_HASH);
+  const match = await bcrypt.compare(password, process.env.ACCESO_PW_HASH);
   if (!match) {
     context.res = { status: 401, body: { error: 'Contraseña incorrecta' } };
     return;

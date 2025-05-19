@@ -26,17 +26,70 @@ export default function AdminPanel() {
   const { setStage, logout, perfiles, idioma } = useActua();
   const ui = textos[idioma].ui;
 
+  /* ─────────────────────────────────────────────────────────────
+   * ESTADOS PRINCIPALES
+   * ────────────────────────────────────────────────────────────*/
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  /* -------------------------------------------------------------------
-   * Alta de nuevo alumno — trasladado aquí (Req. 5)
-   * -----------------------------------------------------------------*/
+  /* Alta de alumno (Req. 5) */
   const [newName, setNewName] = useState('');
   const [errNew, setErrNew] = useState(false);
+
+  /* Vista tabla */
+  const [viewMode, setViewMode] = useState('all'); // 'all' | 'single'
+  const [selectedAlumno, setSelectedAlumno] = useState('');
+  const escenas = textos[idioma].escenas;
+
+  /* ─────────────────────────────────────────────────────────────
+   * USE EFFECT → CARGA TRAS LOGIN
+   * ────────────────────────────────────────────────────────────*/
+  useEffect(() => {
+    if (!showLogin) {
+      const token = localStorage.getItem('docente_token');
+      if (!token) {
+        setShowLogin(true);
+        return;
+      }
+      loadData(token);
+    }
+  }, [showLogin]);
+
+  /* ─────────────────────────────────────────────────────────────
+   * FUNCIONES
+   * ────────────────────────────────────────────────────────────*/
+  const loadData = async (token) => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/getAlumnos', {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Docente-Token': 'Bearer ' + token,
+        },
+      });
+      if (!res.ok) throw new Error('No autorizado');
+      const json = await res.json();
+      const arr = json.map((item) => ({
+        nombre: item.id || item.nombre,
+        fechaRegistro: item.date || item.fechaRegistro,
+        respuestas: item.respuestas || [],
+      }));
+      setData(arr);
+    } catch {
+      // fallback local (modo offline)
+      const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
+        nombre,
+        fechaRegistro: p.date,
+        respuestas: p.elecciones,
+      }));
+      setData(arr);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const crearAlumno = async () => {
     const trimmed = newName.trim();
@@ -63,59 +116,6 @@ export default function AdminPanel() {
     }
   };
 
-  /* -------------------------------------------------------------------
-   * Vista / filtros
-   * -----------------------------------------------------------------*/
-  const [viewMode, setViewMode] = useState('all'); // 'all' | 'single'
-  const [selectedAlumno, setSelectedAlumno] = useState('');
-  const escenas = textos[idioma].escenas;
-
-  /* -------------------------------------------------------------------
-   * Carga inicial tras login
-   * -----------------------------------------------------------------*/
-  useEffect(() => {
-    if (!showLogin) {
-      const token = localStorage.getItem('docente_token');
-      if (!token) {
-        setShowLogin(true);
-        return;
-      }
-      loadData(token);
-    }
-  }, [showLogin]);
-
-  const loadData = async (token) => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/getAlumnos', {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Docente-Token': 'Bearer ' + token,
-        },
-      });
-      if (!res.ok) throw new Error('No autorizado');
-      const json = await res.json();
-      const arr = json.map((item) => ({
-        nombre: item.id || item.nombre,
-        fechaRegistro: item.date || item.fechaRegistro,
-        respuestas: item.respuestas || [],
-      }));
-      setData(arr);
-    } catch {
-      const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
-        nombre,
-        fechaRegistro: p.date,
-        respuestas: p.elecciones,
-      }));
-      setData(arr);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /* -------------------------------------------------------------------
-   * Login docente (Password 2)
-   * -----------------------------------------------------------------*/
   const handleLogin = async () => {
     setLoginError('');
     if (!password) {
@@ -141,9 +141,6 @@ export default function AdminPanel() {
     }
   };
 
-  /* -------------------------------------------------------------------
-   * Helpers
-   * -----------------------------------------------------------------*/
   const getRespuesta = (alum, sitId) => {
     const lista = (alum.respuestas || []).filter((r) => r.situacionId === sitId);
     if (!lista.length) return '';
@@ -156,12 +153,12 @@ export default function AdminPanel() {
     if (vm === 'all') setSelectedAlumno('');
   };
 
-  /* -------------------------------------------------------------------
+  /* ─────────────────────────────────────────────────────────────
    * RENDER
-   * -----------------------------------------------------------------*/
+   * ────────────────────────────────────────────────────────────*/
   return (
     <>
-      {/* Diálogo login docente */}
+      {/* ───────── Diálogo LOGIN DOCENTE ───────── */}
       <Dialog open={showLogin} disableEscapeKeyDown>
         <DialogTitle>{ui.adminPanelTitle}</DialogTitle>
         <DialogContent>
@@ -187,12 +184,14 @@ export default function AdminPanel() {
         </DialogActions>
       </Dialog>
 
-      {/* Panel principal */}
+      {/* ───────── PANEL PRINCIPAL ───────── */}
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
-          {/* Botón único para volver a página de ingreso */}
+          {/* Botón único para volver a Página de ingreso */}
           <Box mb={2}>
-            <Button onClick={() => setStage('ingreso')}>{ui.volverPortada}</Button>
+            <Button onClick={() => setStage('ingreso')}>
+              {ui.volverPortada}
+            </Button>
           </Box>
 
           <Typography variant="h5" gutterBottom>
@@ -251,6 +250,7 @@ export default function AdminPanel() {
             <CircularProgress />
           ) : (
             <>
+              {/* ───── TABLA TODOS ───── */}
               {viewMode === 'all' && (
                 <Table>
                   <TableHead>

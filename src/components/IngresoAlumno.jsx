@@ -2,49 +2,38 @@ import React, { useState, useEffect } from 'react';
 import {
   Stack,
   Typography,
-  TextField,
   Button,
   Box,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
+  TextField,
 } from '@mui/material';
 import { useActua } from '../context/ActuaContext';
 import textos from '../textos';
-
-// Validación original del nombre del alumno
-const isValidName = (name) => /^[A-Za-zÀ-ÿ\s]{2,30}$/.test(name.trim());
 
 export default function IngresoAlumno() {
   const { login, idioma, isDocente, setDocente, setStage } = useActua();
   const ui = textos[idioma].ui;
 
-  /* -----------------------------------------------------------------------
-   * ESTADOS PARA EL NUEVO ACCESO (Password 1)
-   * ---------------------------------------------------------------------*/
+  /* ─────────────────── CONTRASEÑA 1 (Acceso) ─────────────────── */
   const [showAcceso, setShowAcceso] = useState(
     () => !localStorage.getItem('access_token')
   );
   const [passAcceso, setPassAcceso] = useState('');
   const [errAcceso, setErrAcceso] = useState('');
 
-  /* -----------------------------------------------------------------------
-   * ESTADOS ORIGINALES
-   * ---------------------------------------------------------------------*/
+  /* ─────────────────── LISTA DE USUARIOS ─────────────────── */
   const [usuarios, setUsuarios] = useState([]);
-  const [name, setName] = useState('');
-  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Estados para el login‑docente (Password 2) – ya existentes
-  const [showLogin, setShowLogin] = useState(!isDocente);
+  /* ─────────────────── LOGIN DOCENTE (Contraseña 2) ─────────────────── */
+  const [showLogin, setShowLogin] = useState(false); // Ya no aparece al inicio
   const [senha, setSenha] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  /* -----------------------------------------------------------------------
-   * HANDLER DE LA NUEVA CONTRASEÑA (Password 1)
-   * ---------------------------------------------------------------------*/
+  /* ─────────────────── HANDLER CONTRASEÑA 1 ─────────────────── */
   const handleAcceso = async () => {
     setErrAcceso('');
     if (!passAcceso.trim()) {
@@ -71,12 +60,9 @@ export default function IngresoAlumno() {
     }
   };
 
-  /* -----------------------------------------------------------------------
-   * CARGA DE ALUMNOS – solo tras pasar la contraseña de acceso
-   * ---------------------------------------------------------------------*/
+  /* ─────────────────── CARGA DE ALUMNOS ─────────────────── */
   useEffect(() => {
-    if (showAcceso) return; // Esperar a la contraseña 1
-
+    if (showAcceso) return;
     setLoading(true);
     const headers = isDocente
       ? { 'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token') }
@@ -88,42 +74,7 @@ export default function IngresoAlumno() {
       .finally(() => setLoading(false));
   }, [isDocente, showAcceso]);
 
-  /* -----------------------------------------------------------------------
-   * REGISTRO DE NUEVO ALUMNO (se mantiene por ahora aunque el requisito 5
-   *   indica moverlo al Panel del Docente)
-   * ---------------------------------------------------------------------*/
-  const handleNew = async () => {
-    if (!isDocente) return;
-    const trimmed = name.trim();
-    if (!isValidName(trimmed)) {
-      setError(true);
-      return;
-    }
-    setError(false);
-
-    const res = await fetch('/api/crearAlumno', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token'),
-      },
-      body: JSON.stringify({ nombre: trimmed }),
-    });
-
-    if (res.ok) {
-      setUsuarios((prev) => [...prev, trimmed]);
-      login(trimmed);
-      setName('');
-    } else {
-      const text = await res.text();
-      console.error('Error al crear alumno:', text);
-      setError(true);
-    }
-  };
-
-  /* -----------------------------------------------------------------------
-   * LOGIN DEL DOCENTE (Password 2)
-   * ---------------------------------------------------------------------*/
+  /* ─────────────────── LOGIN DOCENTE ─────────────────── */
   const handleDocenteLogin = async () => {
     setLoginError('');
     if (!senha) {
@@ -151,14 +102,10 @@ export default function IngresoAlumno() {
     }
   };
 
-  /* -----------------------------------------------------------------------
-   * RENDER
-   * ---------------------------------------------------------------------*/
+  /* ─────────────────── RENDER ─────────────────── */
   return (
     <>
-      {/* --------------------------------------------------------------- */}
-      {/* Diálogo de Contraseña 1 (Acceso)                                */}
-      {/* --------------------------------------------------------------- */}
+      {/* ───── Diálogo CONTRASEÑA 1 ───── */}
       <Dialog open={showAcceso} disableEscapeKeyDown>
         <DialogTitle>{ui.accesoTitle}</DialogTitle>
         <DialogContent>
@@ -180,12 +127,10 @@ export default function IngresoAlumno() {
         </DialogActions>
       </Dialog>
 
-      {/* --------------------------------------------------------------- */}
-      {/* Contenido principal (solo si ya pasó la Contraseña 1)           */}
-      {/* --------------------------------------------------------------- */}
+      {/* ───── Contenido principal ───── */}
       {!showAcceso && (
         <Stack spacing={4} alignItems="center" sx={{ mt: 6 }}>
-          {/* Botón Volver a Portada que limpia el token de acceso */}
+          {/* Botón volver a Portada */}
           <Button
             variant="text"
             onClick={() => {
@@ -196,6 +141,7 @@ export default function IngresoAlumno() {
             {ui.volverAPortada}
           </Button>
 
+          {/* Lista de alumnos */}
           {!loading && usuarios.length > 0 && (
             <Box sx={{ textAlign: 'center' }}>
               <Typography variant="h6" gutterBottom>
@@ -216,31 +162,7 @@ export default function IngresoAlumno() {
             </Box>
           )}
 
-          <Typography variant="h6">{ui.ingresoPrompt}</Typography>
-          <TextField
-            label={ui.ingresoLabel}
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-              setError(false);
-            }}
-            error={error}
-            helperText={error ? ui.ingresoError : ''}
-            disabled={!isDocente}
-          />
-          {!isDocente && (
-            <Typography color="error" align="center">
-              {ui.necesitasDocente}
-            </Typography>
-          )}
-          <Button
-            variant="contained"
-            onClick={handleNew}
-            disabled={!name.trim() || !isDocente}
-          >
-            {ui.ingresoButton}
-          </Button>
-
+          {/* Botón para ir al Panel del Docente o pedir login */}
           {!isDocente ? (
             <Button
               variant="text"
@@ -257,7 +179,7 @@ export default function IngresoAlumno() {
         </Stack>
       )}
 
-      {/* Diálogo login Docente */}
+      {/* ───── Diálogo LOGIN DOCENTE ───── */}
       <Dialog open={showLogin} onClose={() => setShowLogin(false)}>
         <DialogTitle>{ui.loginDocenteTitle}</DialogTitle>
         <DialogContent>
@@ -274,9 +196,7 @@ export default function IngresoAlumno() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowLogin(false)}>
-            {ui.cancelar}
-          </Button>
+          <Button onClick={() => setShowLogin(false)}>{ui.cancelar}</Button>
           <Button variant="contained" onClick={handleDocenteLogin}>
             {ui.acceder}
           </Button>
