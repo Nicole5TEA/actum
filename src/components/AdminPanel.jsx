@@ -15,7 +15,11 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  TextField
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from '@mui/material';
 import { useActua } from '../context/ActuaContext';
 import textos from '../textos';
@@ -29,6 +33,13 @@ export default function AdminPanel() {
   const [showLogin, setShowLogin] = useState(true);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+
+  // Nueva: modo de vista y alumno seleccionado
+  const [viewMode, setViewMode] = useState('all'); // 'all' | 'single'
+  const [selectedAlumno, setSelectedAlumno] = useState('');
+
+  // Lista de situaciones (orden)
+  const escenas = textos[idioma].escenas;
 
   useEffect(() => {
     if (!showLogin) {
@@ -47,19 +58,24 @@ export default function AdminPanel() {
       const res = await fetch('/api/getAlumnos', {
         headers: {
           'Content-Type': 'application/json',
-          // <-- usamos nuestro header custom
           'X-Docente-Token': 'Bearer ' + token
         }
       });
       if (!res.ok) throw new Error('No autorizado');
       const json = await res.json();
-      setData(json);
+      // Ajustamos nombres de campos
+      const arr = json.map(item => ({
+        nombre: item.id || item.nombre,
+        fechaRegistro: item.date || item.fechaRegistro,
+        respuestas: item.respuestas || []
+      }));
+      setData(arr);
     } catch {
       // fallback local
       const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
         nombre,
         fechaRegistro: p.date,
-        respuestas: p.elecciones
+        respuestas: p.elecciones  // aquí p.elecciones era objeto, pero en tu backend ya vienen arrays
       }));
       setData(arr);
     } finally {
@@ -98,8 +114,23 @@ export default function AdminPanel() {
     setStage('ingreso');
   };
 
+  // Extrae la última respuesta de un alumno para una situación
+  const getRespuesta = (alum, sitId) => {
+    const lista = (alum.respuestas || []).filter(r => r.situacionId === sitId);
+    if (!lista.length) return '';
+    return lista[ lista.length - 1 ].respuesta;
+  };
+
+  // Cuando cambiamos de vista, reseteamos alumno seleccionado
+  const handleViewModeChange = (e) => {
+    const vm = e.target.value;
+    setViewMode(vm);
+    if (vm === 'all') setSelectedAlumno('');
+  };
+
   return (
     <>
+      {/* Diálogo de login */}
       <Dialog open={showLogin} disableEscapeKeyDown>
         <DialogTitle>{ui.adminPanelTitle}</DialogTitle>
         <DialogContent>
@@ -121,36 +152,109 @@ export default function AdminPanel() {
         </DialogActions>
       </Dialog>
 
+      {/* Panel principal */}
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
-          <Button onClick={handleLogout} sx={{ mr: 1 }}>{ui.volverPortada}</Button>
-          <Button onClick={() => setStage('ingreso')}>{ui.cambiarUsuario}</Button>
-          <Typography variant="h5" gutterBottom sx={{ mt: 2 }}>{ui.adminPanelTitle}</Typography>
+          <Box mb={2} display="flex" alignItems="center" flexWrap="wrap" gap={2}>
+            <Button onClick={() => setStage('ingreso')}>{ui.volverPortada}</Button>
+            <Button onClick={handleLogout}>{ui.cambiarUsuario}</Button>
+          </Box>
+
+          <Typography variant="h5" gutterBottom>{ui.adminPanelTitle}</Typography>
+
+          {/* Controles de vista */}
+          <Box mb={3} display="flex" alignItems="center" flexWrap="wrap" gap={2}>
+            <FormControl sx={{ minWidth: 200 }}>
+              <InputLabel id="view-select-label">Vista</InputLabel>
+              <Select
+                labelId="view-select-label"
+                value={viewMode}
+                label="Vista"
+                onChange={handleViewModeChange}
+              >
+                <MenuItem value="all">Todos los alumnos</MenuItem>
+                <MenuItem value="single">Un solo alumno</MenuItem>
+              </Select>
+            </FormControl>
+
+            {viewMode === 'single' && (
+              <FormControl sx={{ minWidth: 200 }}>
+                <InputLabel id="alumno-select-label">Alumno</InputLabel>
+                <Select
+                  labelId="alumno-select-label"
+                  value={selectedAlumno}
+                  label="Alumno"
+                  onChange={e => setSelectedAlumno(e.target.value)}
+                >
+                  {data.map(alum => (
+                    <MenuItem key={alum.nombre} value={alum.nombre}>
+                      {alum.nombre}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+          </Box>
+
           {loading ? (
-            <CircularProgress sx={{ mt: 4 }} />
+            <CircularProgress />
           ) : (
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Alumno</TableCell>
-                  <TableCell>Fecha Registro</TableCell>
-                  <TableCell>Respuestas</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map(alum => (
-                  <TableRow key={alum.nombre}>
-                    <TableCell>{alum.nombre}</TableCell>
-                    <TableCell>{alum.fechaRegistro}</TableCell>
-                    <TableCell>
-                      {Object.entries(alum.respuestas || {}).map(([sit, resp]) => (
-                        <Box key={sit}>{sit}: {resp}</Box>
+            <>
+              {viewMode === 'all' && (
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Alumno</TableCell>
+                      <TableCell>Fecha Registro</TableCell>
+                      {escenas.map(s => (
+                        <TableCell key={s.id}>{s.titulo}</TableCell>
                       ))}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data.map(alum => (
+                      <TableRow key={alum.nombre}>
+                        <TableCell>{alum.nombre}</TableCell>
+                        <TableCell>{alum.fechaRegistro}</TableCell>
+                        {escenas.map(s => (
+                          <TableCell key={s.id}>
+                            {getRespuesta(alum, s.id)}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+
+              {viewMode === 'single' && (
+                <>
+                  {!selectedAlumno ? (
+                    <Typography>Selecciona un alumno para ver sus respuestas.</Typography>
+                  ) : (
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Situación</TableCell>
+                          <TableCell>Respuesta</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {escenas.map(s => {
+                          const alum = data.find(a => a.nombre === selectedAlumno);
+                          return (
+                            <TableRow key={s.id}>
+                              <TableCell>{s.titulo}</TableCell>
+                              <TableCell>{getRespuesta(alum, s.id)}</TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  )}
+                </>
+              )}
+            </>
           )}
         </Box>
       )}
