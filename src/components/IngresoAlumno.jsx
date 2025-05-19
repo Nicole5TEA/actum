@@ -4,29 +4,32 @@ import React, { useState, useEffect } from 'react'
 import {
   Stack,
   Typography,
-  TextField,
   Button,
   Box,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
+  DialogActions,
+  TextField
 } from '@mui/material'
 import { useActua } from '../context/ActuaContext'
 import textos from '../textos'
 
-const isValidName = name => /^[A-Za-zÀ-ÿ\s]{2,30}$/.test(name.trim())
-
 export default function IngresoAlumno() {
-  const { login, idioma, isDocente, setDocente, setStage } = useActua()
+  const {
+    login,
+    logout,
+    idioma,
+    isDocente,
+    setDocente,
+    setStage
+  } = useActua()
   const ui = textos[idioma].ui
 
   const [usuarios, setUsuarios] = useState([])
-  const [name, setName] = useState('')
-  const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  // Estados para el login-docente
+  // Estado para mostrar el diálogo de login del docente
   const [showLogin, setShowLogin] = useState(!isDocente)
   const [senha, setSenha] = useState('')
   const [loginError, setLoginError] = useState('')
@@ -43,36 +46,6 @@ export default function IngresoAlumno() {
       .catch(() => setUsuarios([]))
       .finally(() => setLoading(false))
   }, [isDocente])
-
-  // Registra un alumno (solo si isDocente)
-  const handleNew = async () => {
-    if (!isDocente) return
-    const trimmed = name.trim()
-    if (!isValidName(trimmed)) {
-      setError(true)
-      return
-    }
-    setError(false)
-
-    const res = await fetch('/api/crearAlumno', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token')
-      },
-      body: JSON.stringify({ nombre: trimmed })
-    })
-
-    if (res.ok) {
-      setUsuarios(prev => [...prev, trimmed])
-      login(trimmed)
-      setName('')
-    } else {
-      const text = await res.text()
-      console.error('Error al crear alumno:', text)
-      setError(true)
-    }
-  }
 
   // Login del docente
   const handleDocenteLogin = async () => {
@@ -103,8 +76,24 @@ export default function IngresoAlumno() {
     }
   }
 
+  // Volver a portada (elimina token y logout)
+  const handleBackToPortada = () => {
+    localStorage.removeItem('docente_token')
+    logout()
+  }
+
   return (
     <>
+      {/* Cabecera: botón de volver y título de la página */}
+      <Box sx={{ mt: 2, mb: 1, display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Button variant="text" color="secondary" onClick={handleBackToPortada}>
+          {ui.volverPortada}
+        </Button>
+        <Typography variant="h5" gutterBottom>
+          {ui.ingresoPageTitle}
+        </Typography>
+      </Box>
+
       <Stack spacing={4} alignItems="center" sx={{ mt: 6 }}>
         {!loading && usuarios.length > 0 && (
           <Box sx={{ textAlign: 'center' }}>
@@ -126,31 +115,7 @@ export default function IngresoAlumno() {
           </Box>
         )}
 
-        <Typography variant="h6">{ui.ingresoPrompt}</Typography>
-        <TextField
-          label={ui.ingresoLabel}
-          value={name}
-          onChange={e => {
-            setName(e.target.value)
-            setError(false)
-          }}
-          error={error}
-          helperText={error ? ui.ingresoError : ''}
-          disabled={!isDocente}
-        />
-        {!isDocente && (
-          <Typography color="error" align="center">
-            Debes autenticarte como Docente para registrar nuevos alumnos.
-          </Typography>
-        )}
-        <Button
-          variant="contained"
-          onClick={handleNew}
-          disabled={!name.trim() || !isDocente}
-        >
-          {ui.ingresoButton}
-        </Button>
-
+        {/* Botón para autenticarse como docente o ir al panel */}
         {!isDocente ? (
           <Button
             variant="text"
@@ -160,12 +125,16 @@ export default function IngresoAlumno() {
             {ui.accederDocente}
           </Button>
         ) : (
-          <Button variant="outlined" onClick={() => setStage('admin')}>
+          <Button
+            variant="contained"
+            onClick={() => setStage('admin')}
+          >
             {ui.irPanelDocente}
           </Button>
         )}
       </Stack>
 
+      {/* Diálogo de login para docente */}
       <Dialog open={showLogin} onClose={() => setShowLogin(false)}>
         <DialogTitle>{ui.loginDocenteTitle}</DialogTitle>
         <DialogContent>

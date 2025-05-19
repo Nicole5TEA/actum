@@ -1,18 +1,25 @@
+// src/context/ActuaContext.jsx
+
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import useIdioma from '../hooks/useIdioma'
 
 const ActuaContext = createContext()
 
 export function ActuaProvider({ children }) {
-  const [stage, setStage]       = useState('portada')   // portada → ingreso → menu → escenario → admin
-  const [user, setUser]         = useState(null)        // { name, date }
-  const [perfiles, setPerfiles] = useState({})          // { [name]: { date, elecciones } }
-  const [elecciones, setElecciones] = useState({})      // estado de elecciones
+  // flujo de pantallas: portada → ingreso → menu → escenario → admin
+  const [stage, setStage]       = useState('portada')
+  // usuario actual (nombre + fecha)
+  const [user, setUser]         = useState(null)
+  // perfiles guardados ({ nombre: { date, elecciones } })
+  const [perfiles, setPerfiles] = useState({})
+  // elecciones en curso
+  const [elecciones, setElecciones] = useState({})
+  // índice de escena y paso actual
   const [indiceEscena, setIndiceEscena] = useState(0)
   const [paso, setPaso] = useState(0)
   const reiniciarPaso = () => setPaso(0)
 
-  // 🚀 Inicializa isDocente desde localStorage para no pedir login de nuevo tras reload
+  // 1) Control de login “docente”
   const [isDocente, setDocente] = useState(() => {
     try {
       return !!localStorage.getItem('docente_token')
@@ -21,9 +28,19 @@ export function ActuaProvider({ children }) {
     }
   })
 
+  // 2) Control de login “front” (página de ingreso)
+  const [isFront, setFront] = useState(() => {
+    try {
+      return !!localStorage.getItem('front_token')
+    } catch {
+      return false
+    }
+  })
+
+  // idioma
   const [idioma, cambiarIdioma] = useIdioma()
 
-  // Carga y persiste perfiles en localStorage
+  // persistencia de perfiles en localStorage
   useEffect(() => {
     const stored = localStorage.getItem('perfiles')
     if (stored) setPerfiles(JSON.parse(stored))
@@ -32,7 +49,7 @@ export function ActuaProvider({ children }) {
     localStorage.setItem('perfiles', JSON.stringify(perfiles))
   }, [perfiles])
 
-  // Mantiene actualizado el perfil actual
+  // actualizar perfil cuando cambian elecciones
   useEffect(() => {
     if (user) {
       setPerfiles(prev => ({
@@ -42,6 +59,7 @@ export function ActuaProvider({ children }) {
     }
   }, [elecciones])
 
+  // login de alumno / usuario
   function login(name) {
     const now = new Date().toISOString()
     const existing = perfiles[name]
@@ -59,27 +77,77 @@ export function ActuaProvider({ children }) {
     setStage('menu')
   }
 
+  // logout de alumno (vuelve a portada, conserva token docente si quieres)
   function logout() {
     setUser(null)
     setElecciones({})
     setIndiceEscena(0)
     setPaso(0)
     setStage('portada')
-    // Revocamos permiso docente, pero dejamos token en localStorage para reload si lo deseas
+    // revocamos permiso docente en estado, pero no tocamos localStorage
     setDocente(false)
+  }
+
+  // --- NUEVOS MÉTODOS PARA LOGIN DE FRONT Y DOCENTE ---
+
+  // login “front” (página de ingreso)
+  async function loginFront(password) {
+    const res = await fetch('/api/loginFront', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    })
+    if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.error || 'Error login front')
+    }
+    const { token } = await res.json()
+    localStorage.setItem('front_token', token)
+    setFront(true)
+  }
+
+  // logout “front” (vuelve a portada y borra token front)
+  function logoutFront() {
+    localStorage.removeItem('front_token')
+    setFront(false)
+    setStage('portada')
+  }
+
+  // login docente (panel del docente)
+  async function loginDocente(password) {
+    const res = await fetch('/api/loginDocente', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    })
+    if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.error || 'Error login docente')
+    }
+    const { token } = await res.json()
+    localStorage.setItem('docente_token', token)
+    setDocente(true)
   }
 
   return (
     <ActuaContext.Provider
       value={{
+        // flujo y navegación
         stage, setStage,
+        // usuario y perfiles
         user, perfiles,
+        // login/logout de alumno
         login, logout,
+        // login/logout de front
+        isFront, loginFront, logoutFront,
+        // login docente
+        isDocente, loginDocente,
+        // idioma
         idioma, cambiarIdioma,
+        // elecciones y control de escenas
         elecciones, setElecciones,
         indiceEscena, setIndiceEscena,
-        paso, setPaso, reiniciarPaso,
-        isDocente, setDocente
+        paso, setPaso, reiniciarPaso
       }}
     >
       {children}

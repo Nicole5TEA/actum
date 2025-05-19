@@ -34,12 +34,47 @@ export default function AdminPanel() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  // Nueva: modo de vista y alumno seleccionado
+  // Estados para crear nuevo alumno
+  const [newName, setNewName] = useState('');
+  const [newError, setNewError] = useState(false);
+
+  // Vista y alumno seleccionado
   const [viewMode, setViewMode] = useState('all'); // 'all' | 'single'
   const [selectedAlumno, setSelectedAlumno] = useState('');
 
-  // Lista de situaciones (orden)
+  // Lista de escenas/situaciones
   const escenas = textos[idioma].escenas;
+
+  // Carga de datos de alumnos
+  const loadData = async (token) => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/getAlumnos', {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Docente-Token': 'Bearer ' + token
+        }
+      });
+      if (!res.ok) throw new Error('No autorizado');
+      const json = await res.json();
+      const arr = json.map(item => ({
+        nombre: item.nombre,
+        fechaRegistro: item.fechaRegistro || item.date,
+        respuestas: item.respuestas || []
+      }));
+      setData(arr);
+    } catch {
+      // Fallback a perfiles locales
+      const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
+        nombre,
+        fechaRegistro: p.date,
+        respuestas: p.elecciones || []
+      }));
+      setData(arr);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!showLogin) {
@@ -52,37 +87,7 @@ export default function AdminPanel() {
     }
   }, [showLogin]);
 
-  const loadData = async (token) => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/getAlumnos', {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Docente-Token': 'Bearer ' + token
-        }
-      });
-      if (!res.ok) throw new Error('No autorizado');
-      const json = await res.json();
-      // Ajustamos nombres de campos
-      const arr = json.map(item => ({
-        nombre: item.id || item.nombre,
-        fechaRegistro: item.date || item.fechaRegistro,
-        respuestas: item.respuestas || []
-      }));
-      setData(arr);
-    } catch {
-      // fallback local
-      const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
-        nombre,
-        fechaRegistro: p.date,
-        respuestas: p.elecciones  // aquí p.elecciones era objeto, pero en tu backend ya vienen arrays
-      }));
-      setData(arr);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Login del docente
   const handleLogin = async () => {
     setLoginError('');
     if (!password) {
@@ -108,20 +113,53 @@ export default function AdminPanel() {
     }
   };
 
+  // Logout y vuelta a página de ingreso
   const handleLogout = () => {
     localStorage.removeItem('docente_token');
     logout();
     setStage('ingreso');
   };
 
+  // Crear nuevo alumno
+  const handleNewAlumno = async () => {
+    const trimmed = newName.trim();
+    if (!trimmed) {
+      setNewError(true);
+      return;
+    }
+    setNewError(false);
+    const token = localStorage.getItem('docente_token');
+    try {
+      const res = await fetch('/api/crearAlumno', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Docente-Token': 'Bearer ' + token
+        },
+        body: JSON.stringify({ nombre: trimmed })
+      });
+      if (res.ok) {
+        setNewName('');
+        loadData(token);
+      } else {
+        const text = await res.text();
+        console.error('Error al crear alumno:', text);
+        setNewError(true);
+      }
+    } catch (err) {
+      console.error('Error al crear alumno:', err);
+      setNewError(true);
+    }
+  };
+
   // Extrae la última respuesta de un alumno para una situación
   const getRespuesta = (alum, sitId) => {
     const lista = (alum.respuestas || []).filter(r => r.situacionId === sitId);
     if (!lista.length) return '';
-    return lista[ lista.length - 1 ].respuesta;
+    return lista[lista.length - 1].respuesta;
   };
 
-  // Cuando cambiamos de vista, reseteamos alumno seleccionado
+  // Cambio de modo de vista
   const handleViewModeChange = (e) => {
     const vm = e.target.value;
     setViewMode(vm);
@@ -147,20 +185,50 @@ export default function AdminPanel() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleLogout} color="secondary">{ui.cambiarUsuario}</Button>
-          <Button variant="contained" onClick={handleLogin}>Acceder</Button>
+          <Button onClick={handleLogout} color="secondary">
+            {ui.cambiarUsuario}
+          </Button>
+          <Button variant="contained" onClick={handleLogin}>
+            {ui.acceder}
+          </Button>
         </DialogActions>
       </Dialog>
 
-      {/* Panel principal */}
+      {/* Panel del Docente */}
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
-          <Box mb={2} display="flex" alignItems="center" flexWrap="wrap" gap={2}>
-            <Button onClick={() => setStage('ingreso')}>{ui.volverPortada}</Button>
-            <Button onClick={handleLogout}>{ui.cambiarUsuario}</Button>
+          {/* Solo un botón: volver a Página de ingreso */}
+          <Box mb={2}>
+            <Button variant="outlined" onClick={handleLogout}>
+              {ui.volverPaginaIngreso}
+            </Button>
           </Box>
 
-          <Typography variant="h5" gutterBottom>{ui.adminPanelTitle}</Typography>
+          {/* Título */}
+          <Typography variant="h5" gutterBottom>
+            {ui.adminPanelTitle}
+          </Typography>
+
+          {/* Formulario para crear nuevo alumno */}
+          <Box mb={3} display="flex" alignItems="center" gap={2}>
+            <TextField
+              label={ui.ingresoLabel}
+              value={newName}
+              onChange={e => {
+                setNewName(e.target.value);
+                setNewError(false);
+              }}
+              error={newError}
+              helperText={newError ? ui.ingresoError : ''}
+            />
+            <Button
+              variant="contained"
+              disabled={!newName.trim()}
+              onClick={handleNewAlumno}
+            >
+              {ui.ingresoButton}
+            </Button>
+          </Box>
 
           {/* Controles de vista */}
           <Box mb={3} display="flex" alignItems="center" flexWrap="wrap" gap={2}>
@@ -196,6 +264,7 @@ export default function AdminPanel() {
             )}
           </Box>
 
+          {/* Datos de los alumnos */}
           {loading ? (
             <CircularProgress />
           ) : (
@@ -230,7 +299,9 @@ export default function AdminPanel() {
               {viewMode === 'single' && (
                 <>
                   {!selectedAlumno ? (
-                    <Typography>Selecciona un alumno para ver sus respuestas.</Typography>
+                    <Typography>
+                      Selecciona un alumno para ver sus respuestas.
+                    </Typography>
                   ) : (
                     <Table>
                       <TableHead>

@@ -1,3 +1,5 @@
+// src/App.jsx
+
 import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -5,6 +7,7 @@ import Container from '@mui/material/Container';
 import { useActua } from './context/ActuaContext';
 
 import Portada from './components/Portada';
+import LoginFront from './components/LoginFront';
 import IngresoAlumno from './components/IngresoAlumno';
 import MainMenu from './components/MainMenu';
 import ActuaEscenario from './components/ActuaEscenario';
@@ -44,11 +47,14 @@ function AppContent() {
 }
 
 export default function App() {
+  const { isFront } = useActua();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="md">
-        <AppContent />
+        {/* Si aún no has pasado la primera contraseña, mostramos LoginFront */}
+        {!isFront ? <LoginFront /> : <AppContent />}
       </Container>
       <DrawerMenu />
     </ThemeProvider>
