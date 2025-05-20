@@ -249,8 +249,6 @@ export default function AdminPanel() {
               </FormControl>
             )}
 
-            <Button onClick={handleLogout}>{ui.salir}</Button>
-            <Button onClick={() => setStage('intro')}>{ui.volver}</Button>
           </Box>
 
           {/* ── NUEVO ALUMNO ── */}
