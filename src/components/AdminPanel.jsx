@@ -134,6 +134,40 @@ export default function AdminPanel() {
     return l.length ? l[l.length - 1].respuesta : '';
   };
 
+  /* ───────────── NUEVOS SELECTORES ───────────── */
+  const getComentario = (al, id) => {
+    const l = (al.respuestas || []).filter(
+      (r) => r.situacionId === id && r.comentario
+    );
+    return l.length ? l[l.length - 1].comentario : '';
+  };
+
+  const getAzar = (al, id) => {
+    const l = (al.respuestas || []).filter(
+      (r) => r.situacionId === id && typeof r.azar === 'boolean'
+    );
+    return l.length ? (l[l.length - 1].azar ? '✓' : '') : '';
+  };
+
+  const getFecha = (al, id) => {
+    const l = (al.respuestas || []).filter((r) => r.situacionId === id);
+    if (!l.length) return '';
+    const f =
+      l[l.length - 1].fecha ||
+      l[l.length - 1].datetime ||
+      l[l.length - 1].date;
+    if (!f) return '';
+    return new Date(f).toLocaleString('es-ES', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hourCycle: 'h23',
+    });
+  };
+
   /* ────────────────── RENDER ────────────────── */
   return (
     <>
@@ -203,18 +237,37 @@ export default function AdminPanel() {
               <FormControl sx={{ minWidth: 200 }}>
                 <InputLabel id="aLabel">Alumno</InputLabel>
                 <Select
-                  labelId="aLabel" label="Alumno"
                   value={selectedAlumno}
                   onChange={(e) => setSelectedAlumno(e.target.value)}
                 >
                   {data.map((al) => (
-                    <MenuItem key={al.nombre} value={al.nombre}>{al.nombre}</MenuItem>
+                    <MenuItem key={al.nombre} value={al.nombre}>
+                      {al.nombre}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             )}
+
+            <Button onClick={handleLogout}>{ui.salir}</Button>
+            <Button onClick={() => setStage('intro')}>{ui.volver}</Button>
           </Box>
 
+          {/* ── NUEVO ALUMNO ── */}
+          {viewMode === 'all' && (
+            <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
+              <TextField
+                label={ui.nuevoAlumno}
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                error={errNew}
+                helperText={errNew && ui.errNombre}
+              />
+              <Button onClick={crearAlumno}>{ui.crear}</Button>
+            </Box>
+          )}
+
+          {/* ── TABLA ── */}
           {loading ? (
             <CircularProgress />
           ) : viewMode === 'all' ? (
@@ -223,7 +276,9 @@ export default function AdminPanel() {
                 <TableRow>
                   <TableCell>Alumno</TableCell>
                   <TableCell>Fecha Registro</TableCell>
-                  {escenas.map((s) => <TableCell key={s.id}>{s.titulo}</TableCell>)}
+                  {escenas.map((s) => (
+                    <TableCell key={s.id}>{s.titulo}</TableCell>
+                  ))}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -231,7 +286,9 @@ export default function AdminPanel() {
                   <TableRow key={al.nombre}>
                     <TableCell>{al.nombre}</TableCell>
                     <TableCell>{al.fechaRegistro}</TableCell>
-                    {escenas.map((s) => <TableCell key={s.id}>{getResp(al, s.id)}</TableCell>)}
+                    {escenas.map((s) => (
+                      <TableCell key={s.id}>{getResp(al, s.id)}</TableCell>
+                    ))}
                   </TableRow>
                 ))}
               </TableBody>
@@ -244,6 +301,9 @@ export default function AdminPanel() {
                 <TableRow>
                   <TableCell>Situación</TableCell>
                   <TableCell>Respuesta</TableCell>
+                  <TableCell>Comentario</TableCell>
+                  <TableCell>Azar</TableCell>
+                  <TableCell>Fecha</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -253,6 +313,9 @@ export default function AdminPanel() {
                     <TableRow key={s.id}>
                       <TableCell>{s.titulo}</TableCell>
                       <TableCell>{getResp(al, s.id)}</TableCell>
+                      <TableCell>{getComentario(al, s.id) || '—'}</TableCell>
+                      <TableCell align="center">{getAzar(al, s.id)}</TableCell>
+                      <TableCell>{getFecha(al, s.id)}</TableCell>
                     </TableRow>
                   );
                 })}
