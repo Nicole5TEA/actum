@@ -15,6 +15,8 @@ export default function MainMenu() {
     elecciones,
     idioma
   } = useActua()
+  
+  const data = textos[idioma] 
 
   const ui = textos[idioma].ui
   const escenas = textos[idioma].escenas
