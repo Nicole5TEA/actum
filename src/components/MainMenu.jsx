@@ -70,6 +70,7 @@ export default function MainMenu() {
         currentIndex={-1}
         completed={elecciones}
         categories={ui.categories}
+        nivelesLabels={data.ui.niveles}
         onSelect={handleSelect}
       />
     </Box>

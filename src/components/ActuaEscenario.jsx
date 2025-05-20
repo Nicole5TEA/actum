@@ -54,6 +54,16 @@ const ActuaEscenario = () => {
   const totalPasos = escena.pasos.length
   const eleccion = elecciones[escena.id] || ''
 
+  // -------------------------------------------------------------------------
+  // LÓGICA DE NIVEL (nuevo)
+  // -------------------------------------------------------------------------
+  const escenasNivel = escenas.filter(e => e.nivel === escena.nivel)
+  const indiceEnNivel = escenasNivel.findIndex(e => e.id === escena.id)
+  const isLastSceneLvl = indiceEnNivel === escenasNivel.length - 1
+  const nextInNivel = escenasNivel[indiceEnNivel + 1]
+  const nextGlobalIdx = nextInNivel ? escenas.findIndex(e => e.id === nextInNivel.id) : -1
+  // -------------------------------------------------------------------------
+
   // Reset de estados al cambiar escena o paso
   useEffect(() => {
     setCommentText('')
@@ -62,7 +72,7 @@ const ActuaEscenario = () => {
     setShowFeedback(false)
   }, [indiceEscena, paso])
 
-  // Navegar a otra escena
+  // Navegar a otra escena desde el menú
   const goToScene = idx => {
     setIndiceEscena(idx)
     reiniciarPaso()
@@ -120,15 +130,15 @@ const ActuaEscenario = () => {
 
   // Finaliza el feedback y avanza escena/paso
   const finishFeedback = () => {
-    const isLastScene = indiceEscena === escenas.length - 1
-    // Reset states
+    // Reset states de feedback
     setShowFeedback(false)
     setCommentText('')
     setAzarFlag(false)
     setCommentSaved(false)
-    // Avanza a siguiente escena o fin
-    if (!isLastScene) {
-      setIndiceEscena(indiceEscena + 1)
+
+    // Avanza a la siguiente escena dentro del mismo nivel o vuelve al menú
+    if (!isLastSceneLvl) {
+      setIndiceEscena(nextGlobalIdx)
       reiniciarPaso()
     } else {
       setStage('menu')
@@ -137,7 +147,6 @@ const ActuaEscenario = () => {
 
   // Avanzar en la lógica de la escena
   const avanzar = id => {
-    const isLastScene = indiceEscena === escenas.length - 1
     const isLastStep = paso === totalPasos - 1
 
     // Si ya estamos en feedback, no hacemos nada aquí
@@ -149,7 +158,7 @@ const ActuaEscenario = () => {
       // Guardar elección en el estado local
       setElecciones(prev => ({ ...prev, [escena.id]: id }))
 
-      // Llamada a la nueva API que actualiza el array `respuestas` en Cosmos DB
+      // Llamada a la API que actualiza el array `respuestas` en Cosmos DB
       fetch('/api/guardarRespuestas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -162,8 +171,8 @@ const ActuaEscenario = () => {
               paso,
               tipoPaso: 'eleccion',
               respuesta: id,
-              comentario: null,                       // aún no hay comentario
-              azar: azarFlag, 
+              comentario: null,
+              azar: azarFlag,
               idioma
             }
           ]
@@ -183,9 +192,9 @@ const ActuaEscenario = () => {
       return
     }
 
-    // Si no era última escena
-    if (!isLastScene) {
-      setIndiceEscena(indiceEscena + 1)
+    // Avanzar a siguiente escena dentro del mismo nivel o volver al menú
+    if (!isLastSceneLvl) {
+      setIndiceEscena(nextGlobalIdx)
       reiniciarPaso()
     } else {
       setStage('menu')
@@ -314,14 +323,19 @@ const ActuaEscenario = () => {
     )
   }
 
+  // -------------------------------------------------------------------------
+  // JSX ---------------------------------------------------------------------
+  // -------------------------------------------------------------------------
   return (
     <>
+      {/* Drawer (menú lateral) */}
       <Drawer open={menuOpen} onClose={() => setMenuOpen(false)}>
         <DrawerMenu
           items={escenas}
           currentIndex={indiceEscena}
           completed={elecciones}
           categories={data.ui.categories}
+          nivelesLabels={data.ui.niveles}
           onSelect={goToScene}
         />
       </Drawer>
@@ -360,6 +374,7 @@ const ActuaEscenario = () => {
         {/* Contenido central */}
         {renderContenido()}
 
+        {/* Formulario de comentario/azar para pasos de tipo resultado */}
         {pasoActual.tipo === 'resultado' && (
           <Box mt={3} p={2} border={1} borderColor="grey.400" borderRadius={1}>
             <Stack spacing={2}>
@@ -391,6 +406,7 @@ const ActuaEscenario = () => {
           </Box>
         )}
 
+        {/* ­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­ Indicadores de progreso */}
         <Stack direction="row" spacing={1} justifyContent="center" mt={2}>
           {Array.from({ length: totalPasos }).map((_, i) => (
             <Box
@@ -408,9 +424,10 @@ const ActuaEscenario = () => {
           {data.ui.pasoTexto(paso + 1, totalPasos)}
         </Typography>
 
-        {/* Navegación */}
+        {/* ­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­ Navegación */}
         {isSmUp ? (
           <>
+            {/* Flecha atrás */}
             <Button
               onClick={handleBack}
               sx={{
@@ -438,51 +455,86 @@ const ActuaEscenario = () => {
                 {data.ui.atras}
               </Typography>
             </Button>
-            {(showFeedback ||
-              pasoActual.tipo === 'situacion' ||
-              (pasoActual.tipo === 'resultado' && indiceEscena < escenas.length - 1)) && (
+
+            {/* Flecha adelante */}
+            {!isLastSceneLvl && (
+              (showFeedback ||
+                pasoActual.tipo === 'situacion' ||
+                (pasoActual.tipo === 'resultado' && !isLastSceneLvl)) && (
+                <Button
+                  onClick={() => (showFeedback ? finishFeedback() : avanzar())}
+                  sx={{
+                    position: 'fixed',
+                    top: '50%',
+                    right: theme.spacing(1),
+                    transform: 'translateY(-50%)',
+                    minWidth: 48,
+                    p: 1,
+                    borderRadius: 1,
+                    zIndex: 10,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 70,
+                    height: 70,
+                    backgroundColor: 'transparent',
+                    color: 'inherit'
+                  }}
+                  variant="outlined"
+                  disabled={
+                    !showFeedback && pasoActual.tipo === 'eleccion' && !eleccion
+                  }
+                >
+                  <ArrowForwardIosIcon />
+                  <Typography variant="caption" sx={{ mt: 1 }}>
+                    {data.ui.siguiente}
+                  </Typography>
+                </Button>
+              )
+            )}
+
+            {/* Fin de nivel → botón volver al menú */}
+            {isLastSceneLvl && pasoActual.tipo === 'resultado' && !showFeedback && (
               <Button
-                onClick={() => (showFeedback ? finishFeedback() : avanzar())}
+                variant="contained"
                 sx={{
                   position: 'fixed',
                   top: '50%',
                   right: theme.spacing(1),
                   transform: 'translateY(-50%)',
-                  minWidth: 48,
-                  p: 1,
-                  borderRadius: 1,
-                  zIndex: 10,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 70,
-                  height: 70,
-                  backgroundColor: 'transparent',
-                  color: 'inherit'
+                  zIndex: 10
                 }}
-                variant="outlined"
-                disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
+                onClick={() => setStage('menu')}
               >
-                <ArrowForwardIosIcon />
-                <Typography variant="caption" sx={{ mt: 1 }}>
-                  {data.ui.siguiente}
-                </Typography>
+                {data.ui.volverMenu}
               </Button>
             )}
           </>
         ) : (
+          /* ­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­ Vista móvil */
           <Box display="flex" justifyContent="space-between" mt={4}>
             <Button onClick={handleBack}>
               <ArrowBackIosNewIcon /> {data.ui.atras}
             </Button>
-            <Button
-              onClick={() => (showFeedback ? finishFeedback() : avanzar())}
-              disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
-            >
-              {data.ui.siguiente}
-              <ArrowForwardIosIcon />
-            </Button>
+
+            {!isLastSceneLvl ? (
+              <Button
+                onClick={() => (showFeedback ? finishFeedback() : avanzar())}
+                disabled={
+                  !showFeedback && pasoActual.tipo === 'eleccion' && !eleccion
+                }
+              >
+                {data.ui.siguiente}
+                <ArrowForwardIosIcon />
+              </Button>
+            ) : (
+              pasoActual.tipo === 'resultado' && !showFeedback && (
+                <Button variant="contained" onClick={() => setStage('menu')}>
+                  {data.ui.volverMenu}
+                </Button>
+              )
+            )}
           </Box>
         )}
       </Container>

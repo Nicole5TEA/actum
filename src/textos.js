@@ -59,12 +59,14 @@ const textos = {
         emocionpropia: 'Emociones propias',
         teoriamente: 'Teoria de la mente',
         coherencia: 'Coherencia central',
-      }
+      },
+      niveles: { 1: 'Nivel 1', 2: 'Nivel 2', 3: 'Nivel 3' },
     },
     escenas: [
       {
         id: 'patatas',
         categoria: 'social',
+        nivel: 1,
         titulo: 'YO TAMBIÉN QUIERO PATATAS',
         pictos: [
           'situacion1/picto1.png',
@@ -104,6 +106,7 @@ const textos = {
       {
         id: 'aniversario',
         categoria: 'emocionpropia',
+        nivel: 2,
         titulo: 'TROZO PEQUEÑO DE PASTEL EN FIESTA DE ANIVERSARIO',
         pictos: [
           'emocionpropiaAniversario/picto1.png',
@@ -134,6 +137,7 @@ const textos = {
       },
       {
         id: 'juguete',
+        nivel: 1,
         categoria: 'emocionajena',
         titulo: 'SE ROMPE UN JUGUETE',
         pictos: [
@@ -174,6 +178,7 @@ const textos = {
       },
       {
         id: 'emocion1',
+        nivel: 2,
         categoria: 'emocionajena',
         titulo: '¿CÓMO TE SIENTES?',
         pictos: [
@@ -219,6 +224,7 @@ const textos = {
         },
         {
           id: 'emocion2',
+          nivel: 3,
           categoria: 'emocionajena',
           titulo: 'PARTIDO DE FUTBOL',
           pictos: [
@@ -330,7 +336,8 @@ const textos = {
         emocionpropia: 'Emocions pròpies',
         teoriamente: 'Teoria de la ment',
         coherencia: 'Coherència central',
-      }
+      },
+      niveles: { 1: 'Nivel 1', 2: 'Nivel 2', 3: 'Nivel 3' },
     },
     escenas: [
       {
