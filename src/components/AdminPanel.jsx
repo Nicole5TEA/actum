@@ -30,7 +30,6 @@ export default function AdminPanel() {
   /* ────────────────── ESTADOS ────────────────── */
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  // si ya hay token, no mostramos el diálogo
   const [showLogin, setShowLogin] = useState(
     () => !localStorage.getItem('docente_token')
   );
@@ -43,9 +42,12 @@ export default function AdminPanel() {
   const escenas = textos[idioma].escenas;
 
   /* ────────────── UTIL ────────────── */
-  // Convierte respuestas en array, sea un array, un objeto o undefined
+  // Convierte cualquier cosa en array (respuesta antigua podía ser objeto)
   const toArray = (x) =>
     Array.isArray(x) ? x : x && typeof x === 'object' ? Object.values(x) : [];
+
+  const parseDate = (r) =>
+    new Date(r.fecha || r.datetime || r.date || 0).getTime();
 
   /* ────────────────── EFFECT CARGA ────────────────── */
   useEffect(() => {
@@ -88,7 +90,7 @@ export default function AdminPanel() {
 
   const crearAlumno = async () => {
     const trimmed = newName.trim();
-    if (!/^([A-Za-zÀ-ÿ\s]{2,30})$/.test(trimmed)) {
+    if (!/^([A-Za-zÀ-ÿ\\s]{2,30})$/.test(trimmed)) {
       setErrNew(true);
       return;
     }
@@ -135,39 +137,37 @@ export default function AdminPanel() {
     }
   };
 
-  /* ───────────── NUEVOS SELECTORES ───────────── */
+  /* ───────────── SELECTORES ───────────── */
+  const pickLast = (arr) =>
+    arr.reduce((a, b) => (parseDate(a) > parseDate(b) ? a : b));
+
   const getResp = (al, id) => {
-    const respArr = toArray(al.respuestas);
-    const l = respArr.filter((r) => r.situacionId === id);
-    return l.length ? l[l.length - 1].respuesta : '';
+    const l = toArray(al.respuestas).filter(
+      (r) => r.situacionId === id && r.tipoPaso === 'eleccion'
+    );
+    return l.length ? pickLast(l).respuesta : '';
   };
 
   const getComentario = (al, id) => {
-    const respArr = toArray(al.respuestas);
-    const l = respArr.filter(
-      (r) => r.situacionId === id && r.comentario
+    const l = toArray(al.respuestas).filter(
+      (r) => r.situacionId === id && r.tipoPaso === 'comentario' && r.comentario
     );
-    return l.length ? l[l.length - 1].comentario : '';
+    return l.length ? pickLast(l).comentario : '';
   };
 
   const getAzar = (al, id) => {
-    const respArr = toArray(al.respuestas);
-    const l = respArr.filter(
-      (r) => r.situacionId === id && typeof r.azar === 'boolean'
+    const l = toArray(al.respuestas).filter(
+      (r) => r.situacionId === id && r.tipoPaso === 'azar'
     );
-    return l.length ? (l[l.length - 1].azar ? '✓' : '') : '';
+    if (!l.length) return '';
+    return pickLast(l).azar ? '✓' : '';
   };
 
   const getFecha = (al, id) => {
-    const respArr = toArray(al.respuestas);
-    const l = respArr.filter((r) => r.situacionId === id);
+    const l = toArray(al.respuestas).filter((r) => r.situacionId === id);
     if (!l.length) return '';
-    const f =
-      l[l.length - 1].fecha ||
-      l[l.length - 1].datetime ||
-      l[l.length - 1].date;
-    if (!f) return '';
-    return new Date(f).toLocaleString('es-ES', {
+    const reg = pickLast(l);
+    return new Date(reg.fecha || reg.datetime || reg.date).toLocaleString('es-ES', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
@@ -181,56 +181,71 @@ export default function AdminPanel() {
   /* ────────────────── RENDER ────────────────── */
   return (
     <>
-      {/* ── LOGIN DOCENTE ── */}
+      {/* LOGIN DOCENTE */}
       <Dialog open={showLogin} disableEscapeKeyDown>
         <DialogTitle>{ui.adminPanelTitle}</DialogTitle>
         <DialogContent>
           <TextField
-            autoFocus fullWidth margin="dense"
-            label="Contraseña" type="password"
-            value={password} onChange={(e) => setPassword(e.target.value)}
-            error={!!loginError} helperText={loginError}
+            autoFocus
+            fullWidth
+            margin="dense"
+            label="Contraseña"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            error={!!loginError}
+            helperText={loginError}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={logout} color="secondary">{ui.cambiarUsuario}</Button>
-          <Button variant="contained" onClick={handleLogin}>{ui.acceder}</Button>
+          <Button onClick={logout} color="secondary">
+            {ui.cambiarUsuario}
+          </Button>
+          <Button variant="contained" onClick={handleLogin}>
+            {ui.acceder}
+          </Button>
         </DialogActions>
       </Dialog>
 
-      {/* ── PANEL ── */}
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
           <Box mb={2}>
-          <Button
-            onClick={() => {
-              localStorage.removeItem('docente_token');
-              logout();               // ← pone setDocente(false) y limpia contexto
-              setStage('ingreso');
-            }}
-          >
-            {ui.volverPortada}
-          </Button>
+            <Button
+              onClick={() => {
+                localStorage.removeItem('docente_token');
+                logout();
+                setStage('ingreso');
+              }}
+            >
+              {ui.volverPortada}
+            </Button>
           </Box>
 
-          <Typography variant="h5" gutterBottom>{ui.adminPanelTitle}</Typography>
+          <Typography variant="h5" gutterBottom>
+            {ui.adminPanelTitle}
+          </Typography>
 
           {/* Alta */}
           <Box mb={4} display="flex" gap={2} alignItems="center">
             <TextField
               label={ui.nuevoAlumnoLabel}
-              value={newName} onChange={(e) => setNewName(e.target.value)}
-              error={errNew} helperText={errNew ? ui.crearAlumnoErr : ''}
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              error={errNew}
+              helperText={errNew ? ui.crearAlumnoErr : ''}
             />
-            <Button variant="contained" onClick={crearAlumno}>{ui.crearAlumnoBtn}</Button>
+            <Button variant="contained" onClick={crearAlumno}>
+              {ui.crearAlumnoBtn}
+            </Button>
           </Box>
 
           {/* Controles vista */}
           <Box mb={3} display="flex" gap={2} flexWrap="wrap" alignItems="center">
             <FormControl sx={{ minWidth: 200 }}>
-              <InputLabel id="vLabel">Vista</InputLabel>
+              <InputLabel id="vista-label">Vista</InputLabel>
               <Select
-                labelId="vLabel" label="Vista"
+                labelId="vista-label"
+                label="Vista"
                 value={viewMode}
                 onChange={(e) => {
                   const v = e.target.value;
@@ -245,9 +260,10 @@ export default function AdminPanel() {
 
             {viewMode === 'single' && (
               <FormControl sx={{ minWidth: 200 }}>
-                <InputLabel id="aLabel">Alumno</InputLabel>
+                <InputLabel id="alumno-label">Alumno</InputLabel>
                 <Select
                   value={selectedAlumno}
+                  labelId="alumno-label"
                   onChange={(e) => setSelectedAlumno(e.target.value)}
                 >
                   {data.map((al) => (
@@ -258,7 +274,6 @@ export default function AdminPanel() {
                 </Select>
               </FormControl>
             )}
-
           </Box>
 
           {/* ── NUEVO ALUMNO ── */}
@@ -279,7 +294,7 @@ export default function AdminPanel() {
           {loading ? (
             <CircularProgress />
           ) : viewMode === 'all' ? (
-            <Table>
+            <Table size="small">
               <TableHead>
                 <TableRow>
                   <TableCell>Alumno</TableCell>
@@ -304,7 +319,7 @@ export default function AdminPanel() {
           ) : !selectedAlumno ? (
             <Typography>Selecciona un alumno para ver sus respuestas.</Typography>
           ) : (
-            <Table>
+            <Table size="small">
               <TableHead>
                 <TableRow>
                   <TableCell>Situación</TableCell>
@@ -320,7 +335,7 @@ export default function AdminPanel() {
                   return (
                     <TableRow key={s.id}>
                       <TableCell>{s.titulo}</TableCell>
-                      <TableCell>{getResp(al, s.id)}</TableCell>
+                      <TableCell>{getResp(al, s.id) || '—'}</TableCell>
                       <TableCell>{getComentario(al, s.id) || '—'}</TableCell>
                       <TableCell align="center">{getAzar(al, s.id)}</TableCell>
                       <TableCell>{getFecha(al, s.id)}</TableCell>

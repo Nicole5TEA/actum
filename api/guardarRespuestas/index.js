@@ -47,7 +47,7 @@ module.exports = async function (context, req) {
   // 3) Body esperado y lógica de actualización
   try {
     const { id, respuestas } = req.body || {};
-      if (!id || !Array.isArray(respuestas) || respuestas.length === 0) {
+    if (!id || !Array.isArray(respuestas) || respuestas.length === 0) {
       context.res = {
         status: 400,
         body: { error: 'Falta id o array de respuestas.' }
@@ -61,6 +61,11 @@ module.exports = async function (context, req) {
       context.res = { status: 404, body: { error: 'Alumno no encontrado.' } };
       return;
     }
+
+    // Normalizar cada registro nuevo: si no viene fecha, añadimos una ISO actual
+    respuestas.forEach(r => {
+      if (!r.fecha) r.fecha = new Date().toISOString();
+    });
 
     alumno.respuestas = (alumno.respuestas || []).concat(respuestas);
     const { resource: updated } = await item.replace(alumno);
