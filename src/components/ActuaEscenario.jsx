@@ -56,13 +56,20 @@ const ActuaEscenario = () => {
   const eleccion = elecciones[escena.id] || ''
 
   /* ---------------- LÓGICA DE NIVEL -------------- */
+  // 1) Filtra por nivel
   const escenasNivel = escenas.filter(e => e.nivel === escena.nivel)
-  const indiceEnNivel = escenasNivel.findIndex(e => e.id === escena.id)
-  const isLastSceneLvl = indiceEnNivel === escenasNivel.length - 1
-  const nextInNivel = escenasNivel[indiceEnNivel + 1]
+  // 2) Reordénalas según el orden de categorías del UI
+  const categoriasKeys = Object.keys(data.ui.categories)
+  const escenasNivelOrdered = categoriasKeys.flatMap(catKey =>
+    escenasNivel.filter(e => e.categoria === catKey)
+  )
+  // 3) Índice y siguiente dentro de ese orden
+  const indiceEnNivel = escenasNivelOrdered.findIndex(e => e.id === escena.id)
+  const isLastSceneLvl = indiceEnNivel === escenasNivelOrdered.length - 1
+  const nextInNivel = escenasNivelOrdered[indiceEnNivel + 1]
   const nextGlobalIdx = nextInNivel ? escenas.findIndex(e => e.id === nextInNivel.id) : -1
   // Ocultar flecha sólo en el paso "resultado" de la última escena del nivel
-  const hideNext = isLastSceneLvl && pasoActual.tipo === 'resultado'
+  const hideNext = showFeedback
 
   /* ---------------- EFFECTS ---------------------- */
   useEffect(() => {
@@ -428,114 +435,113 @@ const ActuaEscenario = () => {
 
         {/* Navegación */}
         {isSmUp ? (
-          <>
-            {/* Atrás */}
-            <Button
-              onClick={handleBack}
-              sx={{
-                position: 'fixed',
-                top: '50%',
-                left: theme.spacing(1),
-                transform: 'translateY(-50%)',
-                minWidth: 48,
-                p: 1,
-                borderRadius: 1,
-                zIndex: 10,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: 70,
-                height: 70,
-                backgroundColor: 'transparent',
-                color: 'inherit'
-              }}
-              variant="outlined"
-            >
-              <ArrowBackIosNewIcon />
-              <Typography variant="caption" sx={{ mt: 1 }}>
-                {data.ui.atras}
-              </Typography>
-            </Button>
+  <>
+    {/* Atrás */}
+    <Button
+      onClick={handleBack}
+      sx={{
+        position: 'fixed',
+        top: '50%',
+        left: theme.spacing(1),
+        transform: 'translateY(-50%)',
+        minWidth: 48,
+        p: 1,
+        borderRadius: 1,
+        zIndex: 10,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        height: 70,
+        backgroundColor: 'transparent',
+        color: 'inherit'
+      }}
+      variant="outlined"
+    >
+      <ArrowBackIosNewIcon />
+      <Typography variant="caption" sx={{ mt: 1 }}>
+        {data.ui.atras}
+      </Typography>
+    </Button>
 
-            {/* Adelante */}
-            {!hideNext && (
-              <Button
-                onClick={() => (showFeedback ? finishFeedback() : avanzar())}
-                sx={{
-                  position: 'fixed',
-                  top: '50%',
-                  right: theme.spacing(1),
-                  transform: 'translateY(-50%)',
-                  minWidth: 48,
-                  p: 1,
-                  borderRadius: 1,
-                    zIndex: 10,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 70,
-                    height: 70,
-                    backgroundColor: 'transparent',
-                    color: 'inherit'
-                }}
-                variant="outlined"
-                disabled={
-                  !showFeedback && pasoActual.tipo === 'eleccion' && !eleccion
-                }
-              >
-                <ArrowForwardIosIcon />
-                  <Typography variant="caption" sx={{ mt: 1 }}>
-                    {data.ui.siguiente}
-                  </Typography>
-              </Button>
-            )}
+    {/* Flecha adelante (muestra en todos los pasos, deshabilitada si falta elección) */}
+    {!hideNext && (
+      <Button
+        onClick={() =>
+          // Si ya estamos en el feedback, paso a la siguiente escena; si no, avanzo paso
+          showFeedback ? finishFeedback() : avanzar()
+        }
+        sx={{
+          position: 'fixed',
+          top: '50%',
+          right: theme.spacing(1),
+          transform: 'translateY(-50%)',
+          minWidth: 48,
+          p: 1,
+          borderRadius: 1,
+          zIndex: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 70,
+          height: 70,
+          backgroundColor: 'transparent',
+          color: 'inherit'
+        }}
+        variant="outlined"
+        disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
+      >
+        <ArrowForwardIosIcon />
+        <Typography variant="caption" sx={{ mt: 1 }}>
+          {data.ui.siguiente}
+        </Typography>
+      </Button>
+    )}
 
-            {/* Botón volver menú cuando toca */}
-            {hideNext && !showFeedback && (
-              <Button
-                variant="contained"
-                sx={{
-                  position: 'fixed',
-                  top: '50%',
-                  right: theme.spacing(1),
-                  transform: 'translateY(-50%)',
-                  zIndex: 10
-                }}
-                onClick={() => setStage('menu')}
-              >
-                {data.ui.volverMenu}
-              </Button>
-            )}
-          </>
-        ) : (
-          /* Móvil */
-          <Box display="flex" justifyContent="space-between" mt={4}>
-            <Button onClick={handleBack}>
-              <ArrowBackIosNewIcon /> {data.ui.atras}
-            </Button>
+    {/* Después de completar feedback, botón para volver al menú */}
+    {hideNext && (
+      <Button
+        variant="contained"
+        sx={{
+          position: 'fixed',
+          top: '50%',
+          right: theme.spacing(1),
+          transform: 'translateY(-50%)',
+          zIndex: 10
+        }}
+        onClick={finishFeedback}
+      >
+        {data.ui.volverMenu}
+      </Button>
+    )}
+  </>
+) : (
+  /* Vista móvil */
+  <Box display="flex" justifyContent="space-between" mt={4}>
+    <Button onClick={handleBack}>
+      <ArrowBackIosNewIcon /> {data.ui.atras}
+    </Button>
 
-            {!hideNext ? (
-              <Button
-                onClick={() => (showFeedback ? finishFeedback() : avanzar())}
-                disabled={
-                  !showFeedback && pasoActual.tipo === 'eleccion' && !eleccion
-                }
-              >
-                {data.ui.siguiente}
-                <ArrowForwardIosIcon />
-              </Button>
-            ) : (
-              !showFeedback && (
-                <Button variant="contained" onClick={() => setStage('menu')}>
-                  {data.ui.volverMenu}
-                </Button>
-              )
-            )}
-          </Box>
-        )}
-      </Container>
+    {/* Flecha adelante o botón menú tras feedback */}
+    {!hideNext ? (
+      <Button
+        onClick={() =>
+          showFeedback ? finishFeedback() : avanzar()
+        }
+        disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
+      >
+        {data.ui.siguiente}
+        <ArrowForwardIosIcon />
+      </Button>
+    ) : (
+      <Button variant="contained" onClick={finishFeedback}>
+        {data.ui.volverMenu}
+      </Button>
+    )}
+  </Box>
+)}      </Container>
     </>
   )
 }
