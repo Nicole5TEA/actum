@@ -64,14 +64,13 @@ export default function IngresoAlumno() {
     if (showAcceso) return;
 
     setLoading(true);
-    const headers = {
-      ...(isDocente && {
-        'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token'),
-      }),
-      ...(localStorage.getItem('access_token') && {
-        'X-Acceso-Token': 'Bearer ' + localStorage.getItem('access_token'),
-      }),
-    };
+    const headers = {};
+
+    const accTok = localStorage.getItem('access_token');
+    if (accTok) headers['X-Acceso-Token'] = 'Bearer ' + accTok;
+    
+    const docTok = localStorage.getItem('docente_token');
+    if (docTok) headers['X-Docente-Token'] = 'Bearer ' + docTok;
 
     fetch('/api/getAlumnos', { headers })
       .then((res) => res.json())

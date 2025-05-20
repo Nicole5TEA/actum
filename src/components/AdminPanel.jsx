@@ -160,7 +160,8 @@ export default function AdminPanel() {
           <Box mb={2}>
           <Button
             onClick={() => {
-              localStorage.removeItem('docente_token'); // obliga a re-autenticar
+              localStorage.removeItem('docente_token');
+              logout();               // ← pone setDocente(false) y limpia contexto
               setStage('ingreso');
             }}
           >
