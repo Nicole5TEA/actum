@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -42,12 +41,50 @@ export default function AdminPanel() {
   const escenas = textos[idioma].escenas;
 
   /* ────────────── UTIL ────────────── */
-  // Convierte cualquier cosa en array (respuesta antigua podía ser objeto)
   const toArray = (x) =>
     Array.isArray(x) ? x : x && typeof x === 'object' ? Object.values(x) : [];
 
   const parseDate = (r) =>
     new Date(r.fecha || r.datetime || r.date || 0).getTime();
+
+  /**
+   * Agrupa los registros de una misma situación en "sesiones".
+   * Una sesión comienza en un registro tipo "eleccion" y engloba los registros
+   * siguientes (comentario / azar) hasta la siguiente "eleccion" o el final.
+   * Devuelve una lista de objetos: {situacionId, respuesta, comentario, azar, fecha}
+   * ordenados por fecha DESC.
+   */
+  const buildSesiones = (respuestas) => {
+    const sorted = [...toArray(respuestas)].sort((a, b) => parseDate(a) - parseDate(b));
+    const sesiones = [];
+    const currentIdx = {}; // situacionId -> índice en sesiones
+
+    sorted.forEach((reg) => {
+      const sId = reg.situacionId;
+      if (reg.tipoPaso === 'eleccion') {
+        // Nueva sesión para esta situación
+        const ses = {
+          situacionId: sId,
+          respuesta: reg.respuesta || '',
+          comentario: '',
+          azar: '',
+          fecha: reg.fecha || reg.datetime || reg.date,
+        };
+        sesiones.push(ses);
+        currentIdx[sId] = sesiones.length - 1;
+      } else if (currentIdx[sId] !== undefined) {
+        const ses = sesiones[currentIdx[sId]];
+        if (reg.tipoPaso === 'comentario' && reg.comentario) ses.comentario = reg.comentario;
+        if (reg.tipoPaso === 'azar') ses.azar = reg.azar ? '✓' : '';
+        // Actualizar fecha a la más reciente dentro de la sesión
+        if (parseDate(reg) > parseDate(ses)) ses.fecha = reg.fecha || reg.datetime || reg.date;
+      }
+    });
+
+    // Ordenar por fecha descendente (más reciente primero)
+    sesiones.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+    return sesiones;
+  };
 
   /* ────────────────── EFFECT CARGA ────────────────── */
   useEffect(() => {
@@ -76,7 +113,6 @@ export default function AdminPanel() {
         }))
       );
     } catch {
-      // fallback local
       const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
         nombre,
         fechaRegistro: p.date,
@@ -90,7 +126,7 @@ export default function AdminPanel() {
 
   const crearAlumno = async () => {
     const trimmed = newName.trim();
-    if (!/^([A-Za-zÀ-ÿ\\s]{2,30})$/.test(trimmed)) {
+    if (!/^([A-Za-zÀ-ÿ\s]{2,30})$/.test(trimmed)) {
       setErrNew(true);
       return;
     }
@@ -137,45 +173,13 @@ export default function AdminPanel() {
     }
   };
 
-  /* ───────────── SELECTORES ───────────── */
+  /* ───────────── SELECTORES SIMPLES PARA VISTA "ALL" ───────────── */
   const pickLast = (arr) =>
     arr.reduce((a, b) => (parseDate(a) > parseDate(b) ? a : b));
 
   const getResp = (al, id) => {
-    const l = toArray(al.respuestas).filter(
-      (r) => r.situacionId === id && r.tipoPaso === 'eleccion'
-    );
+    const l = toArray(al.respuestas).filter((r) => r.situacionId === id && r.tipoPaso === 'eleccion');
     return l.length ? pickLast(l).respuesta : '';
-  };
-
-  const getComentario = (al, id) => {
-    const l = toArray(al.respuestas).filter(
-      (r) => r.situacionId === id && r.tipoPaso === 'comentario' && r.comentario
-    );
-    return l.length ? pickLast(l).comentario : '';
-  };
-
-  const getAzar = (al, id) => {
-    const l = toArray(al.respuestas).filter(
-      (r) => r.situacionId === id && r.tipoPaso === 'azar'
-    );
-    if (!l.length) return '';
-    return pickLast(l).azar ? '✓' : '';
-  };
-
-  const getFecha = (al, id) => {
-    const l = toArray(al.respuestas).filter((r) => r.situacionId === id);
-    if (!l.length) return '';
-    const reg = pickLast(l);
-    return new Date(reg.fecha || reg.datetime || reg.date).toLocaleString('es-ES', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hourCycle: 'h23',
-    });
   };
 
   /* ────────────────── RENDER ────────────────── */
@@ -319,6 +323,7 @@ export default function AdminPanel() {
           ) : !selectedAlumno ? (
             <Typography>Selecciona un alumno para ver sus respuestas.</Typography>
           ) : (
+            // VISTA DE UN SOLO ALUMNO → mostramos todas las sesiones ordenadas
             <Table size="small">
               <TableHead>
                 <TableRow>
@@ -330,18 +335,19 @@ export default function AdminPanel() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {escenas.map((s) => {
-                  const al = data.find((x) => x.nombre === selectedAlumno);
-                  return (
-                    <TableRow key={s.id}>
-                      <TableCell>{s.titulo}</TableCell>
-                      <TableCell>{getResp(al, s.id) || '—'}</TableCell>
-                      <TableCell>{getComentario(al, s.id) || '—'}</TableCell>
-                      <TableCell align="center">{getAzar(al, s.id)}</TableCell>
-                      <TableCell>{getFecha(al, s.id)}</TableCell>
-                    </TableRow>
-                  );
-                })}
+                {buildSesiones(
+                  data.find((x) => x.nombre === selectedAlumno)?.respuestas || []
+                ).map((ses, idx) => (
+                  <TableRow key={idx}>
+                    <TableCell>{
+                      escenas.find((e) => e.id === ses.situacionId)?.titulo || ses.situacionId
+                    }</TableCell>
+                    <TableCell>{ses.respuesta || '—'}</TableCell>
+                    <TableCell>{ses.comentario || '—'}</TableCell>
+                    <TableCell align="center">{ses.azar}</TableCell>
+                    <TableCell>{ses.fecha}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           )}
