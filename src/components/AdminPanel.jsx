@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -41,6 +42,11 @@ export default function AdminPanel() {
   const [selectedAlumno, setSelectedAlumno] = useState('');
   const escenas = textos[idioma].escenas;
 
+  /* ────────────── UTIL ────────────── */
+  // Convierte respuestas en array, sea un array, un objeto o undefined
+  const toArray = (x) =>
+    Array.isArray(x) ? x : x && typeof x === 'object' ? Object.values(x) : [];
+
   /* ────────────────── EFFECT CARGA ────────────────── */
   useEffect(() => {
     if (showLogin) return;
@@ -64,7 +70,7 @@ export default function AdminPanel() {
         json.map((i) => ({
           nombre: i.id || i.nombre,
           fechaRegistro: i.date || i.fechaRegistro,
-          respuestas: i.respuestas || [],
+          respuestas: toArray(i.respuestas),
         }))
       );
     } catch {
@@ -72,7 +78,7 @@ export default function AdminPanel() {
       const arr = Object.entries(perfiles || {}).map(([nombre, p]) => ({
         nombre,
         fechaRegistro: p.date,
-        respuestas: p.elecciones,
+        respuestas: toArray(p.elecciones),
       }));
       setData(arr);
     } finally {
@@ -129,28 +135,32 @@ export default function AdminPanel() {
     }
   };
 
+  /* ───────────── NUEVOS SELECTORES ───────────── */
   const getResp = (al, id) => {
-    const l = (al.respuestas || []).filter((r) => r.situacionId === id);
+    const respArr = toArray(al.respuestas);
+    const l = respArr.filter((r) => r.situacionId === id);
     return l.length ? l[l.length - 1].respuesta : '';
   };
 
-  /* ───────────── NUEVOS SELECTORES ───────────── */
   const getComentario = (al, id) => {
-    const l = (al.respuestas || []).filter(
+    const respArr = toArray(al.respuestas);
+    const l = respArr.filter(
       (r) => r.situacionId === id && r.comentario
     );
     return l.length ? l[l.length - 1].comentario : '';
   };
 
   const getAzar = (al, id) => {
-    const l = (al.respuestas || []).filter(
+    const respArr = toArray(al.respuestas);
+    const l = respArr.filter(
       (r) => r.situacionId === id && typeof r.azar === 'boolean'
     );
     return l.length ? (l[l.length - 1].azar ? '✓' : '') : '';
   };
 
   const getFecha = (al, id) => {
-    const l = (al.respuestas || []).filter((r) => r.situacionId === id);
+    const respArr = toArray(al.respuestas);
+    const l = respArr.filter((r) => r.situacionId === id);
     if (!l.length) return '';
     const f =
       l[l.length - 1].fecha ||
