@@ -47,7 +47,7 @@ module.exports = async function (context, req) {
   // 3) Body esperado y lógica de actualización
   try {
     const { id, respuestas } = req.body || {};
-    if (!id || !Array.isArray(respuestas)) {
+      if (!id || !Array.isArray(respuestas) || respuestas.length === 0) {
       context.res = {
         status: 400,
         body: { error: 'Falta id o array de respuestas.' }

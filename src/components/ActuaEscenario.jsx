@@ -73,17 +73,22 @@ const ActuaEscenario = () => {
   const handleAzarToggle = event => {
     const isAzar = event.target.checked
     setAzarFlag(isAzar)
-    fetch('/api/guardarAzar', {
+    fetch('/api/guardarRespuestas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        alumno: user.name,
-        datetime: new Date().toISOString(),
-        situacionId: escena.id,
-        paso,
-        tipoPaso: 'azar',
-        azar: isAzar,
-        idioma
+        id: user.name,
+        respuestas: [
+          {
+            fecha: new Date().toISOString(),
+            situacionId: escena.id,
+            paso,
+            tipoPaso: 'azar',
+            azar: isAzar,
+            comentario: null,
+            idioma
+          }
+        ]
       })
     }).catch(console.error)
   }
@@ -91,17 +96,22 @@ const ActuaEscenario = () => {
   // Guarda comentario en el servidor
   const saveComment = () => {
     if (!commentText) return
-    fetch('/api/guardarComentario', {
+    fetch('/api/guardarRespuestas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        alumno: user.name,
-        datetime: new Date().toISOString(),
-        situacionId: escena.id,
-        paso,
-        tipoPaso: 'comentario',
-        comentario: commentText,
-        idioma
+        id: user.name,
+        respuestas: [
+          {
+            fecha: new Date().toISOString(),
+            situacionId: escena.id,
+            paso,
+            tipoPaso: 'comentario',
+            comentario: commentText,
+            azar: azarFlag,
+            idioma
+          }
+        ]
       })
     })
       .then(() => setCommentSaved(true))
@@ -147,11 +157,13 @@ const ActuaEscenario = () => {
           id: user.name,
           respuestas: [
             {
-              datetime: new Date().toISOString(),
+              fecha: new Date().toISOString(),
               situacionId: escena.id,
               paso,
               tipoPaso: 'eleccion',
               respuesta: id,
+              comentario: null,                       // aún no hay comentario
+              azar: azarFlag, 
               idioma
             }
           ]
