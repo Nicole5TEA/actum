@@ -345,7 +345,17 @@ export default function AdminPanel() {
                     <TableCell>{ses.respuesta || '—'}</TableCell>
                     <TableCell>{ses.comentario || '—'}</TableCell>
                     <TableCell align="center">{ses.azar}</TableCell>
-                    <TableCell>{ses.fecha}</TableCell>
+                    <TableCell>
+                      {new Date(ses.fecha).toLocaleString('es-ES', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hourCycle: 'h23',
+                      })}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
