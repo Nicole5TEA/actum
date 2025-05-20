@@ -5,11 +5,13 @@ on:
     branches:
       - main
       - feature/respuestas
+      - feature/niveles
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
       - feature/respuestas
+      - feature/niveles
 
 jobs:
   build_and_deploy_job:
