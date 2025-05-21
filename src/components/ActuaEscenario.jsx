@@ -40,14 +40,13 @@ const ActuaEscenario = () => {
     setStage
   } = useActua()
 
-  /* ---------------- ESTADO LOCAL ---------------- */
+  // Estado para comentarios y azar, y control de feedback adicional
   const [commentText, setCommentText] = useState('')
   const [azarFlag, setAzarFlag] = useState(false)
   const [commentSaved, setCommentSaved] = useState(false)
   const [showFeedback, setShowFeedback] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
 
-  /* ---------------- DATOS ESCENA ---------------- */
+  const [menuOpen, setMenuOpen] = useState(false)
   const data = textos[idioma]
   const escenas = data.escenas
   const escena = escenas[indiceEscena]
@@ -55,23 +54,7 @@ const ActuaEscenario = () => {
   const totalPasos = escena.pasos.length
   const eleccion = elecciones[escena.id] || ''
 
-  /* ---------------- LÓGICA DE NIVEL -------------- */
-  // 1) Filtra por nivel
-  const escenasNivel = escenas.filter(e => e.nivel === escena.nivel)
-  // 2) Reordénalas según el orden de categorías del UI
-  const categoriasKeys = Object.keys(data.ui.categories)
-  const escenasNivelOrdered = categoriasKeys.flatMap(catKey =>
-    escenasNivel.filter(e => e.categoria === catKey)
-  )
-  // 3) Índice y siguiente dentro de ese orden
-  const indiceEnNivel = escenasNivelOrdered.findIndex(e => e.id === escena.id)
-  const isLastSceneLvl = indiceEnNivel === escenasNivelOrdered.length - 1
-  const nextInNivel = escenasNivelOrdered[indiceEnNivel + 1]
-  const nextGlobalIdx = nextInNivel ? escenas.findIndex(e => e.id === nextInNivel.id) : -1
-  // Ocultar flecha sólo en el paso "resultado" de la última escena del nivel
-  const hideNext = showFeedback
-
-  /* ---------------- EFFECTS ---------------------- */
+  // Reset de estados al cambiar escena o paso
   useEffect(() => {
     setCommentText('')
     setAzarFlag(false)
@@ -79,15 +62,16 @@ const ActuaEscenario = () => {
     setShowFeedback(false)
   }, [indiceEscena, paso])
 
-  /* ---------------- HANDLERS --------------------- */
+  // Navegar a otra escena
   const goToScene = idx => {
     setIndiceEscena(idx)
     reiniciarPaso()
     setMenuOpen(false)
   }
 
-  const handleAzarToggle = e => {
-    const isAzar = e.target.checked
+  // Marca/desmarca azar y envía al servidor
+  const handleAzarToggle = event => {
+    const isAzar = event.target.checked
     setAzarFlag(isAzar)
     fetch('/api/guardarRespuestas', {
       method: 'POST',
@@ -109,6 +93,7 @@ const ActuaEscenario = () => {
     }).catch(console.error)
   }
 
+  // Guarda comentario en el servidor
   const saveComment = () => {
     if (!commentText) return
     fetch('/api/guardarRespuestas', {
@@ -133,28 +118,38 @@ const ActuaEscenario = () => {
       .catch(console.error)
   }
 
+  // Finaliza el feedback y avanza escena/paso
   const finishFeedback = () => {
+    const isLastScene = indiceEscena === escenas.length - 1
+    // Reset states
     setShowFeedback(false)
     setCommentText('')
     setAzarFlag(false)
     setCommentSaved(false)
-
-    if (!isLastSceneLvl) {
-      setIndiceEscena(nextGlobalIdx)
+    // Avanza a siguiente escena o fin
+    if (!isLastScene) {
+      setIndiceEscena(indiceEscena + 1)
       reiniciarPaso()
     } else {
       setStage('menu')
     }
   }
 
+  // Avanzar en la lógica de la escena
   const avanzar = id => {
+    const isLastScene = indiceEscena === escenas.length - 1
     const isLastStep = paso === totalPasos - 1
+
+    // Si ya estamos en feedback, no hacemos nada aquí
     if (showFeedback) return
 
+    // Si es elección
     if (pasoActual.tipo === 'eleccion') {
       if (!id) return
+      // Guardar elección en el estado local
       setElecciones(prev => ({ ...prev, [escena.id]: id }))
 
+      // Llamada a la nueva API que actualiza el array `respuestas` en Cosmos DB
       fetch('/api/guardarRespuestas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -167,44 +162,49 @@ const ActuaEscenario = () => {
               paso,
               tipoPaso: 'eleccion',
               respuesta: id,
-              comentario: null,
-              azar: azarFlag,
+              comentario: null,                       // aún no hay comentario
+              azar: azarFlag, 
               idioma
             }
           ]
         })
       }).catch(console.error)
 
+      // Si era el último paso, abrimos feedback
       if (isLastStep) {
         setShowFeedback(true)
         return
       }
     }
 
+    // Avanzar paso normal
     if (paso < totalPasos - 1) {
       setPaso(paso + 1)
       return
     }
 
-    if (!isLastSceneLvl) {
-      setIndiceEscena(nextGlobalIdx)
+    // Si no era última escena
+    if (!isLastScene) {
+      setIndiceEscena(indiceEscena + 1)
       reiniciarPaso()
     } else {
       setStage('menu')
     }
   }
 
+  // Retroceder en la lógica de la escena
   const handleBack = () => {
+    // Si estamos en feedback, salir de feedback
     if (showFeedback) {
       setShowFeedback(false)
       return
     }
-
+    // primer escenario y paso: vuelve al menú
     if (indiceEscena === 0 && paso === 0) {
       setStage('menu')
       return
     }
-
+    // retrocede paso o escena
     if (paso > 0) {
       setPaso(paso - 1)
     } else {
@@ -214,8 +214,9 @@ const ActuaEscenario = () => {
     }
   }
 
-  /* ---------------- RENDER CONTENIDO ------------ */
+  // Renderiza situación, elección, resultado o feedback
   const renderContenido = () => {
+    // Feedback opcional al final
     if (showFeedback) {
       return (
         <Box mt={3} p={2} border={1} borderColor="grey.400" borderRadius={1}>
@@ -233,27 +234,31 @@ const ActuaEscenario = () => {
               fullWidth
             />
             <Box display="flex" gap={1}>
-              <Button variant="contained" onClick={saveComment} disabled={!commentText || commentSaved}>
+              <Button
+                variant="contained"
+                onClick={saveComment}
+                disabled={!commentText || commentSaved}
+              >
                 {commentSaved ? data.ui.comentarioGuardado || 'Guardado' : data.ui.guardar || 'Guardar'}
               </Button>
               <Button variant="outlined" onClick={() => setCommentText('')}>
                 {data.ui.cancelar || 'Cancelar'}
               </Button>
-              {commentSaved && (
-                <Button variant="outlined" onClick={finishFeedback}>
-                  {data.ui.continuar || 'Continuar'}
-                </Button>
-              )}
             </Box>
           </Stack>
         </Box>
       )
     }
 
+    // lógica original
     if (pasoActual.tipo === 'situacion') {
       return (
         <Box textAlign="center" mb={2}>
-          <img src={`/${pasoActual.imagen}`} alt="Escena" style={{ maxWidth: '80%', height: 'auto' }} />
+          <img
+            src={`/${pasoActual.imagen}`}
+            alt="Escena"
+            style={{ maxWidth: '80%', height: 'auto' }}
+          />
           <Typography mt={1}>{pasoActual.descripcion}</Typography>
         </Box>
       )
@@ -309,19 +314,14 @@ const ActuaEscenario = () => {
     )
   }
 
-  // -------------------------------------------------------------------------
-  // JSX ---------------------------------------------------------------------
-  // -------------------------------------------------------------------------
   return (
     <>
-      {/* Drawer (menú lateral) */}
       <Drawer open={menuOpen} onClose={() => setMenuOpen(false)}>
         <DrawerMenu
           items={escenas}
           currentIndex={indiceEscena}
           completed={elecciones}
           categories={data.ui.categories}
-          nivelesLabels={data.ui.niveles}
           onSelect={goToScene}
         />
       </Drawer>
@@ -329,23 +329,14 @@ const ActuaEscenario = () => {
       <Container maxWidth="md" sx={{ pt: 1, position: 'relative' }}>
         {/* Header */}
         <Stack direction="row" spacing={2} alignItems="center" mb={1}>
-          <Button
-            variant="text"
-            size="small"
-            startIcon={<HomeIcon />}
-            onClick={() => setStage('menu')}
-          >
+          <Button variant="text" size="small" startIcon={<HomeIcon />} onClick={() => setStage('menu')}>
             {data.ui.inicio}
           </Button>
           <IconButton onClick={() => setMenuOpen(true)}>
             <MenuIcon />
             <Typography sx={{ ml: 0.5 }}>{data.ui.menu}</Typography>
           </IconButton>
-          <Button
-            variant="outlined"
-            size="small"
-            onClick={() => cambiarIdioma(idioma === 'es' ? 'ca' : 'es')}
-          >
+          <Button variant="outlined" size="small" onClick={() => cambiarIdioma(idioma === 'es' ? 'ca' : 'es')}>
             {idioma === 'es' ? 'CAT' : 'ES'}
           </Button>
         </Stack>
@@ -357,14 +348,7 @@ const ActuaEscenario = () => {
         {pasoActual.tipo === 'situacion' && escena.pictos && (
           <Stack direction="row" spacing={2} justifyContent="center" mb={2}>
             {escena.pictos.map((pic, i) => (
-              <Box
-                key={i}
-                component="img"
-                src={`/${pic}`}
-                alt={`Picto ${i + 1}`}
-                width={40}
-                height={40}
-              />
+              <Box key={i} component="img" src={`/${pic}`} alt={`Picto ${i + 1}`} width={40} height={40} />
             ))}
           </Stack>
         )}
@@ -376,14 +360,11 @@ const ActuaEscenario = () => {
         {/* Contenido central */}
         {renderContenido()}
 
-        {/* Comentario / azar cuando es resultado */}
         {pasoActual.tipo === 'resultado' && (
           <Box mt={3} p={2} border={1} borderColor="grey.400" borderRadius={1}>
             <Stack spacing={2}>
               <FormControlLabel
-                control={
-                  <Checkbox checked={azarFlag} onChange={handleAzarToggle} />
-                }
+                control={<Checkbox checked={azarFlag} onChange={handleAzarToggle} />}
                 label={data.ui.labelAzar || 'Marcar como respuesta al azar'}
               />
               <TextField
@@ -400,14 +381,9 @@ const ActuaEscenario = () => {
                   onClick={saveComment}
                   disabled={!commentText || commentSaved}
                 >
-                  {commentSaved
-                    ? data.ui.comentarioGuardado || 'Guardado'
-                    : data.ui.guardar || 'Guardar'}
+                  {commentSaved ? data.ui.comentarioGuardado || 'Guardado' : data.ui.guardar || 'Guardar'}
                 </Button>
-                <Button
-                  variant="outlined"
-                  onClick={() => setCommentText('')}
-                >
+                <Button variant="outlined" onClick={() => setCommentText('')}>
                   {data.ui.cancelar || 'Cancelar'}
                 </Button>
               </Box>
@@ -415,7 +391,6 @@ const ActuaEscenario = () => {
           </Box>
         )}
 
-        {/* Puntos de progreso */}
         <Stack direction="row" spacing={1} justifyContent="center" mt={2}>
           {Array.from({ length: totalPasos }).map((_, i) => (
             <Box
@@ -435,116 +410,84 @@ const ActuaEscenario = () => {
 
         {/* Navegación */}
         {isSmUp ? (
-  <>
-    {/* Atrás */}
-    <Button
-      onClick={handleBack}
-      sx={{
-        position: 'fixed',
-        top: '50%',
-        left: theme.spacing(1),
-        transform: 'translateY(-50%)',
-        minWidth: 48,
-        p: 1,
-        borderRadius: 1,
-        zIndex: 10,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
-        height: 70,
-        backgroundColor: 'transparent',
-        color: 'inherit'
-      }}
-      variant="outlined"
-    >
-      <ArrowBackIosNewIcon />
-      <Typography variant="caption" sx={{ mt: 1 }}>
-        {data.ui.atras}
-      </Typography>
-    </Button>
-
-    {/* Flecha adelante (muestra en todos los pasos, deshabilitada si falta elección) */}
-    {!hideNext && (
-      <Button
-        onClick={() =>
-          // Si ya estamos en el feedback, paso a la siguiente escena; si no, avanzo paso
-          showFeedback ? finishFeedback() : avanzar()
-        }
-        sx={{
-          position: 'fixed',
-          top: '50%',
-          right: theme.spacing(1),
-          transform: 'translateY(-50%)',
-          minWidth: 48,
-          p: 1,
-          borderRadius: 1,
-          zIndex: 10,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 70,
-          height: 70,
-          backgroundColor: 'transparent',
-          color: 'inherit'
-        }}
-        variant="outlined"
-        disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
-      >
-        <ArrowForwardIosIcon />
-        <Typography variant="caption" sx={{ mt: 1 }}>
-          {data.ui.siguiente}
-        </Typography>
-      </Button>
-    )}
-
-    {/* Después de completar feedback, botón para volver al menú */}
-    {hideNext && (
-      <Button
-        variant="contained"
-        sx={{
-          position: 'fixed',
-          top: '50%',
-          right: theme.spacing(1),
-          transform: 'translateY(-50%)',
-          zIndex: 10
-        }}
-        onClick={finishFeedback}
-      >
-        {data.ui.volverMenu}
-      </Button>
-    )}
-  </>
-) : (
-  /* Vista móvil */
-  <Box display="flex" justifyContent="space-between" mt={4}>
-    <Button onClick={handleBack}>
-      <ArrowBackIosNewIcon /> {data.ui.atras}
-    </Button>
-
-    {/* Flecha adelante o botón menú tras feedback */}
-    {!hideNext ? (
-      <Button
-        onClick={() =>
-          showFeedback ? finishFeedback() : avanzar()
-        }
-        disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
-      >
-        {data.ui.siguiente}
-        <ArrowForwardIosIcon />
-      </Button>
-    ) : (
-      <Button variant="contained" onClick={finishFeedback}>
-        {data.ui.volverMenu}
-      </Button>
-    )}
-  </Box>
-)}      </Container>
+          <>
+            <Button
+              onClick={handleBack}
+              sx={{
+                position: 'fixed',
+                top: '50%',
+                left: theme.spacing(1),
+                transform: 'translateY(-50%)',
+                minWidth: 48,
+                p: 1,
+                borderRadius: 1,
+                zIndex: 10,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 70,
+                height: 70,
+                backgroundColor: 'transparent',
+                color: 'inherit'
+              }}
+              variant="outlined"
+            >
+              <ArrowBackIosNewIcon />
+              <Typography variant="caption" sx={{ mt: 1 }}>
+                {data.ui.atras}
+              </Typography>
+            </Button>
+            {(showFeedback ||
+              pasoActual.tipo === 'situacion' ||
+              (pasoActual.tipo === 'resultado' && indiceEscena < escenas.length - 1)) && (
+              <Button
+                onClick={() => (showFeedback ? finishFeedback() : avanzar())}
+                sx={{
+                  position: 'fixed',
+                  top: '50%',
+                  right: theme.spacing(1),
+                  transform: 'translateY(-50%)',
+                  minWidth: 48,
+                  p: 1,
+                  borderRadius: 1,
+                  zIndex: 10,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 70,
+                  height: 70,
+                  backgroundColor: 'transparent',
+                  color: 'inherit'
+                }}
+                variant="outlined"
+                disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
+              >
+                <ArrowForwardIosIcon />
+                <Typography variant="caption" sx={{ mt: 1 }}>
+                  {data.ui.siguiente}
+                </Typography>
+              </Button>
+            )}
+          </>
+        ) : (
+          <Box display="flex" justifyContent="space-between" mt={4}>
+            <Button onClick={handleBack}>
+              <ArrowBackIosNewIcon /> {data.ui.atras}
+            </Button>
+            <Button
+              onClick={() => (showFeedback ? finishFeedback() : avanzar())}
+              disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
+            >
+              {data.ui.siguiente}
+              <ArrowForwardIosIcon />
+            </Button>
+          </Box>
+        )}
+      </Container>
     </>
   )
 }
 
 export default ActuaEscenario
-
