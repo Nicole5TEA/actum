@@ -19,18 +19,29 @@ export default function MainMenu() {
   
   const data = textos[idioma];
   const ui = data.ui;
-  const todasEscenas = data.escenas; // Todas las escenas definidas en textos.js
-  const secuenciaEscenasOrdenadas = obtenerSecuenciaEscenas(); // IDs de escenas en orden
+  const todasEscenas = data.escenas; 
+  const secuenciaEscenasOrdenadas = obtenerSecuenciaEscenas(); 
 
-  // Filtrar todasEscenas para que solo contenga las que están en secuenciaEscenasOrdenadas y mantener su orden
   const escenasEnOrden = secuenciaEscenasOrdenadas
     .map(id => todasEscenas.find(escena => escena.id === id))
-    .filter(Boolean); // Eliminar undefined si alguna ID no se encuentra
+    .filter(Boolean); 
 
   const handleStart = () => {
-    setIndiceEscena(0);
-    reiniciarPaso();
-    setStage('escenario');
+    const primeraEscenaId = obtenerSecuenciaEscenas()[0];
+    if (primeraEscenaId) {
+        const indiceGlobal = obtenerSecuenciaEscenas().findIndex(id => id === primeraEscenaId);
+        if (indiceGlobal !== -1) {
+            setIndiceEscena(indiceGlobal);
+            reiniciarPaso();
+            setStage('escenario');
+        } else {
+            console.error("Error: No se encontró la primera escena en la secuencia global.");
+            // Opcionalmente, redirigir a un estado de error o al menú si la primera escena no es válida
+        }
+    } else {
+        console.error("Error: No hay escenas definidas en ordenEscenas.js");
+        // Opcionalmente, mostrar un mensaje al usuario
+    }
   };
 
   const handleSelect = globalIndex => {
@@ -40,10 +51,8 @@ export default function MainMenu() {
   };
 
   const totalSituaciones = secuenciaEscenasOrdenadas.length;
-  const situacionesCompletadas = Object.keys(elecciones).filter(
-    // Considera completada si existe la key y no es un string vacío
-    // y además, la escena está en la secuencia ordenada (para no contar antiguas)
-    idEscena => elecciones[idEscena] && elecciones[idEscena] !== '' && secuenciaEscenasOrdenadas.includes(idEscena)
+  const situacionesCompletadas = Object.keys(elecciones || {}).filter( // Asegurar que elecciones sea un objeto
+    idEscena => (elecciones[idEscena] && elecciones[idEscena] !== '') && secuenciaEscenasOrdenadas.includes(idEscena)
   ).length;
 
   const porcentajeCompletado = totalSituaciones > 0 
@@ -51,11 +60,11 @@ export default function MainMenu() {
     : 0;
 
   return (
-    <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 4, mb: 4 }}>
-      <Box sx={{ width: { xs: '100%', md: 250 }, flexShrink: { md: 0 } }}>
+    <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 4, mb: 4, position: 'relative', minHeight: 'calc(100vh - 64px)' }}> {/* Ajustado para ocupar altura */}
+      <Box sx={{ width: { xs: '100%', md: 250 }, flexShrink: { md: 0 }, maxHeight: 'calc(100vh - 120px)', overflowY: 'auto' }}>
         <DrawerMenu
-          items={todasEscenas} // Pasamos todas las escenas para que el Drawer las busque por ID
-          completed={elecciones}
+          items={todasEscenas}
+          completed={elecciones || {}} // Asegurar que elecciones sea un objeto
           categories={ui.categories}
           nivelesLabels={ui.niveles || {}}
           onSelect={handleSelect}
@@ -63,23 +72,23 @@ export default function MainMenu() {
         />
       </Box>
 
-      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', pt: { xs: 2, md: 0 } }}>
         <Typography variant="h4" align="center" gutterBottom>
           {ui.inicioTitle}
         </Typography>
 
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2} sx={{ width: '100%', maxWidth: 'sm' }}>
           <Typography variant="h6">
-            {ui.greeting} {user.name}
+            {ui.greeting} {user?.name || ''}
           </Typography>
           <Stack direction="row" spacing={1}>
-            {user.name === 'admin' && (
+            {user?.name === 'admin' && (
               <Button variant="outlined" onClick={() => setStage('admin')}>
                 {ui.adminPanelTitle}
               </Button>
             )}
             <Button variant="outlined" onClick={() => {
-                logout(); // logout() ahora redirige a 'ingreso'
+                logout(); 
             }}>
               {ui.logout}
             </Button>
@@ -90,25 +99,19 @@ export default function MainMenu() {
           {ui.empezar}
         </Button>
 
-        {/* Gráfico Circular de Progreso */}
-        <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
+        <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
           <CircularProgress 
             variant="determinate" 
             value={porcentajeCompletado} 
-            size={100} // Tamaño del círculo
-            thickness={4} // Grosor del círculo
+            size={100}
+            thickness={4}
             sx={{ color: 'primary.main' }}
           />
           <Box
             sx={{
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,
-              position: 'absolute',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              top: 0, left: 0, bottom: 0, right: 0,
+              position: 'absolute', display: 'flex',
+              alignItems: 'center', justifyContent: 'center',
             }}
           >
             <Typography variant="caption" component="div" color="text.secondary" sx={{fontSize: '1.2rem'}}>
@@ -116,7 +119,7 @@ export default function MainMenu() {
             </Typography>
           </Box>
         </Box>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{mb:3}}>
           {situacionesCompletadas} de {totalSituaciones} situaciones completadas
         </Typography>
       </Box>
