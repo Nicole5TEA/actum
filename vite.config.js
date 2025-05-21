@@ -23,7 +23,7 @@ export default defineConfig({
       },
 
       manifest: {
-        name: 'ACTUM TFG',
+        name: 'ACTUM',
         short_name: 'ACTUM',
         description: 'Aplicación ACTUM para el aprendizaje de habilidades sociales y emocionales',
         theme_color: '#6a5d4d', // Color principal de tu app (tomado de tu App.jsx)
