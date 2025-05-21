@@ -4,6 +4,8 @@ node_modules/
 # output build folder
 dist/
 
+/dev-dist/
+
 # environment files
 .env.local
 .env.*.local
