@@ -1,0 +1,82 @@
+// src/ordenEscenas.js
+const ordenEscenas = [
+  {
+    nivel: 1,
+    categorias: {
+      social: ['patatas'],
+      emocionajena: ['juguete'],
+      emocionpropia: [],
+      teoriamente: [],
+      coherencia: []
+    }
+  },
+  {
+    nivel: 2,
+    categorias: {
+      social: [],
+      emocionajena: ['emocion1'],
+      emocionpropia: ['aniversario'],
+      teoriamente: [],
+      coherencia: []
+    }
+  },
+  {
+    nivel: 3,
+    categorias: {
+      social: [],
+      emocionajena: ['emocion2'],
+      emocionpropia: [],
+      teoriamente: [],
+      coherencia: []
+    }
+  }
+];
+
+export const obtenerSecuenciaEscenas = () => {
+  const secuencia = [];
+  ordenEscenas.forEach(nivelObj => {
+    Object.values(nivelObj.categorias).forEach(categoriaEscenas => {
+      secuencia.push(...categoriaEscenas);
+    });
+  });
+  return secuencia;
+};
+
+export const esUltimaEscenaDelNivel = (escenaIdActual, escenasDelNivel) => {
+    if (!escenasDelNivel || escenasDelNivel.length === 0) return false;
+    return escenasDelNivel[escenasDelNivel.length - 1] === escenaIdActual;
+};
+
+export const obtenerEscenasDelNivelActual = (escenaIdActual, todasLasEscenas) => {
+    const escenaActualObj = todasLasEscenas.find(e => e.id === escenaIdActual);
+    if (!escenaActualObj) return [];
+
+    const nivelActualConfig = ordenEscenas.find(n => n.nivel === escenaActualObj.nivel);
+    if (!nivelActualConfig) return [];
+
+    let escenasEnNivel = [];
+    Object.values(nivelActualConfig.categorias).forEach(catEscenas => {
+        escenasEnNivel.push(...catEscenas);
+    });
+    return escenasEnNivel;
+};
+
+export const esPrimeraEscenaDelNivel = (escenaIdActual, ordenEscenasConfig, todasLasEscenas) => {
+    const escenaActualObj = todasLasEscenas.find(e => e.id === escenaIdActual);
+    if (!escenaActualObj) return false;
+
+    const nivelActualConfig = ordenEscenasConfig.find(n => n.nivel === escenaActualObj.nivel);
+    if (!nivelActualConfig) return false;
+
+    // Iterar categorías en el orden en que están definidas para encontrar la primera escena
+    for (const catKey in nivelActualConfig.categorias) {
+        const escenasEnCategoria = nivelActualConfig.categorias[catKey];
+        if (escenasEnCategoria && escenasEnCategoria.length > 0) {
+            return escenasEnCategoria[0] === escenaIdActual;
+        }
+    }
+    return false; // No debería llegar aquí si el nivel tiene escenas
+};
+
+
+export default ordenEscenas;

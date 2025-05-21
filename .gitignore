@@ -1,8 +1,12 @@
 # node modules
 node_modules/
 
+.azurite
+
 # output build folder
 dist/
+
+/dev-dist/
 
 # environment files
 .env.local
