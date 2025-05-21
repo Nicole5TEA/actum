@@ -10,12 +10,13 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  CircularProgress, // <<<--- IMPORTACIÓN AÑADIDA
 } from '@mui/material';
 import { useActua } from '../context/ActuaContext';
 import textos from '../textos';
 
 export default function IngresoAlumno() {
-  const { login, idioma, isDocente, setDocente, setStage, logout } = useActua(); // Añadido logout
+  const { login, idioma, isDocente, setDocente, setStage, logout } = useActua();
   const ui = textos[idioma].ui;
 
   const [showAcceso, setShowAcceso] = useState(
@@ -25,11 +26,11 @@ export default function IngresoAlumno() {
   const [errAcceso, setErrAcceso] = useState('');
 
   const [usuarios, setUsuarios] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // `loading` se usa para CircularProgress
 
-  const [showLoginDocente, setShowLoginDocente] = useState(false); // Renombrado para claridad
-  const [senhaDocente, setSenhaDocente] = useState(''); // Renombrado para claridad
-  const [loginDocenteError, setLoginDocenteError] = useState(''); // Renombrado para claridad
+  const [showLoginDocente, setShowLoginDocente] = useState(false);
+  const [senhaDocente, setSenhaDocente] = useState('');
+  const [loginDocenteError, setLoginDocenteError] = useState('');
 
   const handleAccesoSubmit = async () => {
     setErrAcceso('');
@@ -74,18 +75,28 @@ export default function IngresoAlumno() {
     if (docTok) headers['X-Docente-Token'] = 'Bearer ' + docTok;
 
     fetch('/api/getAlumnos', { headers })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) { // Verifica si la respuesta de la red fue exitosa
+          return res.json().then(err => { throw new Error(err.message || `Error ${res.status}`) });
+        }
+        return res.json();
+      })
       .then((json) => {
         if(Array.isArray(json)) {
-            setUsuarios(json.map((a) => a.nombre || a.id).filter(Boolean))
+            setUsuarios(json.map((a) => a.nombre || a.id).filter(Boolean));
         } else {
-            setUsuarios([]); // o manejar el error
+            setUsuarios([]);
             console.error("Expected array from /api/getAlumnos, got:", json);
+            throw new Error("Formato de datos inesperado.");
         }
       })
-      .catch(() => setUsuarios([]))
+      .catch((error) => {
+        console.error("Error fetching alumnos:", error);
+        setUsuarios([]);
+        // Aquí podrías mostrar un mensaje de error al usuario si lo deseas
+      })
       .finally(() => setLoading(false));
-  }, [isDocente, showAcceso]);
+  }, [isDocente, showAcceso]); // Eliminado `perfiles` de las dependencias
 
   const handleDocenteLoginSubmit = async () => {
     setLoginDocenteError('');
@@ -122,23 +133,13 @@ export default function IngresoAlumno() {
   };
   
   const handleLogoutAndGoToPortada = () => {
-    logout(); // Esto ya debería llevar a 'ingreso' o 'portada' según la lógica de logout
-    // Si logout no te lleva a portada, necesitas:
-    // setUser(null)
-    // setElecciones({})
-    // setIndiceEscena(0)
-    // setPaso(0)
-    // setDocente(false)
-    // setStage('portada');
-    // Y si quieres borrar tokens:
-    // localStorage.removeItem('access_token');
-    // localStorage.removeItem('docente_token');
+    logout(); 
+    // No es necesario tocar los tokens aquí, logout() en el contexto debería manejarlos si es necesario.
+    // setStage('portada'); // logout() en el contexto ya debería hacer esto o llevar a 'ingreso'.
   };
-
 
   return (
     <>
-      {/* Diálogo contraseña 1 (Acceso general) */}
       <Dialog open={showAcceso} disableEscapeKeyDown>
         <DialogTitle>{ui.accesoTitle || "Acceso General"}</DialogTitle>
         <DialogContent>
@@ -161,7 +162,6 @@ export default function IngresoAlumno() {
         </DialogActions>
       </Dialog>
 
-      {/* Contenido principal de IngresoAlumno */}
       {!showAcceso && (
         <Stack spacing={4} alignItems="center" sx={{ mt: 2, mb: 4, width: '100%' }}>
           <Typography variant="h4" component="h1" gutterBottom sx={{ mt: 2, textAlign: 'center' }}>
@@ -169,7 +169,7 @@ export default function IngresoAlumno() {
           </Typography>
 
           {loading ? (
-            <CircularProgress />
+            <CircularProgress /> // <<<--- AQUÍ SE USA
           ) : usuarios.length > 0 ? (
             <Box sx={{ textAlign: 'center', width: '100%' }}>
               <Typography variant="h6" gutterBottom>
@@ -209,7 +209,7 @@ export default function IngresoAlumno() {
            <Button
             variant="outlined"
             color="primary"
-            onClick={handleLogoutAndGoToPortada}
+            onClick={handleLogoutAndGoToPortada} // logout() ahora debería llevar a 'ingreso'
             sx={{ mt: 4, alignSelf: 'center' }}
           >
             {ui.logout || "LOGOUT"} 
@@ -217,7 +217,6 @@ export default function IngresoAlumno() {
         </Stack>
       )}
 
-      {/* Diálogo contraseña 2 (Login Docente) */}
       <Dialog open={showLoginDocente} onClose={() => setShowLoginDocente(false)}>
         <DialogTitle>{ui.loginDocenteTitle || "Acceso Docente"}</DialogTitle>
         <DialogContent>

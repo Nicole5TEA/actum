@@ -1,26 +1,10 @@
 // src/components/AdminPanel.jsx
 import React, { useEffect, useState } from 'react';
 import {
-  Box,
-  Typography,
-  Button,
-  CircularProgress,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Paper, // Importar Paper para la tabla
-  TableContainer // Importar TableContainer
+  Box, Typography, Button, CircularProgress, Table, TableBody,
+  TableCell, TableHead, TableRow, Dialog, DialogTitle, DialogContent,
+  DialogActions, TextField, FormControl, InputLabel, Select, MenuItem,
+  Paper, TableContainer, Alert // Alert para notificaciones
 } from '@mui/material';
 import { useActua } from '../context/ActuaContext';
 import textos from '../textos';
@@ -40,6 +24,13 @@ export default function AdminPanel() {
   const [errNew, setErrNew] = useState(false);
   const [viewMode, setViewMode] = useState('all');
   const [selectedAlumno, setSelectedAlumno] = useState('');
+  
+  // Estados para eliminación
+  const [alumnoAEliminar, setAlumnoAEliminar] = useState('');
+  const [showConfirmDeleteDialog, setShowConfirmDeleteDialog] = useState(false);
+  const [deleteMessage, setDeleteMessage] = useState({ type: '', text: '' });
+
+
   const escenas = textos[idioma].escenas;
 
   const toArray = (x) =>
@@ -68,17 +59,17 @@ export default function AdminPanel() {
       } else if (currentIdx[sId] !== undefined) {
         const ses = sesiones[currentIdx[sId]];
         if (reg.tipoPaso === 'comentario' && reg.comentario) ses.comentario = reg.comentario;
-        if (reg.tipoPaso === 'feedback_final') { // Considerar el feedback final
+        if (reg.tipoPaso === 'feedback_final') { 
              if (reg.comentario) ses.comentario = reg.comentario;
              ses.azar = reg.azar ? '✓' : '';
         }
         if (reg.tipoPaso === 'azar') ses.azar = reg.azar ? '✓' : '';
         
         if (parseDate(reg) > parseDate(ses)) ses.fecha = reg.fecha || reg.datetime || reg.date;
-      } else if (reg.tipoPaso === 'feedback_final') { // Si el feedback es el primer registro
+      } else if (reg.tipoPaso === 'feedback_final') { 
         const ses = {
           situacionId: sId,
-          respuesta: '', // No hay elección previa registrada
+          respuesta: '', 
           comentario: reg.comentario || '',
           azar: reg.azar ? '✓' : '',
           fecha: reg.fecha || reg.datetime || reg.date,
@@ -99,6 +90,7 @@ export default function AdminPanel() {
   const loadData = async (token) => {
     if (!token) return;
     setLoading(true);
+    setDeleteMessage({ type: '', text: '' }); // Limpiar mensajes al recargar
     try {
       const r = await fetch('/api/getAlumnos', {
         headers: {
@@ -108,19 +100,19 @@ export default function AdminPanel() {
       });
       if (!r.ok) throw new Error('Failed to fetch alumnos');
       let json = await r.json();
-      if (!Array.isArray(json)) { // Fallback si la API no devuelve un array
+      if (!Array.isArray(json)) {
         console.warn("API did not return an array for /api/getAlumnos, using local perfiles.");
         json = Object.entries(perfiles || {}).map(([nombre, p]) => ({
             id: nombre,
             date: p.date,
-            respuestas: p.respuestas || p.elecciones || [], // Asegurar que respuestas exista
+            respuestas: p.respuestas || p.elecciones || [], 
         }));
       }
       setData(
         json.map((i) => ({
           nombre: i.id || i.nombre,
           fechaRegistro: i.date || i.fechaRegistro,
-          respuestas: toArray(i.respuestas || i.elecciones), // Usar respuestas o elecciones
+          respuestas: toArray(i.respuestas || i.elecciones), 
         }))
       );
     } catch(error) {
@@ -131,6 +123,7 @@ export default function AdminPanel() {
         respuestas: toArray(p.respuestas || p.elecciones),
       }));
       setData(arr);
+      setDeleteMessage({ type: 'error', text: 'Error al cargar datos de alumnos.' });
     } finally {
       setLoading(false);
     }
@@ -138,6 +131,7 @@ export default function AdminPanel() {
 
   const crearAlumno = async () => {
     const trimmed = newName.trim();
+    setDeleteMessage({ type: '', text: '' });
     if (!/^([A-Za-zÀ-ÿ\s]{2,30})$/.test(trimmed)) {
       setErrNew(true);
       return;
@@ -152,12 +146,17 @@ export default function AdminPanel() {
         },
         body: JSON.stringify({ nombre: trimmed }),
       });
-      if (!r.ok) throw new Error('Failed to create alumno');
+      if (!r.ok) {
+        const errData = await r.json();
+        throw new Error(errData.body || 'Failed to create alumno');
+      }
       setNewName('');
+      setDeleteMessage({ type: 'success', text: `Alumno '${trimmed}' creado.` });
       loadData(localStorage.getItem('docente_token'));
     } catch(error) {
       console.error("Error creating alumno:", error);
       setErrNew(true);
+      setDeleteMessage({ type: 'error', text: error.message || 'Error al crear alumno.' });
     }
   };
 
@@ -192,6 +191,44 @@ export default function AdminPanel() {
       handleLogin();
     }
   };
+  
+  const handleOpenConfirmDeleteDialog = () => {
+    if (!alumnoAEliminar) {
+        setDeleteMessage({ type: 'warning', text: 'Por favor, selecciona un alumno para eliminar.' });
+        return;
+    }
+    setDeleteMessage({ type: '', text: '' });
+    setShowConfirmDeleteDialog(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    setShowConfirmDeleteDialog(false);
+    if (!alumnoAEliminar) return;
+
+    try {
+        const token = localStorage.getItem('docente_token');
+        const response = await fetch('/api/deleteAlumno', {
+            method: 'POST', // Usando POST como se decidió, pero semánticamente DELETE sería mejor con ID en URL
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Docente-Token': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ alumnoId: alumnoAEliminar }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Error al eliminar: ${response.statusText}`);
+        }
+        setDeleteMessage({ type: 'success', text: `Alumno '${alumnoAEliminar}' eliminado correctamente.` });
+        setAlumnoAEliminar(''); // Limpiar selección
+        loadData(token); // Recargar datos
+    } catch (error) {
+        console.error('Error al eliminar alumno:', error);
+        setDeleteMessage({ type: 'error', text: error.message || 'No se pudo eliminar el alumno.' });
+    }
+  };
+
 
   const pickLast = (arr) =>
     arr.reduce((a, b) => (parseDate(a) > parseDate(b) ? a : b));
@@ -210,90 +247,103 @@ export default function AdminPanel() {
       <Dialog open={showLogin} disableEscapeKeyDown>
         <DialogTitle>{ui.adminPanelTitle}</DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            fullWidth
-            margin="dense"
-            label="Contraseña"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={handleLoginOnKeyDown}
-            error={!!loginError}
-            helperText={loginError}
+          <TextField autoFocus fullWidth margin="dense" label="Contraseña" type="password"
+            value={password} onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleLoginOnKeyDown} error={!!loginError} helperText={loginError}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => { logout(); setStage('ingreso');}} color="secondary">
             {ui.cambiarUsuario || "Cambiar Usuario"}
           </Button>
-          <Button variant="contained" onClick={handleLogin}>
-            {ui.acceder}
-          </Button>
+          <Button variant="contained" onClick={handleLogin}> {ui.acceder} </Button>
         </DialogActions>
       </Dialog>
 
       {!showLogin && (
         <Box sx={{ mt: 2, mb: 4 }}>
           <Box mb={2}>
-            <Button
-              onClick={() => {
-                localStorage.removeItem('docente_token');
-                logout(); // logout ahora debería ir a 'ingreso'
-              }}
-            >
+            <Button onClick={() => { localStorage.removeItem('docente_token'); logout(); }}>
               {ui.volverPortada || "Volver a Ingreso"}
             </Button>
           </Box>
 
-          <Typography variant="h5" gutterBottom>
-            {ui.adminPanelTitle}
-          </Typography>
+          <Typography variant="h5" gutterBottom> {ui.adminPanelTitle} </Typography>
+          
+          {deleteMessage.text && (
+            <Alert severity={deleteMessage.type === '' ? 'info' : deleteMessage.type} sx={{ mb: 2 }}>
+              {deleteMessage.text}
+            </Alert>
+          )}
 
-          <Box mb={4} display="flex" gap={2} alignItems="center">
+          <Box mb={4} display="flex" gap={2} alignItems="flex-start">
             <TextField
               label={ui.nuevoAlumnoLabel || "Nuevo alumno"}
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               error={errNew}
               helperText={errNew ? (ui.crearAlumnoErr || "Error al crear") : ''}
+              variant="outlined"
+              size="small"
             />
             <Button variant="contained" onClick={crearAlumno}>
               {ui.crearAlumnoBtn || "Crear"}
             </Button>
           </Box>
 
+          {/* Sección para eliminar alumno */}
+          <Box mb={4} display="flex" gap={2} alignItems="center" flexWrap="wrap">
+            <FormControl sx={{ minWidth: 220 }} size="small" variant="outlined">
+              <InputLabel id="delete-alumno-label">Seleccionar Alumno a Eliminar</InputLabel>
+              <Select
+                labelId="delete-alumno-label"
+                label="Seleccionar Alumno a Eliminar"
+                value={alumnoAEliminar}
+                onChange={(e) => { setAlumnoAEliminar(e.target.value); setDeleteMessage({ type: '', text: '' });}}
+              >
+                <MenuItem value=""><em>-- Seleccionar --</em></MenuItem>
+                {data.map((al) => (
+                  <MenuItem key={al.nombre} value={al.nombre}>
+                    {al.nombre}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button 
+              variant="contained" 
+              color="error" 
+              onClick={handleOpenConfirmDeleteDialog}
+              disabled={!alumnoAEliminar}
+            >
+              Eliminar Alumno
+            </Button>
+          </Box>
+
+
           <Box mb={3} display="flex" gap={2} flexWrap="wrap" alignItems="center">
-            <FormControl sx={{ minWidth: 200 }}>
+            <FormControl sx={{ minWidth: 200 }} size="small" variant="outlined">
               <InputLabel id="vista-label">Vista</InputLabel>
               <Select
-                labelId="vista-label"
-                label="Vista"
-                value={viewMode}
+                labelId="vista-label" label="Vista" value={viewMode}
                 onChange={(e) => {
                   const v = e.target.value;
                   setViewMode(v);
                   if (v === 'all') setSelectedAlumno('');
                 }}
               >
-                <MenuItem value="all">Todos los alumnos</MenuItem>
-                <MenuItem value="single">Un solo alumno</MenuItem>
+                <MenuItem value="all">Todas las respuestas (Situaciones vs Alumnos)</MenuItem>
+                <MenuItem value="single">Respuestas de un solo alumno</MenuItem>
               </Select>
             </FormControl>
 
             {viewMode === 'single' && (
-              <FormControl sx={{ minWidth: 200 }}>
+              <FormControl sx={{ minWidth: 200 }} size="small" variant="outlined">
                 <InputLabel id="alumno-label">Alumno</InputLabel>
-                <Select
-                  value={selectedAlumno}
-                  labelId="alumno-label"
-                  label="Alumno"
+                <Select value={selectedAlumno} labelId="alumno-label" label="Alumno"
                   onChange={(e) => setSelectedAlumno(e.target.value)}
                 >
                   {data.map((al) => (
-                    <MenuItem key={al.nombre} value={al.nombre}>
-                      {al.nombre}
-                    </MenuItem>
+                    <MenuItem key={al.nombre} value={al.nombre}> {al.nombre} </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -307,7 +357,7 @@ export default function AdminPanel() {
               <Table size="small" stickyHeader>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold', minWidth: '150px', position: 'sticky', left: 0, background: 'white', zIndex: 1001 }}>Situación</TableCell>
+                    <TableCell sx={{ fontWeight: 'bold', minWidth: '200px', position: 'sticky', left: 0, background: 'white', zIndex: 1001 }}>Situación</TableCell>
                     {data.map((al) => (
                       <TableCell key={al.nombre} sx={{ fontWeight: 'bold', minWidth: '120px', textAlign: 'center' }}>{al.nombre}</TableCell>
                     ))}
@@ -315,7 +365,7 @@ export default function AdminPanel() {
                 </TableHead>
                 <TableBody>
                   {escenas.map((s) => (
-                    <TableRow key={s.id}>
+                    <TableRow key={s.id} hover>
                       <TableCell sx={{ position: 'sticky', left: 0, background: 'white', zIndex: 1000, fontWeight: 'medium' }}>{s.titulo}</TableCell>
                       {data.map((al) => (
                         <TableCell key={`${s.id}-${al.nombre}`} sx={{textAlign: 'center'}}>
@@ -328,7 +378,7 @@ export default function AdminPanel() {
               </Table>
             </TableContainer>
           ) : !selectedAlumno ? (
-            <Typography>Selecciona un alumno para ver sus respuestas.</Typography>
+            <Typography sx={{mt:2}}>Selecciona un alumno para ver sus respuestas detalladas.</Typography>
           ) : (
             <TableContainer component={Paper} sx={{mt: 2}}>
               <Table size="small">
@@ -345,15 +395,13 @@ export default function AdminPanel() {
                   {buildSesiones(
                     data.find((x) => x.nombre === selectedAlumno)?.respuestas || []
                   ).map((ses, idx) => (
-                    <TableRow key={idx}>
-                      <TableCell>
-                        {escenas.find((e) => e.id === ses.situacionId)?.titulo || ses.situacionId}
-                      </TableCell>
+                    <TableRow key={idx} hover>
+                      <TableCell> {escenas.find((e) => e.id === ses.situacionId)?.titulo || ses.situacionId} </TableCell>
                       <TableCell>{ses.respuesta || '—'}</TableCell>
                       <TableCell>{ses.comentario || '—'}</TableCell>
                       <TableCell align="center">{ses.azar}</TableCell>
                       <TableCell>
-                        {new Date(ses.fecha).toLocaleString('es-ES', {
+                        {new Date(ses.fecha).toLocaleString(idioma === 'ca' ? 'ca-ES' : 'es-ES', {
                           year: '2-digit', month: '2-digit', day: '2-digit',
                           hour: '2-digit', minute: '2-digit',
                           hourCycle: 'h23',
@@ -367,6 +415,21 @@ export default function AdminPanel() {
           )}
         </Box>
       )}
+      {/* Confirm Delete Dialog */}
+      <Dialog open={showConfirmDeleteDialog} onClose={() => setShowConfirmDeleteDialog(false)}>
+        <DialogTitle>Confirmar Eliminación</DialogTitle>
+        <DialogContent>
+          <Typography>
+            ¿Estás seguro de que quieres eliminar al alumno '{alumnoAEliminar}' y todos sus datos? Esta acción no se puede deshacer.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowConfirmDeleteDialog(false)}>Cancelar</Button>
+          <Button onClick={handleConfirmDelete} color="error" variant="contained">
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
