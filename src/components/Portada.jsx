@@ -10,19 +10,21 @@ export default function Portada() {
 
   return (
     <Box sx={{ 
-      minHeight: 'calc(100vh - 48px)', // Usar minHeight para asegurar que cubre la pantalla
+      minHeight: 'calc(100vh - 48px)', 
       display: 'flex', 
       flexDirection: 'column', 
-      position: 'relative', // Para el posicionamiento absoluto del footer
-      pt: 2, pb: 2 // Añadir padding vertical general
+      position: 'relative',
+      pt: 2, 
+      // pb: {xs: '80px', sm: 2} // Espacio en la parte inferior para el texto, más en móvil
+      paddingBottom: { xs: '100px', sm: '60px' } // Ajusta según sea necesario
     }}>
       <Stack
         spacing={4}
         alignItems="center"
         justifyContent="center"
-        sx={{ flexGrow: 1, textAlign: 'center' }} 
+        sx={{ flexGrow: 1, textAlign: 'center', px: 2 }} // Añadido padding horizontal general
       >
-        <Typography variant="h2" component="h1" gutterBottom> {/* component="h1" para semántica */}
+        <Typography variant="h2" component="h1" gutterBottom sx={{fontSize: {xs: '2.5rem', sm: '3.75rem'}}}>
           {portadaTitle}
         </Typography>
 
@@ -33,7 +35,7 @@ export default function Portada() {
           sx={{ 
             width: { xs: '70%', sm: '60%' }, 
             maxWidth: 300, 
-            height: 'auto' // Para mantener la proporción
+            height: 'auto'
           }}
         />
 
@@ -46,27 +48,25 @@ export default function Portada() {
         </Button>
       </Stack>
 
-      {/* Información Adicional */}
       <Box
         sx={{
-          position: { xs: 'relative', sm: 'absolute' }, // Relativo en xs, absoluto en sm+
-          bottom: { sm: 16 },
-          left: { sm: 16 },
-          width: { xs: 'calc(100% - 32px)', sm: 'auto' }, // Ancho completo menos padding en xs
-          p: { xs: '16px 0', sm: 0 }, // Padding vertical en xs, ninguno en sm+
-          mt: { xs: 'auto', sm: 0 }, // Margen superior auto en xs para empujar al fondo si es relative
-          textAlign: { xs: 'center', sm: 'left'},
+          position: 'absolute', // Mantenido absoluto para el sticky effect
+          bottom: 16, 
+          left: 16,
+          right: 16, // Para centrar texto en móvil si es necesario
+          textAlign: { xs: 'center', sm: 'left'}, // Centrado en móvil, izquierda en SM+
           color: 'text.secondary',
+          p: 1, // Un poco de padding interno
         }}
       >
-        <Typography variant="caption" component="div">
-          NICOLE DAHYAN ALFARO RUIZ [cite: 1418]
+        <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}>
+          NICOLE DAHYAN ALFARO RUÍZ
         </Typography>
-        <Typography variant="caption" component="div">
-          TRABAJO DE FIN DE GRADO EN EDUCACIÓN PRIMÁRIA [cite: 1420]
+        <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}>
+          TRABAJO DE FIN DE GRADO EN EDUCACIÓN PRIMÁRIA
         </Typography>
-        <Typography variant="caption" component="div">
-          CURSO 2024/2025 [cite: 1422]
+        <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}>
+          CURSO 2024/2025
         </Typography>
       </Box>
     </Box>

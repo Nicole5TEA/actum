@@ -1,4 +1,10 @@
 En local para probar, des de un terminal:
+Si aún no está: npm install -g azurite
+
+En un terminal:
+azurite --silent --location .azurite --debug .azurite/debug.log
+
+En otro:
 cd api
 func start
 

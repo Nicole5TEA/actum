@@ -1,6 +1,6 @@
 // src/components/MainMenu.jsx
 import React from 'react';
-import { Box, Stack, Typography, Button, CircularProgress, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Stack, Typography, Button, CircularProgress, useTheme, useMediaQuery, Container } from '@mui/material';
 import { useActua } from '../context/ActuaContext';
 import textos from '../textos';
 import DrawerMenu from './DrawerMenu';
@@ -8,19 +8,24 @@ import { obtenerSecuenciaEscenas } from '../ordenEscenas';
 
 export default function MainMenu() {
   const {
-    user, logout, setStage, setIndiceEscena, reiniciarPaso, elecciones, idioma
+    user,
+    exitStudentSession, // Usar esta en lugar de logout para el botón SALIR de esta vista
+    setStage,
+    setIndiceEscena,
+    reiniciarPaso,
+    elecciones,
+    idioma
   } = useActua();
   
-  const theme = useTheme();
+  const theme = useTheme(); // theme se define aquí para estar en el scope de los componentes internos
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const data = textos[idioma];
   const ui = data.ui;
-  const todasEscenas = data.escenas;
-  const secuenciaEscenasOrdenadas = obtenerSecuenciaEscenas();
+  const todasEscenas = data.escenas; 
+  const secuenciaEscenasOrdenadas = obtenerSecuenciaEscenas(); 
 
   const handleStart = () => {
-    // ... (lógica handleStart sin cambios)
     const primeraEscenaId = obtenerSecuenciaEscenas()[0];
     if (primeraEscenaId) {
         const indiceGlobal = obtenerSecuenciaEscenas().findIndex(id => id === primeraEscenaId);
@@ -51,40 +56,35 @@ export default function MainMenu() {
     ? Math.round((situacionesCompletadas / totalSituaciones) * 100) 
     : 0;
 
-  const HeaderContent = () => (
-    <>
-      <Typography variant="h4" align="center" gutterBottom>
-        {ui.inicioTitle}
+  const TopBarContent = () => (
+    <Stack 
+      direction="row" 
+      justifyContent="space-between" 
+      alignItems="center" 
+      mb={2} 
+      sx={{ width: '100%', maxWidth: 'sm', px: {xs: 1, sm: 0} }}
+    >
+      <Typography variant="h6" sx={{fontSize: {xs: '1rem', sm: '1.25rem'}}}>
+        {ui.greeting} {user?.name || ''}
       </Typography>
-      <Stack 
-        direction="row" 
-        justifyContent="space-between" 
-        alignItems="center" 
-        mb={2} 
-        sx={{ width: '100%', maxWidth: { xs: '100%', sm: 'sm' }, px: {xs: 1, sm: 0} }}
-      >
-        <Typography variant="h6">
-          {ui.greeting} {user?.name || ''}
-        </Typography>
-        {!isMobile && ( // El botón de SALIR se mueve al final en móvil
-           <Button variant="outlined" onClick={logout}>
-             {ui.logout}
-           </Button>
-        )}
-      </Stack>
-      <Button variant="contained" size="large" onClick={handleStart} sx={{ mb: 3 }}>
-        {ui.empezar}
-      </Button>
-    </>
+      {user?.name === 'admin' && !isMobile && (
+            <Button variant="outlined" onClick={() => setStage('admin')} size="small">
+              {ui.adminPanelTitle}
+            </Button>
+         )}
+    </Stack>
   );
 
-  const DrawerMenuComponent = () => (
+  // Eliminado el comentario problemático aquí
+  const DrawerMenuComponent = () => ( 
     <Box sx={{ 
-        width: { xs: '100%', md: 250 }, 
+        width: { xs: '100%', md: 280 }, 
         flexShrink: { md: 0 }, 
-        maxHeight: { xs: 'auto', md: 'calc(100vh - 160px)' }, // Ajustar altura máxima
+        maxHeight: { xs: '40vh', md: 'calc(100vh - 220px)' }, 
         overflowY: 'auto',
-        mb: {xs: 2, md: 0} // Margen inferior en móvil
+        mb: {xs: 2, md: 0},
+        border: {xs: `1px solid ${theme.palette.divider}`, md: 'none'},
+        borderRadius: {xs: 1, md: 0},
     }}>
       <DrawerMenu
         items={todasEscenas}
@@ -98,12 +98,12 @@ export default function MainMenu() {
   );
 
   const ProgressChartComponent = () => (
-    <Box sx={{ textAlign: 'center', mb: {xs: 3, md: 3} }}>
+    <Box sx={{ textAlign: 'center', my: 2 }}>
       <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
         <CircularProgress 
           variant="determinate" 
           value={porcentajeCompletado} 
-          size={100}
+          size={isMobile ? 80 : 100}
           thickness={4}
           sx={{ color: 'primary.main' }}
         />
@@ -114,7 +114,7 @@ export default function MainMenu() {
             alignItems: 'center', justifyContent: 'center',
           }}
         >
-          <Typography variant="caption" component="div" color="text.secondary" sx={{fontSize: '1.2rem'}}>
+          <Typography variant="caption" component="div" color="text.secondary" sx={{fontSize: isMobile? '1rem':'1.2rem'}}>
             {`${porcentajeCompletado}%`}
           </Typography>
         </Box>
@@ -124,17 +124,28 @@ export default function MainMenu() {
       </Typography>
     </Box>
   );
-
+  
   if (isMobile) {
     return (
-      <Stack alignItems="center" sx={{ mt: 2, mb: 2, width: '100%'}}>
-        <HeaderContent />
+      <Container sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 2, pb: 2, minHeight: 'calc(100vh - 48px)'}}>
+        <Typography variant="h4" align="center" gutterBottom>
+          {ui.inicioTitle}
+        </Typography>
+        <TopBarContent />
+        {user?.name === 'admin' && (
+            <Button variant="outlined" onClick={() => setStage('admin')} size="small" sx={{mb:2, alignSelf: 'flex-end'}}>
+              {ui.adminPanelTitle}
+            </Button>
+         )}
+        <Button variant="contained" size="large" onClick={handleStart} sx={{ mb: 2 }}>
+          {ui.empezar}
+        </Button>
         <DrawerMenuComponent />
         <ProgressChartComponent />
-        <Button variant="outlined" onClick={logout} sx={{mt: 'auto', mb: 2}}> {/* Botón SALIR al final en móvil */}
-          {ui.logout}
+        <Button variant="outlined" onClick={exitStudentSession} sx={{ mt: 'auto', width: 'fit-content' }}>
+          {ui.logout || "SALIR"}
         </Button>
-      </Stack>
+      </Container>
     );
   }
 
@@ -142,8 +153,17 @@ export default function MainMenu() {
     <Stack direction="row" spacing={3} sx={{ mt: 4, mb: 4, position: 'relative' }}>
       <DrawerMenuComponent />
       <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 0 }}>
-        <HeaderContent />
+        <Typography variant="h4" align="center" gutterBottom>
+          {ui.inicioTitle}
+        </Typography>
+        <TopBarContent />
+        <Button variant="contained" size="large" onClick={handleStart} sx={{ mb: 3 }}>
+          {ui.empezar}
+        </Button>
         <ProgressChartComponent />
+        <Button variant="outlined" onClick={exitStudentSession} sx={{ mt: 2, width: 'fit-content' }}>
+         {ui.logout || "SALIR"}
+        </Button>
       </Box>
     </Stack>
   );

@@ -2,27 +2,43 @@
 import React, { useState, useEffect } from 'react';
 import {
   Stack, Typography, Button, Box, Dialog, DialogTitle, DialogContent,
-  DialogActions, TextField, CircularProgress, Grid // <<<--- IMPORTAR Grid
+  DialogActions, TextField, CircularProgress, Grid 
 } from '@mui/material';
 import { useActua } from '../context/ActuaContext';
 import textos from '../textos';
 
 export default function IngresoAlumno() {
-  const { login, idioma, isDocente, setDocente, setStage, logout } = useActua();
+  const { login, idioma, isDocente, setDocente, setStage } = useActua(); // No se usa contextLogout aquí
   const ui = textos[idioma].ui;
 
   const [showAcceso, setShowAcceso] = useState(
-    () => !localStorage.getItem('access_token')
+    () => !localStorage.getItem('access_token') // Mostrar si no hay token de acceso
   );
   const [passAcceso, setPassAcceso] = useState('');
   const [errAcceso, setErrAcceso] = useState('');
 
   const [usuarios, setUsuarios] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Inicialmente false si el diálogo de acceso se muestra primero
 
   const [showLoginDocente, setShowLoginDocente] = useState(false);
   const [senhaDocente, setSenhaDocente] = useState('');
   const [loginDocenteError, setLoginDocenteError] = useState('');
+
+  const handleCloseAccesoDialog = (event, reason) => {
+    if (reason && (reason === 'backdropClick' || reason === 'escapeKeyDown')) {
+      // Solo volver a portada si *realmente* no hay token de acceso y el diálogo es la primera interacción
+      if (!localStorage.getItem('access_token')) {
+        setStage('portada');
+      }
+      // Si ya hay un token y el diálogo se abrió por otra razón (no implementado), no hacer nada.
+      // Opcionalmente, si se quiere forzar el cierre sin acción: setShowAcceso(false);
+    }
+  };
+
+  const handleCancelAcceso = () => {
+    setStage('portada'); // Vuelve a la portada
+    // setShowAcceso(false); // El cambio de stage ya desmontará este componente o lo ocultará
+  };
 
   const handleAccesoSubmit = async () => {
     setErrAcceso('');
@@ -41,10 +57,12 @@ export default function IngresoAlumno() {
         setErrAcceso(data?.error || ui.accesoErr || 'Contraseña incorrecta');
         return;
       }
-      localStorage.setItem('access_token', data.token);
+      localStorage.setItem('access_token', data.token); // Guardar token de acceso
       setShowAcceso(false);
       setPassAcceso('');
-    } catch {
+      // La carga de alumnos se disparará por el useEffect al cambiar showAcceso
+    } catch (error) {
+      console.error("Error en loginAcceso:", error);
       setErrAcceso(ui.accesoErr || 'Error de conexión');
     }
   };
@@ -56,18 +74,30 @@ export default function IngresoAlumno() {
   };
 
   useEffect(() => {
-    if (showAcceso) return;
+    if (showAcceso) { // Si el diálogo de acceso está abierto, no cargar alumnos aún
+        setLoading(false); // Asegurar que no se muestre el spinner de carga de alumnos
+        return;
+    }
+
     setLoading(true);
-    // ... lógica de fetch en useEffect ...
     const headers = {};
     const accTok = localStorage.getItem('access_token');
     if (accTok) headers['X-Acceso-Token'] = 'Bearer ' + accTok;
-    const docTok = localStorage.getItem('docente_token');
-    if (docTok) headers['X-Docente-Token'] = 'Bearer ' + docTok;
+    
+    // No es necesario el docente_token para simplemente listar alumnos aquí si el accTok es suficiente
+    // const docTok = localStorage.getItem('docente_token');
+    // if (docTok) headers['X-Docente-Token'] = 'Bearer ' + docTok;
 
     fetch('/api/getAlumnos', { headers })
       .then((res) => {
-        if (!res.ok) { return res.json().then(err => { throw new Error(err.message || `Error ${res.status}`) }); }
+        if (!res.ok) { 
+          if (res.status === 401) { // Si es no autorizado (ej. token inválido o expirado)
+            localStorage.removeItem('access_token');
+            setShowAcceso(true); // Mostrar diálogo de acceso de nuevo
+            throw new Error("Token de acceso inválido o expirado. Por favor, ingrese la contraseña de acceso.");
+          }
+          return res.json().then(err => { throw new Error(err.message || `Error ${res.status}`) });
+        }
         return res.json();
       })
       .then((json) => {
@@ -79,20 +109,62 @@ export default function IngresoAlumno() {
             throw new Error("Formato de datos inesperado.");
         }
       })
-      .catch((error) => { console.error("Error fetching alumnos:", error); setUsuarios([]); })
+      .catch((error) => { 
+        console.error("Error fetching alumnos:", error); 
+        setUsuarios([]); 
+        setErrAcceso(error.message); // Mostrar error al usuario
+      })
       .finally(() => setLoading(false));
-  }, [isDocente, showAcceso]);
+  }, [isDocente, showAcceso, setStage]); // Añadido setStage por si se usa en un futuro aquí
 
-  const handleDocenteLoginSubmit = async () => { /* ... */ }; // contenido omitido
-  const handleSenhaDocenteKeyDown = (event) => { /* ... */ }; // contenido omitido
+  const handleDocenteLoginSubmit = async () => {
+    setLoginDocenteError('');
+    if (!senhaDocente) {
+      setLoginDocenteError('Introduce la contraseña');
+      return;
+    }
+    try {
+      const r = await fetch('/api/loginDocente', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: senhaDocente }),
+      });
+      const data = await r.json();
+      if (!r.ok) {
+        setLoginDocenteError(data.error || 'Contraseña incorrecta');
+        return;
+      }
+      localStorage.setItem('docente_token', data.token);
+      setDocente(true);
+      setStage('admin'); 
+      setShowLoginDocente(false);
+      setSenhaDocente('');
+    } catch(error) {
+      console.error("Error de conexión en loginDocente:", error);
+      setLoginDocenteError('Error de conexión');
+    }
+  };
+
+  const handleSenhaDocenteKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleDocenteLoginSubmit();
+    }
+  };
   
-  const handleLogout = () => { // Renombrado para claridad, ya que ahora va a portada
-    logout(); 
+  // Botón "SALIR" de la página de LOGIN (IngresoAlumno)
+  const handleExitToPortada = () => {
+    localStorage.removeItem('access_token'); // Limpiar solo el token de acceso general
+    // No limpiar docente_token ni llamar al logout() del contexto, que es para la sesión de alumno/docente.
+    setStage('portada');
   };
 
   return (
     <>
-      <Dialog open={showAcceso} disableEscapeKeyDown>
+      <Dialog 
+        open={showAcceso} 
+        onClose={handleCloseAccesoDialog}
+        disableEscapeKeyDown={false} // Permitir Escape
+      >
         <DialogTitle>{ui.accesoTitle || "Acceso General"}</DialogTitle>
         <DialogContent>
           <TextField
@@ -109,6 +181,9 @@ export default function IngresoAlumno() {
           />
         </DialogContent>
         <DialogActions>
+           <Button onClick={handleCancelAcceso} color="secondary">
+            {ui.cancelar || "Cancelar"}
+          </Button>
           <Button variant="contained" onClick={handleAccesoSubmit}>
             {ui.acceder || "Acceder"}
           </Button>
@@ -130,12 +205,12 @@ export default function IngresoAlumno() {
               </Typography>
               <Grid container spacing={{xs: 1, sm: 2}} justifyContent="center">
                 {usuarios.map((u) => (
-                  <Grid item xs={12} sm={6} md={3} key={u}> {/* xs=12 (1 por fila), sm=6 (2 por fila), md=3 (4 por fila) */}
+                  <Grid item xs={12} sm={6} md={3} key={u}>
                     <Button 
                       variant="outlined" 
                       onClick={() => login(u)} 
-                      fullWidth // Para que ocupe el ancho de la celda del Grid
-                      sx={{ textTransform: 'none', p: 1.5, fontSize: '0.9rem' }} // Ajustes de estilo
+                      fullWidth
+                      sx={{ textTransform: 'none', p: 1.5, fontSize: '0.9rem' }}
                     >
                       {u}
                     </Button>
@@ -144,7 +219,9 @@ export default function IngresoAlumno() {
               </Grid>
             </Box>
           ) : (
-            <Typography sx={{mt: 2, mb:2}}>No hay alumnos registrados o no se pudieron cargar.</Typography>
+            <Typography sx={{mt: 2, mb:2}} color={errAcceso ? "error" : "text.secondary"}>
+              {errAcceso ? errAcceso : "No hay alumnos registrados o no se pudieron cargar."}
+              </Typography>
           )}
 
           {!isDocente ? (
@@ -164,7 +241,7 @@ export default function IngresoAlumno() {
            <Button
             variant="outlined"
             color="primary"
-            onClick={handleLogout} // Usa la función renombrada
+            onClick={handleExitToPortada} // Usar la nueva función específica
             sx={{ mt: 4, alignSelf: 'center' }}
           >
             {ui.logout || "SALIR"} 
