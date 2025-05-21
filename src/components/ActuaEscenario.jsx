@@ -1,22 +1,22 @@
 // src/components/ActuaEscenario.jsx
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   Container, Box, Typography, Button, Grid, Drawer, IconButton,
   Stack, useTheme, useMediaQuery, TextField, Checkbox, FormControlLabel
-} from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
-import HomeIcon from '@mui/icons-material/Home'
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import textos from '../textos'
-import { useActua } from '../context/ActuaContext'
-import DrawerMenu from './DrawerMenu'
-import { 
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import textos from '../textos';
+import { useActua } from '../context/ActuaContext';
+import DrawerMenu from './DrawerMenu';
+import ordenEscenas, { // <<<--- AÑADIR "ordenEscenas" AQUÍ
     obtenerSecuenciaEscenas, 
     esUltimaEscenaDelNivel, 
     obtenerEscenasDelNivelActual,
-    esPrimeraEscenaDelNivel // Nueva importación
-} from '../ordenEscenas'
+    esPrimeraEscenaDelNivel 
+} from '../ordenEscenas';
 
 const ActuaEscenario = () => {
   const theme = useTheme();
@@ -63,6 +63,7 @@ const ActuaEscenario = () => {
   const secuenciaGlobal = obtenerSecuenciaEscenas();
   const escenasDelNivelActual = obtenerEscenasDelNivelActual(escena.id, todasEscenas);
   const esUltimaDelNivelActual = esUltimaEscenaDelNivel(escena.id, escenasDelNivelActual);
+  // Aquí se usa ordenEscenas (el default export)
   const esPrimeraDelNivelActual = esPrimeraEscenaDelNivel(escena.id, ordenEscenas, todasEscenas);
 
 
@@ -80,7 +81,7 @@ const ActuaEscenario = () => {
         respuestas: [{
           fecha: new Date().toISOString(),
           situacionId: escena.id,
-          paso: pasoActual.tipo === "eleccion" ? paso : (paso -1 < 0 ? 0: paso -1), // Paso de la elección/resultado
+          paso: pasoActual.tipo === "eleccion" || pasoActual.tipo === "resultado" ? paso : (paso -1 < 0 ? 0: paso -1),
           tipoPaso: 'comentario_feedback', 
           comentario: commentText,
           azar: azarFlag, 
@@ -88,12 +89,17 @@ const ActuaEscenario = () => {
         }]
       })
     })
-    .then(() => setCommentSaved(true))
+    .then(() => {
+        setCommentSaved(true);
+        // No resetear commentText aquí para que el usuario vea lo que guardó
+        // setCommentText(''); // Opcional: limpiar tras guardar
+    })
     .catch(console.error);
   };
   
   const finishFeedback = () => {
-    if (!commentSaved && (azarFlag || commentText)) {
+    // Guardar si hay comentario sin guardar o solo se marcó azar
+    if (!commentSaved && (commentText || azarFlag)) {
         fetch('/api/guardarRespuestas', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -102,7 +108,7 @@ const ActuaEscenario = () => {
                 respuestas: [{
                     fecha: new Date().toISOString(),
                     situacionId: escena.id,
-                    paso: pasoActual.tipo === "eleccion" ? paso : (paso -1 < 0 ? 0: paso -1),
+                    paso: pasoActual.tipo === "eleccion" || pasoActual.tipo === "resultado" ? paso : (paso -1 < 0 ? 0: paso -1),
                     tipoPaso: 'feedback_final_consolidado',
                     comentario: commentText,
                     azar: azarFlag,
@@ -133,7 +139,7 @@ const ActuaEscenario = () => {
   const avanzar = idEleccion => {
     const esUltimoPaso = paso === totalPasos - 1;
 
-    if (showFeedback) {
+    if (showFeedback) { // Esta condición ahora es manejada por el botón "Siguiente" directamente
         finishFeedback();
         return;
     }
@@ -141,6 +147,7 @@ const ActuaEscenario = () => {
     if (pasoActual.tipo === 'eleccion') {
       if (!idEleccion) return;
       setElecciones(prev => ({ ...prev, [escena.id]: idEleccion }));
+      // La respuesta de elección se guarda. El feedback se guardará al final.
       fetch('/api/guardarRespuestas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -153,28 +160,31 @@ const ActuaEscenario = () => {
             tipoPaso: 'eleccion',
             respuesta: idEleccion,
             comentario: null, 
-            azar: false, 
+            azar: false, // El azar y comentario se guardan en el paso de feedback
             idioma
           }]
         })
       }).catch(console.error);
     }
     
+    // Después de una elección, situación o resultado, si es el último paso, mostrar feedback.
     if (esUltimoPaso) {
-      setShowFeedback(true);
+      setShowFeedback(true); // Mostrar feedback para cualquier tipo de último paso
+      setCommentSaved(false); // Permitir guardar nuevo comentario
     } else if (paso < totalPasos - 1) {
       setPaso(paso + 1);
     }
   };
 
   const handleBack = () => {
-    if (esPrimeraDelNivelActual && paso === 0) {
+    if (esPrimeraDelNivelActual && paso === 0 && !showFeedback) {
         setStage('menu');
         return;
     }
 
     if (showFeedback) {
       setShowFeedback(false);
+      setCommentSaved(false); // Permitir guardar de nuevo si vuelve al feedback
       return;
     }
     
@@ -187,7 +197,8 @@ const ActuaEscenario = () => {
         const escenaAnterior = todasEscenas.find(e => e.id === escenaAnteriorId);
         if (escenaAnterior) {
             setIndiceEscena(prevIndiceEscena);
-            setPaso(escenaAnterior.pasos.length -1);
+            // Ir al último paso de la escena anterior. Si ese paso lleva a feedback, se mostrará.
+            setPaso(escenaAnterior.pasos.length -1); 
         } else {
              setStage('menu');
         }
@@ -209,13 +220,14 @@ const ActuaEscenario = () => {
             <TextField
               label={data.ui.labelComentario || 'Comentario (opcional)'}
               multiline rows={4} value={commentText}
-              onChange={e => setCommentText(e.target.value)} fullWidth
+              onChange={e => { setCommentText(e.target.value); setCommentSaved(false); }} // Permitir guardar si el texto cambia
+              fullWidth
             />
             <Box display="flex" gap={1}>
               <Button variant="contained" onClick={saveComment} disabled={!commentText || commentSaved}>
                 {commentSaved ? (data.ui.comentarioGuardado || 'Guardado') : (data.ui.guardar || 'Guardar')}
               </Button>
-              <Button variant="outlined" onClick={() => setCommentText('')}>
+              <Button variant="outlined" onClick={() => {setCommentText(''); setCommentSaved(false);}}>
                 {data.ui.cancelar || 'Cancelar'}
               </Button>
             </Box>
@@ -223,7 +235,7 @@ const ActuaEscenario = () => {
         </Box>
       );
     }
-    // ... resto de renderContenido sin cambios ...
+    // ... El resto de renderContenido (situacion, eleccion, resultado) sin cambios ...
     if (pasoActual.tipo === 'situacion') {
       return (
         <Box textAlign="center" mb={2}>
@@ -265,22 +277,22 @@ const ActuaEscenario = () => {
 
   let textoSiguiente = data.ui.siguiente;
   let IconoSiguiente = ArrowForwardIosIcon;
-  let accionSiguiente = () => showFeedback ? finishFeedback() : avanzar();
+  let accionSiguienteBoton = () => showFeedback ? finishFeedback() : avanzar();
 
   if (showFeedback && esUltimaDelNivelActual) {
     textoSiguiente = data.ui.volverAlMenu || "Volver al Menú";
     IconoSiguiente = HomeIcon;
+    // finishFeedback ya maneja la lógica de ir al menú si es la última del nivel.
   }
 
   let textoAtras = data.ui.atras;
   let IconoAtras = ArrowBackIosNewIcon;
-  let accionAtras = handleBack;
 
   if (esPrimeraDelNivelActual && paso === 0 && !showFeedback) {
       textoAtras = data.ui.volverAlMenu || "Volver al Menú";
       IconoAtras = HomeIcon;
+      // handleBack ya maneja la lógica de ir al menú en este caso.
   }
-
 
   return (
     <>
@@ -291,12 +303,12 @@ const ActuaEscenario = () => {
           categories={data.ui.categories}
           nivelesLabels={data.ui.niveles || {}}
           onSelect={goToScene}
-          currentEscenaId={escena.id} // Pasar el ID de la escena actual
-          isGlobalMenu={false} // Indicar que es el menú de escenario
+          currentEscenaId={escena.id}
+          isGlobalMenu={false} 
         />
       </Drawer>
 
-      <Container maxWidth="md" sx={{ pt: 1, position: 'relative' }}>
+      <Container maxWidth="md" sx={{ pt: 1, position: 'relative', pb: {xs: 8, sm: 2} }}> {/* Padding bottom para botones móviles */}
         <Stack direction="row" spacing={2} alignItems="center" mb={1}>
           <Button variant="text" size="small" startIcon={<HomeIcon />} onClick={() => setStage('menu')}>
             {data.ui.inicio}
@@ -325,21 +337,23 @@ const ActuaEscenario = () => {
 
         {isSmUp ? (
           <>
-            <Button onClick={accionAtras}
+            <Button onClick={handleBack} // Se usa handleBack directamente
               sx={{ position: 'fixed', top: '50%', left: theme.spacing(1), transform: 'translateY(-50%)',
-                   minWidth: 48, p: 1, borderRadius: 1, zIndex: 10, display: 'flex', flexDirection: 'column',
-                   alignItems: 'center', justifyContent: 'center', width: 'auto', minHeight: 70, // Ajustado para contenido
-                   backgroundColor: 'transparent', color: 'inherit', px: 1.5 // padding horizontal
+                   minWidth: 'auto', p: 1, borderRadius: 1, zIndex: 10, display: 'flex', flexDirection: 'column',
+                   alignItems: 'center', justifyContent: 'center', width: 'auto', minHeight: 70, 
+                   backgroundColor: 'transparent', color: 'inherit', px: 1.5,
+                   '& .MuiButton-startIcon': { margin: 0}, '& .MuiButton-endIcon': { margin: 0}
               }} variant="outlined"
             >
               <IconoAtras />
               <Typography variant="caption" sx={{ mt: 0.5, whiteSpace: 'normal', textAlign: 'center', lineHeight: '1.2' }}>{textoAtras}</Typography>
             </Button>
-            <Button onClick={accionSiguiente}
+            <Button onClick={accionSiguienteBoton}
               sx={{ position: 'fixed', top: '50%', right: theme.spacing(1), transform: 'translateY(-50%)',
-                   minWidth: 48, p: 1, borderRadius: 1, zIndex: 10, display: 'flex', flexDirection: 'column',
-                   alignItems: 'center', justifyContent: 'center', width: 'auto', minHeight: 70, // Ajustado
-                   backgroundColor: 'transparent', color: 'inherit', px: 1.5
+                   minWidth: 'auto', p: 1, borderRadius: 1, zIndex: 10, display: 'flex', flexDirection: 'column',
+                   alignItems: 'center', justifyContent: 'center', width: 'auto', minHeight: 70,
+                   backgroundColor: 'transparent', color: 'inherit', px: 1.5,
+                   '& .MuiButton-startIcon': { margin: 0}, '& .MuiButton-endIcon': { margin: 0}
               }} variant="outlined"
               disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccionHecha}
             >
@@ -348,9 +362,10 @@ const ActuaEscenario = () => {
             </Button>
           </>
         ) : (
-          <Box display="flex" justifyContent="space-between" mt={4}>
-            <Button onClick={accionAtras} startIcon={<IconoAtras />}> {textoAtras} </Button>
-            <Button onClick={accionSiguiente} endIcon={<IconoSiguiente />}
+          <Box display="flex" justifyContent="space-between" alignItems="center"
+               sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, p:1, pb: 2, bgcolor: 'background.paper', zIndex: 100, borderTop: '1px solid grey.300' }}>
+            <Button onClick={handleBack} startIcon={<IconoAtras />} sx={{flexGrow: 1, justifyContent: 'flex-start', textAlign: 'left'}}> {textoAtras} </Button>
+            <Button onClick={accionSiguienteBoton} endIcon={<IconoSiguiente />} sx={{flexGrow: 1, justifyContent: 'flex-end', textAlign: 'right'}}
               disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccionHecha}
             > {textoSiguiente} </Button>
           </Box>

@@ -9,14 +9,20 @@ export default function Portada() {
   const { portadaTitle, portadaButton } = textos[idioma].ui;
 
   return (
-    <Box sx={{ height: 'calc(100vh - 48px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative' }}> {/* Contenedor principal para posicionamiento */}
+    <Box sx={{ 
+      minHeight: 'calc(100vh - 48px)', // Usar minHeight para asegurar que cubre la pantalla
+      display: 'flex', 
+      flexDirection: 'column', 
+      position: 'relative', // Para el posicionamiento absoluto del footer
+      pt: 2, pb: 2 // Añadir padding vertical general
+    }}>
       <Stack
         spacing={4}
         alignItems="center"
         justifyContent="center"
-        sx={{ flexGrow: 1 }} 
+        sx={{ flexGrow: 1, textAlign: 'center' }} 
       >
-        <Typography variant="h2" align="center">
+        <Typography variant="h2" component="h1" gutterBottom> {/* component="h1" para semántica */}
           {portadaTitle}
         </Typography>
 
@@ -24,7 +30,11 @@ export default function Portada() {
           component="img"
           src="/portada.png"
           alt="Portada Actua"
-          sx={{ width: '60%', maxWidth: 300 }}
+          sx={{ 
+            width: { xs: '70%', sm: '60%' }, 
+            maxWidth: 300, 
+            height: 'auto' // Para mantener la proporción
+          }}
         />
 
         <Button
@@ -39,21 +49,24 @@ export default function Portada() {
       {/* Información Adicional */}
       <Box
         sx={{
-          position: 'absolute',
-          bottom: 16, // Espacio desde abajo
-          left: 16,   // Espacio desde la izquierda
-          textAlign: 'left',
-          color: 'text.secondary', // Un color discreto
+          position: { xs: 'relative', sm: 'absolute' }, // Relativo en xs, absoluto en sm+
+          bottom: { sm: 16 },
+          left: { sm: 16 },
+          width: { xs: 'calc(100% - 32px)', sm: 'auto' }, // Ancho completo menos padding en xs
+          p: { xs: '16px 0', sm: 0 }, // Padding vertical en xs, ninguno en sm+
+          mt: { xs: 'auto', sm: 0 }, // Margen superior auto en xs para empujar al fondo si es relative
+          textAlign: { xs: 'center', sm: 'left'},
+          color: 'text.secondary',
         }}
       >
         <Typography variant="caption" component="div">
-          NICOLE DAHYAN ALFARO RUÍZ
+          NICOLE DAHYAN ALFARO RUIZ [cite: 1418]
         </Typography>
         <Typography variant="caption" component="div">
-          TRABAJO DE FIN DE GRADO EN EDUCACIÓN PRIMÁRIA
+          TRABAJO DE FIN DE GRADO EN EDUCACIÓN PRIMÁRIA [cite: 1420]
         </Typography>
         <Typography variant="caption" component="div">
-          CURSO 2024/2025
+          CURSO 2024/2025 [cite: 1422]
         </Typography>
       </Box>
     </Box>
