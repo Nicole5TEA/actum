@@ -23,9 +23,9 @@ export default defineConfig({
       },
 
       manifest: {
-        name: 'Actua PWA',
-        short_name: 'Actua',
-        description: 'Aplicación Actua para el aprendizaje de habilidades sociales y emocionales',
+        name: 'ACTUM TFG',
+        short_name: 'ACTUM',
+        description: 'Aplicación ACTUM para el aprendizaje de habilidades sociales y emocionales',
         theme_color: '#6a5d4d', // Color principal de tu app (tomado de tu App.jsx)
         background_color: '#f6f5f1', // Color de fondo (tomado de tu App.jsx)
         display: 'standalone',
@@ -33,21 +33,21 @@ export default defineConfig({
         start_url: '/', // URL de inicio de tu aplicación
         icons: [
           {
-            src: 'pwa-192x192.png', // Coloca este icono en tu carpeta 'public'
+            src: 'icon-192x192.png', // Coloca este icono en tu carpeta 'public'
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png', // Coloca este icono en tu carpeta 'public'
+            src: 'icon-512x512.png', // Coloca este icono en tu carpeta 'public'
             sizes: '512x512',
             type: 'image/png'
           },
-          {
-            src: 'pwa-512x512-maskable.png', // Icono "maskable" (opcional pero recomendado)
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
-          }
+          // {
+          //   src: 'icon-512x512-maskable.png', // Icono "maskable" (opcional pero recomendado)
+          //   sizes: '512x512',
+          //   type: 'image/png',
+          //   purpose: 'any maskable'
+          // }
         ]
       }
     })
