@@ -115,9 +115,10 @@ export default function IngresoAlumno() {
         <DialogContent>
           <TextField
             autoFocus
-            fullWidth
-            type="password"
+            margin="dense"
             label={ui.accesoLabel}
+            type="password"
+            fullWidth
             value={passAcceso}
             onChange={(e) => setPassAcceso(e.target.value)}
             error={!!errAcceso}
