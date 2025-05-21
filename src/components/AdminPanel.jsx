@@ -280,20 +280,6 @@ export default function AdminPanel() {
             )}
           </Box>
 
-          {/* ── NUEVO ALUMNO ── */}
-          {viewMode === 'all' && (
-            <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
-              <TextField
-                label={ui.nuevoAlumno}
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-                error={errNew}
-                helperText={errNew && ui.errNombre}
-              />
-              <Button onClick={crearAlumno}>{ui.crear}</Button>
-            </Box>
-          )}
-
           {/* ── TABLA ── */}
           {loading ? (
             <CircularProgress />
