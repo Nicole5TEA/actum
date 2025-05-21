@@ -1,81 +1,125 @@
-import React from 'react'
-import { Box, Stack, Typography, Button } from '@mui/material'
-import { useActua } from '../context/ActuaContext'
-import textos from '../textos'
-import DrawerMenu from './DrawerMenu'
-import { obtenerSecuenciaEscenas } from '../ordenEscenas'
+// src/components/MainMenu.jsx
+import React from 'react';
+import { Box, Stack, Typography, Button, CircularProgress } from '@mui/material'; // CircularProgress importado
+import { useActua } from '../context/ActuaContext';
+import textos from '../textos';
+import DrawerMenu from './DrawerMenu';
+import { obtenerSecuenciaEscenas } from '../ordenEscenas';
 
 export default function MainMenu() {
   const {
     user,
-    // perfiles, // No se usa directamente aquí
     logout,
     setStage,
     setIndiceEscena,
     reiniciarPaso,
     elecciones,
     idioma
-  } = useActua()
+  } = useActua();
   
-  const data = textos[idioma] 
+  const data = textos[idioma];
+  const ui = data.ui;
+  const todasEscenas = data.escenas; // Todas las escenas definidas en textos.js
+  const secuenciaEscenasOrdenadas = obtenerSecuenciaEscenas(); // IDs de escenas en orden
 
-  const ui = textos[idioma].ui
-  const escenas = textos[idioma].escenas // Usado para pasar al DrawerMenu
+  // Filtrar todasEscenas para que solo contenga las que están en secuenciaEscenasOrdenadas y mantener su orden
+  const escenasEnOrden = secuenciaEscenasOrdenadas
+    .map(id => todasEscenas.find(escena => escena.id === id))
+    .filter(Boolean); // Eliminar undefined si alguna ID no se encuentra
 
-  // Arranca la primera situación de la secuencia global
   const handleStart = () => {
-    setIndiceEscena(0) // El índice 0 de la secuencia global
-    reiniciarPaso()
-    setStage('escenario')
-  }
+    setIndiceEscena(0);
+    reiniciarPaso();
+    setStage('escenario');
+  };
 
-  // Va a una situación concreta (el índice es el global en la secuencia)
-  const handleSelect = idx => {
-    setIndiceEscena(idx)
-    reiniciarPaso()
-    setStage('escenario')
-  }
+  const handleSelect = globalIndex => {
+    setIndiceEscena(globalIndex);
+    reiniciarPaso();
+    setStage('escenario');
+  };
+
+  const totalSituaciones = secuenciaEscenasOrdenadas.length;
+  const situacionesCompletadas = Object.keys(elecciones).filter(
+    // Considera completada si existe la key y no es un string vacío
+    // y además, la escena está en la secuencia ordenada (para no contar antiguas)
+    idEscena => elecciones[idEscena] && elecciones[idEscena] !== '' && secuenciaEscenasOrdenadas.includes(idEscena)
+  ).length;
+
+  const porcentajeCompletado = totalSituaciones > 0 
+    ? Math.round((situacionesCompletadas / totalSituaciones) * 100) 
+    : 0;
 
   return (
-    <Box sx={{ mt: 4, mb: 4 }}>
-      {/* Título */}
-      <Typography variant="h4" align="center" gutterBottom>
-        {ui.inicioTitle}
-      </Typography>
-
-      {/* Saludo y botones admin/logout */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}> {/* [cite: 396] */}
-        <Typography variant="h6">
-          {ui.greeting} {user.name}
-        </Typography>
-        <Stack direction="row" spacing={1}>
-          {user.name === 'admin' && ( // Asumiendo que 'admin' es un nombre especial
-            <Button variant="outlined" onClick={() => setStage('admin')}>
-              {ui.adminPanelTitle}
-            </Button>
-          )}
-          <Button variant="outlined" onClick={logout}>
-            {ui.logout} {/* [cite: 411] */}
-          </Button>
-        </Stack>
-      </Stack>
-
-      {/* Botón EMPEZAR */}
-      <Box display="flex" justifyContent="center" mb={3}>
-        <Button variant="contained" onClick={handleStart}>
-          {ui.empezar} {/* [cite: 451] */}
-        </Button>
+    <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ width: { xs: '100%', md: 250 }, flexShrink: { md: 0 } }}>
+        <DrawerMenu
+          items={todasEscenas} // Pasamos todas las escenas para que el Drawer las busque por ID
+          completed={elecciones}
+          categories={ui.categories}
+          nivelesLabels={ui.niveles || {}}
+          onSelect={handleSelect}
+          isGlobalMenu={true}
+        />
       </Box>
 
-      {/* Lista de situaciones */}
-      <DrawerMenu
-        items={escenas} // Pasamos todas las escenas para que el Drawer las organice
-        currentIndex={-1} // Ya no es relevante el índice global aquí para la selección
-        completed={elecciones}
-        categories={ui.categories}
-        nivelesLabels={data.ui.niveles || {}} // Aseguramos que nivelesLabels exista
-        onSelect={handleSelect} // onSelect espera el índice global
-      />
-    </Box>
-  )
+      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          {ui.inicioTitle}
+        </Typography>
+
+        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2} sx={{ width: '100%', maxWidth: 'sm' }}>
+          <Typography variant="h6">
+            {ui.greeting} {user.name}
+          </Typography>
+          <Stack direction="row" spacing={1}>
+            {user.name === 'admin' && (
+              <Button variant="outlined" onClick={() => setStage('admin')}>
+                {ui.adminPanelTitle}
+              </Button>
+            )}
+            <Button variant="outlined" onClick={() => {
+                logout(); // logout() ahora redirige a 'ingreso'
+            }}>
+              {ui.logout}
+            </Button>
+          </Stack>
+        </Stack>
+
+        <Button variant="contained" size="large" onClick={handleStart} sx={{ mb: 3 }}>
+          {ui.empezar}
+        </Button>
+
+        {/* Gráfico Circular de Progreso */}
+        <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
+          <CircularProgress 
+            variant="determinate" 
+            value={porcentajeCompletado} 
+            size={100} // Tamaño del círculo
+            thickness={4} // Grosor del círculo
+            sx={{ color: 'primary.main' }}
+          />
+          <Box
+            sx={{
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              position: 'absolute',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography variant="caption" component="div" color="text.secondary" sx={{fontSize: '1.2rem'}}>
+              {`${porcentajeCompletado}%`}
+            </Typography>
+          </Box>
+        </Box>
+        <Typography variant="body2" color="text.secondary">
+          {situacionesCompletadas} de {totalSituaciones} situaciones completadas
+        </Typography>
+      </Box>
+    </Stack>
+  );
 }

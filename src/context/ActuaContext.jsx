@@ -1,16 +1,17 @@
+// src/context/ActuaContext.jsx
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import useIdioma from '../hooks/useIdioma'
-import ordenEscenas, { obtenerSecuenciaEscenas } from '../ordenEscenas'; // Importar la nueva estructura
-import textosGlobal from '../textos'; // Para acceder a las escenas y determinar el índice
+import ordenEscenas, { obtenerSecuenciaEscenas } from '../ordenEscenas'; 
+import textosGlobal from '../textos'; 
 
 const ActuaContext = createContext()
 
 export function ActuaProvider({ children }) {
-  const [stage, setStage]       = useState('portada')   // portada → ingreso → menu → escenario → admin
-  const [user, setUser]         = useState(null)        // { name, date }
-  const [perfiles, setPerfiles] = useState({})          // { [name]: { date, elecciones } }
-  const [elecciones, setElecciones] = useState({})      // estado de elecciones [cite: 402]
-  const [indiceEscena, setIndiceEscena] = useState(0) // Este será el índice GLOBAL en la secuencia plana
+  const [stage, setStage]       = useState('portada')  
+  const [user, setUser]         = useState(null)       
+  const [perfiles, setPerfiles] = useState({})         
+  const [elecciones, setElecciones] = useState({})     
+  const [indiceEscena, setIndiceEscena] = useState(0) 
   const [paso, setPaso] = useState(0)
   const reiniciarPaso = () => setPaso(0)
 
@@ -40,13 +41,13 @@ export function ActuaProvider({ children }) {
         [user.name]: { date: user.date, elecciones }
       }))
     }
-  }, [elecciones, user]) // Agregado user a las dependencias
+  }, [elecciones, user])
 
   function login(name) {
-    const now = new Date().toISOString() // [cite: 404]
+    const now = new Date().toISOString() 
     const existing = perfiles[name]
     if (existing) {
-      setElecciones(existing.elecciones)
+      setElecciones(existing.elecciones || {}) // Asegurar que elecciones sea un objeto
       setUser({ name, date: existing.date })
     } else {
       setElecciones({})
@@ -64,24 +65,23 @@ export function ActuaProvider({ children }) {
     setElecciones({})
     setIndiceEscena(0)
     setPaso(0)
-    setStage('portada')
-    setDocente(false)
+    setDocente(false) // También cerrar sesión de docente
+    // localStorage.removeItem('docente_token'); // Opcional: quitar token de docente
+    // localStorage.removeItem('access_token'); // Opcional: quitar token de acceso general
+    setStage('ingreso'); // Cambiado de 'portada' a 'ingreso'
   }
 
-  // Devuelve el ID de la escena actual basado en el índice global
   const getIdEscenaActual = () => {
     const secuencia = obtenerSecuenciaEscenas();
     return secuencia[indiceEscena];
   }
 
-  // Devuelve el objeto de la escena actual
   const getEscenaActual = () => {
     const idEscena = getIdEscenaActual();
     if (!idEscena) return null;
     const escenasDisponibles = textosGlobal[idioma]?.escenas || [];
     return escenasDisponibles.find(e => e.id === idEscena);
   }
-
 
   return (
     <ActuaContext.Provider
@@ -90,8 +90,8 @@ export function ActuaProvider({ children }) {
         user, perfiles,
         login, logout,
         idioma, cambiarIdioma,
-        elecciones, setElecciones, // [cite: 406]
-        indiceEscena, setIndiceEscena, // índice global
+        elecciones, setElecciones, 
+        indiceEscena, setIndiceEscena, 
         getIdEscenaActual,
         getEscenaActual,
         paso, setPaso, reiniciarPaso,

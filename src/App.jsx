@@ -1,3 +1,4 @@
+// src/App.jsx
 import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,7 +10,7 @@ import IngresoAlumno from './components/IngresoAlumno';
 import MainMenu from './components/MainMenu';
 import ActuaEscenario from './components/ActuaEscenario';
 import AdminPanel from './components/AdminPanel';
-import DrawerMenu from './components/DrawerMenu';
+// DrawerMenu ya no se importa ni se renderiza aquí directamente
 
 const theme = createTheme({
   palette: {
@@ -50,7 +51,7 @@ export default function App() {
       <Container maxWidth="md">
         <AppContent />
       </Container>
-      <DrawerMenu />
+      {/* <DrawerMenu />  // Eliminado de aquí */}
     </ThemeProvider>
   );
 }

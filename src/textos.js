@@ -5,7 +5,7 @@ const textos = {
       // ... (otros textos existentes) ...
       portadaTitle: 'ACTUM',
       portadaButton: 'EMPEZAR',
-      ingresoPrompt: 'Introduce el nombre del alumno', // [cite: 410]
+      ingresoPrompt: 'SELECCIONA TÚ NOMBRE', // [cite: 410]
       ingresoLabel: 'Nombre',
       ingresoError: 'Nombre no válido',
       ingresoButton: 'REGISTRARSE',
@@ -262,7 +262,7 @@ const textos = {
     ui: {
       portadaTitle: 'ACTUM',
       portadaButton: 'COMENÇA',
-      ingresoPrompt: 'Introdueix el nom de l’alumne',
+      ingresoPrompt: 'SELECCIONA EL TEU NOM',
       ingresoLabel: 'Nom', // [cite: 450]
       ingresoError: 'Nom no vàlid',
       ingresoButton: 'REGISTRAR-SE',
