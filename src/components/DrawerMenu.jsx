@@ -9,27 +9,25 @@ import {
   Divider
 } from '@mui/material'
 import CheckIcon from '@mui/icons-material/Check'
+import ordenEscenas, { obtenerSecuenciaEscenas } from '../ordenEscenas'; // Importar para la estructura
 
-/**
- * @param {Object[]} items
- * @param {number}   currentIndex
- * @param {Object}   completed
- * @param {Object}   categories
- * @param {Object}   nivelesLabels
- * @param {fn}       onSelect
- */
 const DrawerMenu = ({
-  items = [],
-  currentIndex = 0,
+  items = [], // Todas las escenas disponibles
+  // currentIndex no se usa para la selección aquí, se basa en el ID de la escena
   completed = {},
   categories = {},
-  nivelesLabels = {},      // ← ¡no olvides pasarlo desde el padre!
-  onSelect = () => {}
+  nivelesLabels = {},
+  onSelect = () => {} // onSelect debería recibir el índice GLOBAL de la escena seleccionada
 }) => {
-  // 1️⃣  --- lógica fuera del JSX ---
-  const niveles = [...new Set(items.map(e => e.nivel))].sort((a, b) => a - b)
+  const secuenciaGlobal = obtenerSecuenciaEscenas();
 
-  // 2️⃣  --- JSX ---
+  const handleSelect = (escenaId) => {
+    const globalIndex = secuenciaGlobal.findIndex(id => id === escenaId);
+    if (globalIndex !== -1) {
+      onSelect(globalIndex);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -38,42 +36,43 @@ const DrawerMenu = ({
         overflowY: 'auto',
         bgcolor: 'background.paper'
       }}
-      role="presentation"
+      role="presentation" // [cite: 352]
     >
       <List disablePadding>
-        {niveles.map(nivel => (
-          <React.Fragment key={`nivel-${nivel}`}>
+        {ordenEscenas.map(nivelObj => (
+          <React.Fragment key={`nivel-${nivelObj.nivel}`}>
             <ListSubheader disableSticky>
-              {nivelesLabels[nivel] || `Nivel ${nivel}`}
+              {nivelesLabels[nivelObj.nivel] || `Nivel ${nivelObj.nivel}`} {/* [cite: 353] */}
             </ListSubheader>
 
-            {Object.entries(categories).map(([catKey, catLabel]) => {
-              const escenasCat = items
-                .map((item, idx) => ({ ...item, idx }))
-                .filter(
-                  item => item.nivel === nivel && item.categoria === catKey
-                )
+            {Object.entries(nivelObj.categorias).map(([catKey, escenasEnCategoriaPorId]) => {
+              if (!escenasEnCategoriaPorId || escenasEnCategoriaPorId.length === 0) return null;
+              
+              // Mapear IDs a objetos de escena completos para obtener títulos, etc.
+              const escenasCompletasEnCategoria = escenasEnCategoriaPorId
+                .map(idEscena => items.find(item => item.id === idEscena))
+                .filter(Boolean); // Filtrar por si alguna ID no tiene correspondencia
 
-              if (!escenasCat.length) return null
+              if (!escenasCompletasEnCategoria.length) return null;
 
               return (
-                <React.Fragment key={`${nivel}-${catKey}`}>
+                <React.Fragment key={`${nivelObj.nivel}-${catKey}`}>
                   <ListSubheader sx={{ pl: 4 }} disableSticky>
-                    {catLabel}
+                    {categories[catKey] || catKey} {/* [cite: 355] */}
                   </ListSubheader>
 
-                  {escenasCat.map(({ idx, titulo, id }) => (
+                  {escenasCompletasEnCategoria.map(({ id, titulo }) => (
                     <ListItemButton
-                      key={id}
-                      selected={idx === currentIndex}
-                      onClick={() => onSelect(idx)}
+                      key={id} // [cite: 356]
+                      // selected={id === items[currentIndex]?.id} // Ya no se usa currentIndex así
+                      onClick={() => handleSelect(id)}
                     >
                       <ListItemText
-                        primary={titulo}
+                        primary={titulo} // [cite: 357]
                         primaryTypographyProps={{ fontSize: '0.875rem' }}
                       />
                       {completed[id] && (
-                        <ListItemIcon sx={{ minWidth: 'auto', ml: 1 }}>
+                        <ListItemIcon sx={{ minWidth: 'auto', ml: 1 }}> {/* [cite: 358] */}
                           <CheckIcon fontSize="small" color="primary" />
                         </ListItemIcon>
                       )}
@@ -82,7 +81,8 @@ const DrawerMenu = ({
                 </React.Fragment>
               )
             })}
-            <Divider />
+            {/* Solo añadir Divider si no es el último nivel o si hay contenido después */}
+            {ordenEscenas.indexOf(nivelObj) < ordenEscenas.length -1 && <Divider />}
           </React.Fragment>
         ))}
       </List>

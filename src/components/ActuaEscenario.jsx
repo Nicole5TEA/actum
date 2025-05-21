@@ -21,40 +21,51 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import textos from '../textos'
 import { useActua } from '../context/ActuaContext'
 import DrawerMenu from './DrawerMenu'
+import { obtenerSecuenciaEscenas, esUltimaEscenaDelNivel, obtenerEscenasDelNivelActual } from '../ordenEscenas'
 
 const ActuaEscenario = () => {
   const theme = useTheme()
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'))
 
   const {
-    indiceEscena,
+    indiceEscena, // Este es el índice GLOBAL
     paso,
     elecciones,
     idioma,
-    reiniciarPaso,
+    reiniciarPaso, // [cite: 229]
     setIndiceEscena,
     setPaso,
     setElecciones,
     cambiarIdioma,
     user,
-    setStage
+    setStage,
+    getEscenaActual // Usaremos esta función para obtener la escena actual
   } = useActua()
 
-  // Estado para comentarios y azar, y control de feedback adicional
   const [commentText, setCommentText] = useState('')
   const [azarFlag, setAzarFlag] = useState(false)
   const [commentSaved, setCommentSaved] = useState(false)
   const [showFeedback, setShowFeedback] = useState(false)
-
   const [menuOpen, setMenuOpen] = useState(false)
+
   const data = textos[idioma]
-  const escenas = data.escenas
-  const escena = escenas[indiceEscena]
+  const todasEscenas = data.escenas // Todas las escenas para el DrawerMenu
+  
+  const escena = getEscenaActual() // Obtenemos la escena actual usando el contexto
+
+  // Si la escena no se encuentra (podría pasar si el índice está fuera de rango)
+  if (!escena) {
+    // Podrías redirigir al menú o mostrar un error
+    useEffect(() => {
+        setStage('menu');
+    }, [setStage]);
+    return <Typography>Cargando escena o escena no encontrada...</Typography>;
+  }
+
   const pasoActual = escena.pasos[paso]
   const totalPasos = escena.pasos.length
-  const eleccion = elecciones[escena.id] || ''
+  const eleccionHecha = elecciones[escena.id] || '' // [cite: 230]
 
-  // Reset de estados al cambiar escena o paso
   useEffect(() => {
     setCommentText('')
     setAzarFlag(false)
@@ -62,42 +73,28 @@ const ActuaEscenario = () => {
     setShowFeedback(false)
   }, [indiceEscena, paso])
 
-  // Navegar a otra escena
-  const goToScene = idx => {
+  const goToScene = idx => { // idx es el índice GLOBAL
     setIndiceEscena(idx)
     reiniciarPaso()
     setMenuOpen(false)
   }
+  
+  const secuenciaGlobal = obtenerSecuenciaEscenas();
+  const escenasDelNivelActual = obtenerEscenasDelNivelActual(escena.id, todasEscenas);
+  const esUltimaDelNivel = esUltimaEscenaDelNivel(escena.id, escenasDelNivelActual);
 
-  // Marca/desmarca azar y envía al servidor
+
   const handleAzarToggle = event => {
     const isAzar = event.target.checked
     setAzarFlag(isAzar)
-    fetch('/api/guardarRespuestas', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        id: user.name,
-        respuestas: [
-          {
-            fecha: new Date().toISOString(),
-            situacionId: escena.id,
-            paso,
-            tipoPaso: 'azar',
-            azar: isAzar,
-            comentario: null,
-            idioma
-          }
-        ]
-      })
-    }).catch(console.error)
+    // El guardado de "azar" se hará junto con la elección o el comentario
+    // No es necesario un fetch aquí si se consolida en `finishFeedback` o `avanzar`
   }
 
-  // Guarda comentario en el servidor
   const saveComment = () => {
     if (!commentText) return
     fetch('/api/guardarRespuestas', {
-      method: 'POST',
+      method: 'POST', // [cite: 233]
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         id: user.name,
@@ -105,10 +102,10 @@ const ActuaEscenario = () => {
           {
             fecha: new Date().toISOString(),
             situacionId: escena.id,
-            paso,
-            tipoPaso: 'comentario',
-            comentario: commentText,
-            azar: azarFlag,
+            paso, // El paso donde se tomó la elección/resultado que precede a este feedback
+            tipoPaso: 'comentario', // El feedback es un tipo de respuesta
+            comentario: commentText, // [cite: 234]
+            azar: azarFlag, // Guardamos el estado actual del azar
             idioma
           }
         ]
@@ -117,116 +114,129 @@ const ActuaEscenario = () => {
       .then(() => setCommentSaved(true))
       .catch(console.error)
   }
-
-  // Finaliza el feedback y avanza escena/paso
+  
   const finishFeedback = () => {
-    const isLastScene = indiceEscena === escenas.length - 1
-    // Reset states
+    // Guardar cualquier estado pendiente de feedback (azar si no hubo comentario)
+    // Esto es importante si el usuario marca azar pero no comenta
+    if (!commentSaved && (azarFlag || commentText)) { // Si hay algo que guardar
+        fetch('/api/guardarRespuestas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: user.name,
+                respuestas: [
+                    {
+                        fecha: new Date().toISOString(),
+                        situacionId: escena.id,
+                        paso: pasoActual.tipo === "eleccion" ? paso : (paso -1 < 0 ? 0: paso -1) , // paso de la eleccion/resultado
+                        tipoPaso: 'feedback_final', // O un tipo genérico
+                        comentario: commentText,
+                        azar: azarFlag,
+                        idioma
+                    }
+                ]
+            })
+        }).catch(console.error);
+    }
+
+
     setShowFeedback(false)
     setCommentText('')
     setAzarFlag(false)
     setCommentSaved(false)
-    // Avanza a siguiente escena o fin
-    if (!isLastScene) {
-      setIndiceEscena(indiceEscena + 1)
-      reiniciarPaso()
+
+    if (esUltimaDelNivel) {
+      setStage('menu');
     } else {
-      setStage('menu')
+      const siguienteIndiceEscena = indiceEscena + 1;
+      if (siguienteIndiceEscena < secuenciaGlobal.length) {
+        setIndiceEscena(siguienteIndiceEscena);
+        reiniciarPaso();
+      } else {
+        setStage('menu'); // Fin de todas las escenas
+      }
     }
   }
 
-  // Avanzar en la lógica de la escena
-  const avanzar = id => {
-    const isLastScene = indiceEscena === escenas.length - 1
-    const isLastStep = paso === totalPasos - 1
 
-    // Si ya estamos en feedback, no hacemos nada aquí
-    if (showFeedback) return
+  const avanzar = idEleccion => {
+    const esUltimoPaso = paso === totalPasos - 1
 
-    // Si es elección
+    if (showFeedback) { // Si estamos mostrando feedback, el botón "siguiente" llama a finishFeedback
+        finishFeedback();
+        return;
+    }
+
     if (pasoActual.tipo === 'eleccion') {
-      if (!id) return
-      // Guardar elección en el estado local
-      setElecciones(prev => ({ ...prev, [escena.id]: id }))
-
-      // Llamada a la nueva API que actualiza el array `respuestas` en Cosmos DB
-      fetch('/api/guardarRespuestas', {
-        method: 'POST',
+      if (!idEleccion) return
+      setElecciones(prev => ({ ...prev, [escena.id]: idEleccion }))
+      fetch('/api/guardarRespuestas', { // [cite: 237]
+        method: 'POST', // [cite: 233]
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: user.name,
           respuestas: [
             {
               fecha: new Date().toISOString(),
-              situacionId: escena.id,
+              situacionId: escena.id, // [cite: 238]
               paso,
               tipoPaso: 'eleccion',
-              respuesta: id,
-              comentario: null,                       // aún no hay comentario
-              azar: azarFlag, 
+              respuesta: idEleccion,
+              comentario: null, 
+              azar: false, // Azar se guardará con el feedback
               idioma
             }
           ]
         })
       }).catch(console.error)
-
-      // Si era el último paso, abrimos feedback
-      if (isLastStep) {
-        setShowFeedback(true)
-        return
-      }
     }
-
-    // Avanzar paso normal
-    if (paso < totalPasos - 1) {
+    
+    // Después de una elección o un resultado, si es el último paso, mostrar feedback
+    if (esUltimoPaso) {
+      setShowFeedback(true);
+    } else if (paso < totalPasos - 1) { // [cite: 240]
       setPaso(paso + 1)
-      return
     }
-
-    // Si no era última escena
-    if (!isLastScene) {
-      setIndiceEscena(indiceEscena + 1)
-      reiniciarPaso()
-    } else {
-      setStage('menu')
-    }
+    // La navegación a la siguiente escena se maneja en finishFeedback
   }
 
-  // Retroceder en la lógica de la escena
   const handleBack = () => {
-    // Si estamos en feedback, salir de feedback
     if (showFeedback) {
       setShowFeedback(false)
+      // No retrocedemos de paso aquí, el usuario vuelve a la vista del último paso
       return
     }
-    // primer escenario y paso: vuelve al menú
-    if (indiceEscena === 0 && paso === 0) {
-      setStage('menu')
-      return
-    }
-    // retrocede paso o escena
+    
     if (paso > 0) {
       setPaso(paso - 1)
     } else {
-      const prev = indiceEscena - 1
-      setIndiceEscena(prev)
-      setPaso(escenas[prev].pasos.length - 1)
+      const prevIndiceEscena = indiceEscena - 1;
+      if (prevIndiceEscena >= 0) {
+        const escenaAnteriorId = secuenciaGlobal[prevIndiceEscena];
+        const escenaAnterior = todasEscenas.find(e => e.id === escenaAnteriorId);
+        if (escenaAnterior) {
+            setIndiceEscena(prevIndiceEscena);
+            setPaso(escenaAnterior.pasos.length -1); // Ir al último paso de la escena anterior
+        } else {
+             setStage('menu'); // Fallback
+        }
+      } else {
+        setStage('menu'); // Ya está en la primera escena, primer paso
+      }
     }
   }
 
-  // Renderiza situación, elección, resultado o feedback
   const renderContenido = () => {
-    // Feedback opcional al final
     if (showFeedback) {
       return (
         <Box mt={3} p={2} border={1} borderColor="grey.400" borderRadius={1}>
           <Stack spacing={2}>
             <FormControlLabel
               control={<Checkbox checked={azarFlag} onChange={handleAzarToggle} />}
-              label={data.ui.labelAzar || 'Marcar como respuesta al azar'}
+              label={data.ui.labelAzar || 'Marcar como respuesta al azar'} // [cite: 244]
             />
             <TextField
-              label={data.ui.labelComentario || 'Comentario (opcional)'}
+              label={data.ui.labelComentario || 'Comentario (opcional)'} // [cite: 245]
               multiline
               rows={4}
               value={commentText}
@@ -237,12 +247,12 @@ const ActuaEscenario = () => {
               <Button
                 variant="contained"
                 onClick={saveComment}
-                disabled={!commentText || commentSaved}
+                disabled={!commentText || commentSaved} // [cite: 247]
               >
-                {commentSaved ? data.ui.comentarioGuardado || 'Guardado' : data.ui.guardar || 'Guardar'}
+                {commentSaved ? (data.ui.comentarioGuardado || 'Guardado') : (data.ui.guardar || 'Guardar')} {/* [cite: 248] */}
               </Button>
               <Button variant="outlined" onClick={() => setCommentText('')}>
-                {data.ui.cancelar || 'Cancelar'}
+                {data.ui.cancelar || 'Cancelar'} {/* [cite: 249] */}
               </Button>
             </Box>
           </Stack>
@@ -250,12 +260,11 @@ const ActuaEscenario = () => {
       )
     }
 
-    // lógica original
     if (pasoActual.tipo === 'situacion') {
       return (
         <Box textAlign="center" mb={2}>
           <img
-            src={`/${pasoActual.imagen}`}
+            src={`/${pasoActual.imagen}`} // [cite: 250]
             alt="Escena"
             style={{ maxWidth: '80%', height: 'auto' }}
           />
@@ -266,25 +275,25 @@ const ActuaEscenario = () => {
 
     if (pasoActual.tipo === 'eleccion') {
       return (
-        <Grid container spacing={2} mb={2}>
+        <Grid container spacing={2} mb={2}> {/* [cite: 251] */}
           {pasoActual.opciones.map(op => (
             <Grid item xs={12} sm={6} key={op.id}>
               <Box
                 onClick={() => avanzar(op.id)}
                 sx={{
                   border: 1,
-                  borderColor: 'grey.400',
+                  borderColor: 'grey.400', // [cite: 252]
                   p: 2,
                   cursor: 'pointer',
                   textAlign: 'center',
                   borderRadius: 1,
-                  '&:hover': { backgroundColor: '#e0e0e0' }
+                  '&:hover': { backgroundColor: '#e0e0e0' } // [cite: 253]
                 }}
               >
                 <img
                   src={`/${op.imagen}`}
                   alt={op.texto}
-                  style={{ maxWidth: '100%', height: 'auto' }}
+                  style={{ maxWidth: '100%', height: 'auto' }} // [cite: 254]
                 />
                 <Typography mt={1}>{op.texto}</Typography>
               </Box>
@@ -294,61 +303,73 @@ const ActuaEscenario = () => {
       )
     }
 
-    const resultado = pasoActual.resultados[eleccion]
-    if (!resultado) {
-      return (
-        <Box textAlign="center" mt={4}>
-          <Typography color="error">{data.ui.errorSinEleccion}</Typography>
-        </Box>
-      )
+    if (pasoActual.tipo === 'resultado') {
+        const resultado = pasoActual.resultados[eleccionHecha]
+        if (!resultado) {
+          return (
+            <Box textAlign="center" mt={4}>
+              <Typography color="error">{data.ui.errorSinEleccion}</Typography> {/* [cite: 415] */}
+            </Box>
+          )
+        }
+        return (
+          <Box textAlign="center" mb={1}>
+            <img
+              src={`/${resultado.imagen}`}
+              alt={resultado.texto} // [cite: 256]
+              style={{ maxWidth: '100%', height: 'auto' }}
+            />
+            <Typography mt={1}>{resultado.texto}</Typography>
+          </Box>
+        )
     }
-    return (
-      <Box textAlign="center" mb={1}>
-        <img
-          src={`/${resultado.imagen}`}
-          alt={resultado.texto}
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
-        <Typography mt={1}>{resultado.texto}</Typography>
-      </Box>
-    )
+    return null; // Por si acaso
   }
+
+  // Texto y acción del botón "Siguiente" / "Finalizar Nivel" / "Finalizar"
+  let textoSiguiente = data.ui.siguiente;
+  let accionSiguiente = () => showFeedback ? finishFeedback() : avanzar();
+
+  if (showFeedback && esUltimaDelNivel) {
+    textoSiguiente = data.ui.volverAlMenu || "Volver al Menú"; // Añadir a textos.js si no existe
+    // la acción ya está cubierta por finishFeedback que lleva al menú
+  }
+
 
   return (
     <>
       <Drawer open={menuOpen} onClose={() => setMenuOpen(false)}>
         <DrawerMenu
-          items={escenas}
-          currentIndex={indiceEscena}
-          completed={elecciones}
+          items={todasEscenas} // Usamos todas las escenas para el Drawer
+          currentIndex={indiceEscena} // Pasamos el índice global
+          completed={elecciones} // [cite: 257]
           categories={data.ui.categories}
-          onSelect={goToScene}
+          nivelesLabels={data.ui.niveles || {}}
+          onSelect={goToScene} // onSelect espera el índice global
         />
       </Drawer>
 
       <Container maxWidth="md" sx={{ pt: 1, position: 'relative' }}>
-        {/* Header */}
         <Stack direction="row" spacing={2} alignItems="center" mb={1}>
           <Button variant="text" size="small" startIcon={<HomeIcon />} onClick={() => setStage('menu')}>
-            {data.ui.inicio}
+            {data.ui.inicio} {/* [cite: 258] */}
           </Button>
           <IconButton onClick={() => setMenuOpen(true)}>
             <MenuIcon />
             <Typography sx={{ ml: 0.5 }}>{data.ui.menu}</Typography>
           </IconButton>
-          <Button variant="outlined" size="small" onClick={() => cambiarIdioma(idioma === 'es' ? 'ca' : 'es')}>
-            {idioma === 'es' ? 'CAT' : 'ES'}
+          <Button variant="outlined" size="small" onClick={() => cambiarIdioma(idioma === 'es' ? 'ca' : 'es')}> {/* [cite: 259] */}
+            {idioma === 'es' ? 'CAT' : 'ES'} {/* [cite: 260] */}
           </Button>
         </Stack>
 
-        {/* Título y pictos */}
         <Typography variant="h5" align="center" gutterBottom>
           {escena.titulo}
         </Typography>
-        {pasoActual.tipo === 'situacion' && escena.pictos && (
+        {(pasoActual.tipo === 'situacion' || (pasoActual.tipo === 'eleccion' && paso === 0) ) && escena.pictos && escena.pictos.length > 0 && (
           <Stack direction="row" spacing={2} justifyContent="center" mb={2}>
             {escena.pictos.map((pic, i) => (
-              <Box key={i} component="img" src={`/${pic}`} alt={`Picto ${i + 1}`} width={40} height={40} />
+              <Box key={i} component="img" src={`/${pic}`} alt={`Picto ${i + 1}`} width={40} height={40} /> /* [cite: 261] */
             ))}
           </Stack>
         )}
@@ -357,49 +378,17 @@ const ActuaEscenario = () => {
           {pasoActual.titulo}
         </Typography>
 
-        {/* Contenido central */}
-        {renderContenido()}
-
-        {pasoActual.tipo === 'resultado' && (
-          <Box mt={3} p={2} border={1} borderColor="grey.400" borderRadius={1}>
-            <Stack spacing={2}>
-              <FormControlLabel
-                control={<Checkbox checked={azarFlag} onChange={handleAzarToggle} />}
-                label={data.ui.labelAzar || 'Marcar como respuesta al azar'}
-              />
-              <TextField
-                label={data.ui.labelComentario || 'Comentario (opcional)'}
-                multiline
-                rows={4}
-                value={commentText}
-                onChange={e => setCommentText(e.target.value)}
-                fullWidth
-              />
-              <Box display="flex" gap={1}>
-                <Button
-                  variant="contained"
-                  onClick={saveComment}
-                  disabled={!commentText || commentSaved}
-                >
-                  {commentSaved ? data.ui.comentarioGuardado || 'Guardado' : data.ui.guardar || 'Guardar'}
-                </Button>
-                <Button variant="outlined" onClick={() => setCommentText('')}>
-                  {data.ui.cancelar || 'Cancelar'}
-                </Button>
-              </Box>
-            </Stack>
-          </Box>
-        )}
+        {renderContenido()} {/* [cite: 262] */}
 
         <Stack direction="row" spacing={1} justifyContent="center" mt={2}>
           {Array.from({ length: totalPasos }).map((_, i) => (
-            <Box
+            <Box // [cite: 269]
               key={i}
               sx={{
                 width: 12,
                 height: 12,
                 borderRadius: '50%',
-                bgcolor: i <= paso ? 'text.primary' : 'grey.300'
+                bgcolor: i <= paso ? 'text.primary' : 'grey.300' // [cite: 270]
               }}
             />
           ))}
@@ -408,85 +397,80 @@ const ActuaEscenario = () => {
           {data.ui.pasoTexto(paso + 1, totalPasos)}
         </Typography>
 
-        {/* Navegación */}
-        {isSmUp ? (
+        {isSmUp ? ( // [cite: 271]
           <>
             <Button
               onClick={handleBack}
               sx={{
                 position: 'fixed',
                 top: '50%',
-                left: theme.spacing(1),
+                left: theme.spacing(1), // [cite: 272]
                 transform: 'translateY(-50%)',
                 minWidth: 48,
                 p: 1,
                 borderRadius: 1,
                 zIndex: 10,
-                display: 'flex',
+                display: 'flex', // [cite: 273]
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
                 width: 70,
                 height: 70,
-                backgroundColor: 'transparent',
+                backgroundColor: 'transparent', // [cite: 274]
                 color: 'inherit'
               }}
               variant="outlined"
             >
               <ArrowBackIosNewIcon />
               <Typography variant="caption" sx={{ mt: 1 }}>
-                {data.ui.atras}
+                {data.ui.atras} {/* [cite: 275] */}
               </Typography>
             </Button>
-            {(showFeedback ||
-              pasoActual.tipo === 'situacion' ||
-              (pasoActual.tipo === 'resultado' && indiceEscena < escenas.length - 1)) && (
-              <Button
-                onClick={() => (showFeedback ? finishFeedback() : avanzar())}
-                sx={{
-                  position: 'fixed',
-                  top: '50%',
-                  right: theme.spacing(1),
-                  transform: 'translateY(-50%)',
-                  minWidth: 48,
-                  p: 1,
-                  borderRadius: 1,
-                  zIndex: 10,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 70,
-                  height: 70,
-                  backgroundColor: 'transparent',
-                  color: 'inherit'
-                }}
-                variant="outlined"
-                disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
-              >
-                <ArrowForwardIosIcon />
-                <Typography variant="caption" sx={{ mt: 1 }}>
-                  {data.ui.siguiente}
-                </Typography>
-              </Button>
-            )}
+            <Button
+              onClick={accionSiguiente}
+              sx={{
+                position: 'fixed',
+                top: '50%',
+                right: theme.spacing(1),
+                transform: 'translateY(-50%)',
+                minWidth: 48, // [cite: 278]
+                p: 1,
+                borderRadius: 1,
+                zIndex: 10,
+                display: 'flex',
+                flexDirection: 'column', // [cite: 279]
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 70,
+                height: 70,
+                backgroundColor: 'transparent', // [cite: 280]
+                color: 'inherit'
+              }}
+              variant="outlined"
+              disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccionHecha}
+            >
+              <ArrowForwardIosIcon /> {/* [cite: 281] */}
+              <Typography variant="caption" sx={{ mt: 1 }}>
+                {textoSiguiente}
+              </Typography>
+            </Button>
           </>
-        ) : (
+        ) : ( // [cite: 282]
           <Box display="flex" justifyContent="space-between" mt={4}>
             <Button onClick={handleBack}>
               <ArrowBackIosNewIcon /> {data.ui.atras}
             </Button>
             <Button
-              onClick={() => (showFeedback ? finishFeedback() : avanzar())}
-              disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccion}
+              onClick={accionSiguiente}
+              disabled={!showFeedback && pasoActual.tipo === 'eleccion' && !eleccionHecha}
             >
-              {data.ui.siguiente}
+              {textoSiguiente}
               <ArrowForwardIosIcon />
             </Button>
           </Box>
         )}
       </Container>
-    </>
+    </> // [cite: 284]
   )
 }
 
