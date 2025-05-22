@@ -1,7 +1,17 @@
-En local para probar, des de un terminal:
-Si aún no está: npm install -g azurite
+Para probar en local, des de un terminal:
 
-En un terminal:
+PREREQUISITOS: 
+npm install -g azure-functions-core-tools@4 --unsafe-perm true (func start)
+
+npm install -g azurite (azurite)
+
+npm install -g @azure/static-web-apps-cli (swa)
+
+npm install                 # instala vite, react, etc.
+cd api && npm install       # instala paquetes de tus Azure Functions
+
+
+En un nuevo terminal:
 azurite --silent --location .azurite --debug .azurite/debug.log
 
 En otro:
@@ -13,3 +23,7 @@ npm run dev
 
 Y finalmente des de otro:
 npx swa start http://localhost:5173 --api-devserver-url http://localhost:7071
+
+
+
+Frontend: http://localhost:4280
