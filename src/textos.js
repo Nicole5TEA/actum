@@ -122,6 +122,36 @@ const textos = {
           ]
         })()
       },
+      {
+        id: 'psicomotricidad',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'SE APAGA LA LUZ',
+        pictos: [
+          'psicomotricidad/picto.png',
+          'psicomotricidad/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'psicomotricidad/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Un compañero grita en clase de Psicomotricidad',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
       //       {
       //   id: 'patatas',
       //   categoria: 'social',
@@ -346,6 +376,36 @@ const textos = {
               titulo: 'SITUACIÓN',
               descripcion: 'Se apagan las luces en el aula porque se va a proyectar un video',
               imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
+            {
+        id: 'psicomotricidad',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'SE APAGA LA LUZ',
+        pictos: [
+          'psicomotricidad/picto.png',
+          'psicomotricidad/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'psicomotricidad/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Un compañero grita en clase de Psicomotricidad',
+              imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',

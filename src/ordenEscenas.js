@@ -3,9 +3,9 @@ const ordenEscenas = [
   {
     nivel: 1,
     categorias: {
-      social: ['patatas'],
-      emocionajena: ['juguete'],
-      emocionpropia: [],
+      social: [],
+      emocionajena: [],
+      emocionpropia: ['perroSentarse','apagarLuz','psicomotricidad'],
       teoriamente: [],
       coherencia: []
     }
@@ -14,8 +14,8 @@ const ordenEscenas = [
     nivel: 2,
     categorias: {
       social: [],
-      emocionajena: ['emocion1'],
-      emocionpropia: ['aniversario'],
+      emocionajena: [],
+      emocionpropia: [],
       teoriamente: [],
       coherencia: []
     }
@@ -24,7 +24,7 @@ const ordenEscenas = [
     nivel: 3,
     categorias: {
       social: [],
-      emocionajena: ['emocion2'],
+      emocionajena: [],
       emocionpropia: [],
       teoriamente: [],
       coherencia: []
