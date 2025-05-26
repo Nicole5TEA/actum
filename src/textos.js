@@ -93,6 +93,41 @@ const textos = {
         })()
       },
       {
+        id: 'perroSentarse',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'PERROS',
+        pictos: [
+          'perroSentarse/perro.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'perroSentarse/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Entra un perro de terapia y se sienta a su lado durante la sesión',
+              imagen: base + 'escena1.png'
+            },
+                        {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Entra un perro de terapia y se sienta a su lado durante la sesión',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Como te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
+      {
         id: 'aniversario', // [cite: 422]
         categoria: 'emocionpropia',
         nivel: 2, // Añadido nivel
