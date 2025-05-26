@@ -485,7 +485,7 @@ const textos = {
           
         })()
       },
-      {
+            {
         id: 'responderMal',
         categoria: 'emocionpropia',
         nivel: 2,
@@ -501,6 +501,229 @@ const textos = {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
               descripcion: 'Haces una actividad mal delante de tus compañeros ',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      {
+        id: 'hacerFoto',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'HACER FOTO',
+        pictos: [
+          'hacerFoto/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'hacerFoto/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'La maestra te hace una foto',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'vergüenza', texto: 'VERGÜENZA', imagen: base + 'vergüenza.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      {
+        id: 'mancharse',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'MANCHARSE',
+        pictos: [
+          'mancharse/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'mancharse/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Te manchas de pintura la camiseta y la cara en una actividad y tus compañeros miran.',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'vergüenza', texto: 'VERGÜENZA', imagen: base + 'vergüenza.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+       {
+        id: 'cremalleraRota',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'SE ROMPE LA CREMALLERA DEL JERSEY',
+        pictos: [
+          'cremalleraRota/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'cremalleraRota/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Te pones el jersey y te das cuenta que la cremallera esta rota.',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+       {
+        id: 'mochilaRota',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'SE ROMPE LA CREMALLERA DE LA MOCHILA',
+        pictos: [
+          'mochilaRota/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'mochilaRota/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Cierras la mochila y se te rompe la cremallera.',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+        {
+        id: 'ventanaAvion',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'VES UN AVIÓN POR LA VENTANA',
+        pictos: [
+          'ventanaAvion/picto.png',
+          'ventanaAvion/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'ventanaAvion/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Ves pasar un avión por la ventana.',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'miedo', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+           {
+        id: 'profeAmor',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'LA MAESTRA TE LLAMA AMOR',
+        pictos: [
+          'profeAmor/picto.png',
+          'profeAmor//picto2.png',
+          'profeAmor//picto3.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'profeAmor/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'La maestra te llama cariñosamente "AMOR".',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+             {
+        id: 'botonPlay',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'PULSAR BOTÓN PLAY',
+        pictos: [
+          'botonPlay/picto.png',
+          'botonPlay//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'botonPlay/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Pulsas el botón play y no funciona',
               imagen: base + 'escena1.png'
             },
             {
