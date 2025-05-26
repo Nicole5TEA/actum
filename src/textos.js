@@ -212,6 +212,201 @@ const textos = {
           ]
         })()
       },
+      {
+        id: 'chocarCinco',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'CHOCAR DE MANOS',
+        pictos: [
+          'chocarCinco/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'chocarCinco/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Escribes bien la palabra y con la maestra chocáis las manos',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Escribes bien la palabra y con la maestra chocáis las manos',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
+      {
+        id: 'globoExplota',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'UN GLOBO EXPLOTA',
+        pictos: [
+          'globoExplota/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'globoExplota/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Un globo explota en una fiesta de cumpleaños',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Un globo explota en una fiesta de cumpleaños',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
+         {
+        id: 'relojCaer',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'SE CAE EL RELOJ',
+        pictos: [
+          'relojCaer/picto.png',
+          'relojCaer/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'relojCaer/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Estas trabajando y se cae el reloj de la pared',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Estas trabajando y se cae el reloj de la pared',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
+         {
+        id: 'busTarde',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'EL AUTOBÚS LLEGA TARDE',
+        pictos: [
+          'busTarde/picto.png',
+          'busTarde/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'busTarde/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'El autobus llega tarde',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
+       {
+        id: 'canastaAplaudir',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'HACER CANASTA',
+        pictos: [
+          'canastaAplaudir/picto.png',
+          'canastaAplaudir/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'canastaAplaudir/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Haces canasta y tus compañeros y maestra te aplauden',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
+       {
+        id: 'oler',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'OLER ALGO NUEVO',
+        pictos: [
+          'oler/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'oler/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Te hacen oler algo nuevo',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
       //       {
       //   id: 'patatas',
       //   categoria: 'social',
