@@ -81,7 +81,8 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -116,7 +117,8 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -146,7 +148,8 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -176,7 +179,8 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -206,7 +210,8 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -226,13 +231,13 @@ const textos = {
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Escribes bien la palabra y con la maestra chocáis las manos',
+              descripcion: 'Escribes bien la palabra y con la maestra chocáis las manos para celebrarlo',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Escribes bien la palabra y con la maestra chocáis las manos',
+              descripcion: 'Escribes bien la palabra y con la maestra chocáis las manos para celebrarlo',
               imagen: base + 'escena2.png'
             },
             {
@@ -241,7 +246,8 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -276,7 +282,8 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -312,7 +319,8 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -342,7 +350,8 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -372,27 +381,30 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
         })()
       },
        {
-        id: 'oler',
+        id: 'llamarProfe',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'OLER ALGO NUEVO',
+        titulo: 'LLAMAS A LA MAESTRA Y NO TE ESCUCHA',
         pictos: [
-          'oler/picto.png',
+          'llamarProfe/picto.png',
+          'llamarProfe/picto2.png',
+          'llamarProfe/picto3.png',
         ],
         pasos: (() => { // [cite: 417]
-          const base = 'oler/';
+          const base = 'llamarProfe/';
           return [
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Te hacen oler algo nuevo',
+              descripcion: 'Llamas a la maestra y no te escucha ',
               imagen: base + 'escena1.png'
             },
             {
@@ -401,10 +413,108 @@ const textos = {
               opciones: [
                 { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
                 { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
               ]
             },
           ]
+        })()
+      },
+      {
+        id: 'pelotaRota',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'SE ROMPE LA PELOTA',
+        pictos: [
+          'pelotaRota/picto.png',
+          'pelotaRota/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'pelotaRota/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Estas jugando al fútbol y la pelota se rompe ',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      {
+        id: 'seOlvidaDeTi',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'EL MAESTRO SE OLVIDA DE TI',
+        pictos: [
+          'seOlvidaDeTi/picto.png',
+          'seOlvidaDeTi/picto2.png',
+          'seOlvidaDeTi/picto3.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'seOlvidaDeTi/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'En la clase el maestro reparte una actividad y se olvida de ti ',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      {
+        id: 'responderMal',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'HACER MAL UNA ACTIVIDAD',
+        pictos: [
+          'responderMal/picto.png',
+          'responderMal/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'responderMal/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Haces una actividad mal delante de tus compañeros ',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
         })()
       },
       //       {
