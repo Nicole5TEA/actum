@@ -69,7 +69,7 @@ const textos = {
               descripcion: 'Entra un perro de terapia y se sienta a su lado durante la sesión',
               imagen: base + 'escena1.png'
             },
-                        {
+            {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
               descripcion: 'Entra un perro de terapia y se sienta a su lado durante la sesión',
@@ -126,7 +126,7 @@ const textos = {
         id: 'psicomotricidad',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'SE APAGA LA LUZ',
+        titulo: 'GRITAR',
         pictos: [
           'psicomotricidad/picto.png',
           'psicomotricidad/picto2.png',
@@ -138,6 +138,66 @@ const textos = {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
               descripcion: 'Un compañero grita en clase de Psicomotricidad',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
+      {
+        id: 'pegatina',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'FELICITACIÓN Y PEGATINA',
+        pictos: [
+          'pegatina/picto.png',
+          'pegatina/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'pegatina/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'La maestra te da una pegatina felicitándote porque has trabajado muy bien',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
+              ]
+            },
+          ]
+        })()
+      },
+      {
+        id: 'chupachup',
+        categoria: 'emocionpropia',
+        nivel: 1,
+        titulo: 'REPARTIR CHUPA-CHUP',
+        pictos: [
+          'chupachup/picto.png',
+          'chupachup/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'chupachup/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'La maestra reparte chupa-chup',
               imagen: base + 'escena1.png'
             },
             {
@@ -319,106 +379,6 @@ const textos = {
       niveles: { 1: 'Nivell 1', 2: 'Nivell 2', 3: 'Nivell 3' }, // Traducción
     },
     escenas: [
-            {
-        id: 'perroSentarse',
-        categoria: 'emocionpropia',
-        nivel: 1,
-        titulo: 'PERROS',
-        pictos: [
-          'perroSentarse/perro.png',
-        ],
-        pasos: (() => { // [cite: 417]
-          const base = 'perroSentarse/';
-          return [
-            {
-              tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Entra un perro de terapia y se sienta a su lado durante la sesión',
-              imagen: base + 'escena1.png'
-            },
-                        {
-              tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Entra un perro de terapia y se sienta a su lado durante la sesión',
-              imagen: base + 'escena2.png'
-            },
-            {
-              tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
-              opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
-              ]
-            },
-          ]
-        })()
-      },
-      {
-        id: 'apagarLuz',
-        categoria: 'emocionpropia',
-        nivel: 1,
-        titulo: 'SE APAGA LA LUZ',
-        pictos: [
-          'apagarLuz/picto.png',
-        ],
-        pasos: (() => { // [cite: 417]
-          const base = 'apagarLuz/';
-          return [
-            {
-              tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Se apagan las luces en el aula porque se va a proyectar un video',
-              imagen: base + 'escena1.png'
-            },
-            {
-              tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Se apagan las luces en el aula porque se va a proyectar un video',
-              imagen: base + 'escena2.png'
-            },
-            {
-              tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
-              opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
-              ]
-            },
-          ]
-        })()
-      },
-            {
-        id: 'psicomotricidad',
-        categoria: 'emocionpropia',
-        nivel: 1,
-        titulo: 'SE APAGA LA LUZ',
-        pictos: [
-          'psicomotricidad/picto.png',
-          'psicomotricidad/picto2.png',
-        ],
-        pasos: (() => { // [cite: 417]
-          const base = 'psicomotricidad/';
-          return [
-            {
-              tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Un compañero grita en clase de Psicomotricidad',
-              imagen: base + 'escena1.png'
-            },
-            {
-              tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
-              opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' }
-              ]
-            },
-          ]
-        })()
-      },
     ]
   }
 }

@@ -5,7 +5,7 @@ const ordenEscenas = [
     categorias: {
       social: [],
       emocionajena: [],
-      emocionpropia: ['perroSentarse','apagarLuz','psicomotricidad'],
+      emocionpropia: ['perroSentarse','apagarLuz','psicomotricidad','pegatina','chupachup'],
       teoriamente: [],
       coherencia: []
     }
