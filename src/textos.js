@@ -3,10 +3,10 @@ const textos = {
   es: {
     ui: {
       // ... (otros textos existentes) ...
-      portadaTitle: 'ACTUM',
+      portadaTitle: 'TE ANTENC',
       portadaButton: 'EMPEZAR',
       ingresoPrompt: 'SELECCIONA TÚ NOMBRE', // [cite: 410]
-      ingresoLabel: 'Nombre',
+      ingresoLabel: 'NOMBRE',
       ingresoError: 'Nombre no válido',
       ingresoButton: 'REGISTRARSE',
       accederDocente: 'ACCEDER COMO DOCENTE',
@@ -15,7 +15,7 @@ const textos = {
       loginDocenteLabel: 'CONTRASEÑA',
       cancelar: 'CANCELAR',
       acceder: 'ACCEDER',
-      greeting: 'Hola,',
+      greeting: 'HOLA,',
       logout: 'SALIR', // [cite: 411]
       inicioTitle: 'INICIO',
       empezar: 'EMPEZAR',
