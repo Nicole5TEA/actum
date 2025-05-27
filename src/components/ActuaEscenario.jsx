@@ -398,8 +398,8 @@ const ActuaEscenario = () => {
 
         <Typography variant="h5" align="center" gutterBottom> {escena.titulo} </Typography>
         {(pasoActual.tipo === 'situacion' || (pasoActual.tipo === 'eleccion' && paso === 0) ) && escena.pictos && escena.pictos.length > 0 && (
-          <Stack direction="row" spacing={1} justifyContent="center" mb={2} flexWrap="wrap">
-            {escena.pictos.map((pic, i) => ( <Box key={i} component="img" src={`/${pic}`} alt={`Picto ${i + 1}`} sx={{width: {xs:30, sm:40}, height: {xs:30, sm:40}}} /> ))}
+          <Stack direction="row" spacing={2} justifyContent="center" mb={2} flexWrap="wrap">
+            {escena.pictos.map((pic, i) => ( <Box key={i} component="img" src={`/${pic}`} alt={`Picto ${i + 1}`} sx={{width: {xs:50, sm:60}, height: {xs:50, sm:60}}} /> ))}
           </Stack>
         )}
         <Typography variant="subtitle1" align="center" sx={{mb: showFeedback ? 0 : 1}}> {pasoActual.titulo} </Typography>
