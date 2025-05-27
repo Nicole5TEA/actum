@@ -144,13 +144,118 @@ export default function AdminPanel() {
     }
   };
 
-  const crearAlumno = async () => { /* ... sin cambios ... */ };
-  const handleLogin = async () => { /* ... sin cambios ... */ };
-  const handleLoginOnKeyDown = (event) => { /* ... sin cambios ... */ };
-  const handleOpenConfirmDeleteDialog = () => { /* ... sin cambios ... */ };
-  const handleConfirmDelete = async () => { /* ... sin cambios ... */ };
-  const pickLast = (arr) => arr.reduce((a, b) => (parseDate(a) > parseDate(b) ? a : b));
-  const getResp = (alumnoNombre, escenaId) => { /* ... sin cambios ... */ };
+  const crearAlumno = async () => {
+    const trimmed = newName.trim();
+    setDeleteMessage({ type: '', text: '' });
+    if (!/^([A-Za-zÀ-ÿ\s]{2,30})$/.test(trimmed)) {
+      setErrNew(true);
+      return;
+    }
+    setErrNew(false);
+    try {
+      const r = await fetch('/api/crearAlumno', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Docente-Token': 'Bearer ' + localStorage.getItem('docente_token'),
+        },
+        body: JSON.stringify({ nombre: trimmed }),
+      });
+      if (!r.ok) {
+        const errData = await r.json();
+        throw new Error(errData.body || 'Failed to create alumno');
+      }
+      setNewName('');
+      setDeleteMessage({ type: 'success', text: `Alumno '${trimmed}' creado.` });
+      loadData(localStorage.getItem('docente_token'));
+    } catch(error) {
+      console.error("Error creating alumno:", error);
+      setErrNew(true);
+      setDeleteMessage({ type: 'error', text: error.message || 'Error al crear alumno.' });
+    }
+  };
+
+  const handleLogin = async () => {
+    setLoginError('');
+    if (!password) {
+      setLoginError('Introduce la contraseña');
+      return;
+    }
+    try {
+      const r = await fetch('/api/loginDocente', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await r.json();
+      if (!r.ok) {
+        setLoginError(data.error || 'Contraseña incorrecta');
+        return;
+      }
+      localStorage.setItem('docente_token', data.token);
+      setShowLogin(false);
+      setPassword('');
+    } catch(error) {
+        console.error("Error de conexión en loginDocente:", error);
+        setLoginError('Error de conexión');
+    }
+  };
+
+  const handleLoginOnKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin();
+    }
+  };
+  
+  const handleOpenConfirmDeleteDialog = () => {
+    if (!alumnoAEliminar) {
+        setDeleteMessage({ type: 'warning', text: 'Por favor, selecciona un alumno para eliminar.' });
+        return;
+    }
+    setDeleteMessage({ type: '', text: '' });
+    setShowConfirmDeleteDialog(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    setShowConfirmDeleteDialog(false);
+    if (!alumnoAEliminar) return;
+
+    try {
+        const token = localStorage.getItem('docente_token');
+        const response = await fetch('/api/deleteAlumno', {
+            method: 'POST', // Usando POST como se decidió, pero semánticamente DELETE sería mejor con ID en URL
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Docente-Token': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ alumnoId: alumnoAEliminar }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Error al eliminar: ${response.statusText}`);
+        }
+        setDeleteMessage({ type: 'success', text: `Alumno '${alumnoAEliminar}' eliminado correctamente.` });
+        setAlumnoAEliminar(''); // Limpiar selección
+        loadData(token); // Recargar datos
+    } catch (error) {
+        console.error('Error al eliminar alumno:', error);
+        setDeleteMessage({ type: 'error', text: error.message || 'No se pudo eliminar el alumno.' });
+    }
+  };
+
+
+  const pickLast = (arr) =>
+    arr.reduce((a, b) => (parseDate(a) > parseDate(b) ? a : b));
+
+  const getResp = (alumnoNombre, escenaId) => {
+    const alumno = data.find(al => al.nombre === alumnoNombre);
+    if (!alumno) return '';
+    const respuestasFiltradas = toArray(alumno.respuestas).filter(
+        (r) => r.situacionId === escenaId && r.tipoPaso === 'eleccion'
+    );
+    return respuestasFiltradas.length ? pickLast(respuestasFiltradas).respuesta : '';
+  };
 
 
   // Acción para el botón "Volver a Ingreso" (antes "Volver a Portada")
