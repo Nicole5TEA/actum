@@ -7,7 +7,7 @@ const ordenEscenas = [
       emocionajena: [],
       emocionpropia: ['perroSentarse','apagarLuz','psicomotricidad','pegatina','chocarCinco','globoExplota','busTarde','canastaAplaudir','chupachup','relojCaer','oler','pluja','llamarProfe','estoig'],
       teoriamente: [],
-      coherencia: []
+      coherencia: ['excursion','naturaleza','piscina','cumpleaños']
     }
   },
   {

@@ -740,6 +740,131 @@ const textos = {
           
         })()
       },
+            { 
+        id: 'excursion',
+        categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿QUÉ VAN HACER ESTE GRUPO?',
+        pictos: [
+          'excursion/picto.png',
+          'exccursion//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'excursion/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿A dónde van este grupo de niños?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Dónde van?',
+              opciones: [
+                { id: 'situacio', texto: 'VAN HA MONTAR BICICLETA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'VAN AL SUPERMERCADO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'VAN DE EXCURSIÓN', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+        { 
+        id: 'naturaleza',
+        categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿QUÉ HACEN ESTOS NIÑOS?',
+        pictos: [
+          'naturaleza/picto.png',
+          'naturaleza//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'naturaleza/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿Qúe estan haciendo estos niños?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Qué hacen?',
+              opciones: [
+                { id: 'situacio', texto: 'COMER', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'OBSERVAR LAS HOJAS', imagen: base + 'situacio2.png','situacio2a.png' },
+                { id: 'situacio3', texto: 'DIBUJAR', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+         { 
+        id: 'piscina',
+        categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿A DÓNDE VA LA NIÑA?',
+        pictos: [
+          'piscina/picto.png',
+          'piscina//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'piscina/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿A dónde va la niña?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿A dónde va?',
+              opciones: [
+                { id: 'situacio', texto: 'A LA PISCINA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'A LA PARADA DE BUS', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'AL SUPERMERCADO', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+         { 
+        id: 'cumpleaños',
+        categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿DE QUIÉN ES EL CUMPLEAÑOS?',
+        pictos: [
+          'cumpleaños/picto.png',
+          'cumpleaños//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'cumpleaños/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿De quién es el cumpleaños?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿A dónde va?',
+              opciones: [
+                { id: 'situacio', texto: 'DEL NIÑO CON LA CORONA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'DEL NIÑO QUE ESTA TOMÁNDO LA FOTO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'DE LA NIÑA QUE TIENE UN REGALO', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+
       //       {
       //   id: 'patatas',
       //   categoria: 'social',
