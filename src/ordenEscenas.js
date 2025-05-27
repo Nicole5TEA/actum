@@ -17,7 +17,7 @@ const ordenEscenas = [
       emocionajena: [],
       emocionpropia: ['pelotaRota','seOlvidaDeTi','cremalleraRota','responderMal','hacerFoto','mancharse', 'mochilaRota','ventanaAvion','profeAmor','botonPlay'],
       teoriamente: [],
-      coherencia: []
+      coherencia: ['cumpleaños2']
     }
   },
   {
@@ -27,7 +27,7 @@ const ordenEscenas = [
       emocionajena: [],
       emocionpropia: [],
       teoriamente: [],
-      coherencia: []
+      coherencia: ['museo','comedor']
     }
   }
 ];

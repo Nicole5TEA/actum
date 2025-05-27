@@ -66,13 +66,13 @@ const textos = {
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Entra un perro de terapia y se sienta a su lado durante la sesión',
+              descripcion: 'Entra un perro de terapia y se sienta a tu lado durante la sesión',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Entra un perro de terapia y se sienta a su lado durante la sesión',
+              descripcion: 'Entra un perro de terapia y se sienta a tu lado durante la sesión',
               imagen: base + 'escena2.png'
             },
             {
@@ -102,13 +102,13 @@ const textos = {
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Se apagan las luces en el aula porque se va a proyectar un video',
+              descripcion: 'Se apagan las luces en el aula porque se va a proyectar un vídeo',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Se apagan las luces en el aula porque se va a proyectar un video',
+              descripcion: 'Se apagan las luces en el aula porque se va a proyectar un vídeo',
               imagen: base + 'escena2.png'
             },
             {
@@ -139,7 +139,7 @@ const textos = {
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Un compañero grita en clase de Psicomotricidad',
+              descripcion: 'Un compañero grita en clase de psicomotricidad',
               imagen: base + 'escena1.png'
             },
             {
@@ -304,13 +304,13 @@ const textos = {
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Estas trabajando y se cae el reloj de la pared',
+              descripcion: 'Estás trabajando y se cae el reloj de la pared',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Estas trabajando y se cae el reloj de la pared',
+              descripcion: 'Estás trabajando y se cae el reloj de la pared',
               imagen: base + 'escena2.png'
             },
             {
@@ -341,7 +341,7 @@ const textos = {
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'El autobus llega tarde',
+              descripcion: 'El autobús llega tarde',
               imagen: base + 'escena1.png'
             },
             {
@@ -435,7 +435,7 @@ const textos = {
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: 'Estas jugando al fútbol y la pelota se rompe ',
+              descripcion: 'Estás jugando al fútbol y la pelota se rompe ',
               imagen: base + 'escena1.png'
             },
             {
@@ -744,7 +744,7 @@ const textos = {
         id: 'excursion',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿QUÉ VAN HACER ESTE GRUPO?',
+        titulo: '¿QUÉ VAN HACER ESTOS NIÑOS?',
         pictos: [
           'excursion/picto.png',
           'exccursion//picto2.png',
@@ -794,7 +794,7 @@ const textos = {
               titulo: '¿Qué hacen?',
               opciones: [
                 { id: 'situacio', texto: 'COMER', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'OBSERVAR LAS HOJAS', imagen: base + 'situacio2.png','situacio2a.png' },
+                { id: 'situacio2', texto: 'OBSERVAR LAS HOJAS', imagen: base + 'situacio2.png',},
                 { id: 'situacio3', texto: 'DIBUJAR', imagen: base + 'situacio3.png' },
               ]
             },
@@ -833,7 +833,7 @@ const textos = {
           
         })()
       },
-         { 
+      { 
         id: 'cumpleaños',
         categoria: 'coherencia',
         nivel: 1,
@@ -856,8 +856,104 @@ const textos = {
               titulo: '¿A dónde va?',
               opciones: [
                 { id: 'situacio', texto: 'DEL NIÑO CON LA CORONA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'DEL NIÑO QUE ESTA TOMÁNDO LA FOTO', imagen: base + 'situacio2.png' },
+                { id: 'situacio2', texto: 'DEL NIÑO QUE ESTÁ TOMÁNDO LA FOTO', imagen: base + 'situacio2.png' },
                 { id: 'situacio3', texto: 'DE LA NIÑA QUE TIENE UN REGALO', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'DE LA NIÑA QUE ESTÁ BAILANDO', imagen: base + 'situacio4.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'cumpleaños2',
+        categoria: 'coherencia',
+        nivel: 2,
+        titulo: '¿DE QUIÉN ES EL CUMPLEAÑOS?',
+        pictos: [
+          'cumpleaños2/picto.png',
+          'cumpleaños2//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'cumpleaños2/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿De quién es el cumpleaños?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿A dónde va?',
+              opciones: [
+                { id: 'situacio', texto: 'DEL NIÑO CON LA CORONA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'DEL NIÑO QUE ESTÁ TOMÁNDO LA FOTO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'DE LA NIÑA QUE TIENE UN REGALO', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'DEL NIÑO QUE ESTÁ COMIENDO', imagen: base + 'situacio4.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+          { 
+        id: 'museo',
+        categoria: 'coherencia',
+        nivel: 3,
+        titulo: '¿QUIÉN ES EL PINTOR?',
+        pictos: [
+          'museo/picto.png',
+          'museo//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'museo/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿Quién es el pintor de la obra medio terminada?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Quién es?',
+              opciones: [
+                { id: 'situacio', texto: 'LA NIÑA QUE ESTÁ MIRANDO EL CUADRO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'EL SEÑOR QUE SALE DEL BAÑO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'LA SEÑORA CON TURBANTE', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'EL SEÑOR QUE TIENE UN SOMBRERO', imagen: base + 'situacio4.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'comedor',
+        categoria: 'coherencia',
+        nivel: 3,
+        titulo: '¿QUÉ OBJECTO FALTA PARA COMER?',
+        pictos: [
+          'comedor/picto.png',
+          'comedor//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'comedor/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿Qué objecto falta para comer?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Quién es?',
+              opciones: [
+                { id: 'situacio', texto: 'JARRA DE AGUA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SERVILLETAS', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'CUBIERTOS', imagen: base + 'situacio3.png' },
               ]
             },
           ]
