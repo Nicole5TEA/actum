@@ -6,12 +6,14 @@ on:
       - main
       - feature/respuestas
       - feature/niveles
+      - ajustes_finales
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
       - feature/respuestas
       - feature/niveles
+      - ajustes_finales
 
 jobs:
   build_and_deploy_job:

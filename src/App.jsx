@@ -14,15 +14,26 @@ import AdminPanel from './components/AdminPanel';
 
 const theme = createTheme({
   palette: {
-    mode: 'light',
     background: { default: '#f6f5f1' },
     primary: { main: '#6a5d4d' },
     secondary: { main: '#a39e8e' },
     text: { primary: '#333' }
   },
   typography: {
-    fontFamily: 'Arial, sans-serif',
-    button: { textTransform: 'uppercase' }
+    fontFamily: 'Arial, sans-serif', // [cite: 744]
+    allVariants: {
+      textTransform: 'uppercase',
+    },
+    button: { textTransform: 'uppercase' } // [cite: 744]
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        body {
+          text-transform: uppercase;
+        }
+      `,
+    },
   }
 });
 
