@@ -708,7 +708,7 @@ const textos = {
           
         })()
       },
-             {
+      {
         id: 'botonPlay',
         categoria: 'emocionpropia',
         nivel: 2,
@@ -740,7 +740,38 @@ const textos = {
           
         })()
       },
-            { 
+      {
+        id: 'vacaciones',
+        categoria: 'emocionpropia',
+        nivel: 3,
+        titulo: 'VACACIONES',
+        pictos: [
+          'vacaciones/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'vacaciones/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'último día de colegio y te vas de',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+          })()
+        },
+      { 
         id: 'excursion',
         categoria: 'coherencia',
         nivel: 1,
@@ -771,7 +802,7 @@ const textos = {
           
         })()
       },
-        { 
+      { 
         id: 'naturaleza',
         categoria: 'coherencia',
         nivel: 1,
@@ -960,6 +991,296 @@ const textos = {
           
         })()
       },
+      { 
+        id: 'aeropuerto',
+        categoria: 'coherencia',
+        nivel: 2,
+        titulo: '¿EN DÓNDE ESTÁN?',
+        pictos: [
+          'aeropuerto/picto.png',
+          'aeropuerto//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'aeropuerto/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿En dónde están?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Quién es?',
+              opciones: [
+                { id: 'situacio', texto: 'AEROPUERTO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SUPERMERCADO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'PARQUE DE BOMBEROS', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'estacionAño',
+        categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿EN QUÉ ESTACIÓN DEL AÑO ESTÁN',
+        pictos: [
+          'estacionAño/picto.png',
+          'estacionAño//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'estacionAño/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿En qué estación del año están?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Cúal estación del año?',
+              opciones: [
+                { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'OTOÑO', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'INVIERNO', imagen: base + 'situacio4.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'dondeVan',
+        categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿A DÓNDE VAN LOS NIÑOS',
+        pictos: [
+          'dondeVan/picto.png',
+          'dondeVan//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'dondeVan/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿A dónde van los niños?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Cúal estación del año?',
+              opciones: [
+                { id: 'situacio', texto: 'A LA PISCINA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'AL AUTOBÚS', imagen: base + 'situacio2.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'queHacen',
+        categoria: 'coherencia',
+        nivel: 2,
+        titulo: '¿QUÉ HACEN LOS NIÑOS',
+        pictos: [
+          'queHacen/picto.png',
+          'queHacen//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'queHacen/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿Qué hacen los niños?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Qué hacen?',
+              opciones: [
+                { id: 'situacio', texto: 'JUGAR CON LA PELOTA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'DESCANSAR EN EL PATIO', imagen: base + 'situacio2.png' },
+                 { id: 'situacio3', texto: 'UN PICNIC', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'bancAliments',
+        categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿QUÉ HACEN LAS PERSONAS',
+        pictos: [
+          'bancAliments/picto.png',
+          'bancAliments//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'bancAliments/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿Qué hacen las personas?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Qué hacen?',
+              opciones: [
+                { id: 'situacio', texto: 'LIMPIAR', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'AYUDAR EN EL BANCO DE ALIMENTOS', imagen: base + 'situacio2.png' },
+                 { id: 'situacio3', texto: 'COMPRAR EN EL SUPERMERCADO', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      
+      { 
+        id: 'cocinar',
+        categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿QUÉ HACEN LAS PERSONAS',
+        pictos: [
+          'cocinar/picto.png',
+          'cocinar//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'cocinar/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿Qué hacen las personas?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Qué hacen?',
+              opciones: [
+                { id: 'situacio', texto: 'COMER', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'COCINAR', imagen: base + 'situacio2.png' },
+                 { id: 'situacio3', texto: 'PASEAR', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'estacionAño2',
+        categoria: 'coherencia',
+        nivel: 2,
+        titulo: '¿EN QUÉ ESTACIÓN DEL AÑO ESTÁN?',
+        pictos: [
+          'estacionAño2/picto.png',
+          'estacionAño2//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'estacionAño2/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿En qué estación del año están?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Cúal estación del año?',
+              opciones: [
+                { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'OTOÑO', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'INVIERNO', imagen: base + 'situacio4.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'estacionAño3',
+        categoria: 'coherencia',
+        nivel: 2,
+        titulo: '¿EN QUÉ ESTACIÓN DEL AÑO ESTÁN?',
+        pictos: [
+          'estacionAño3/picto.png',
+          'estacionAño3//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'estacionAño3/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿En qué estación del año están?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Cúal estación del año?',
+              opciones: [
+                { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'OTOÑO', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'INVIERNO', imagen: base + 'situacio4.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+        { 
+        id: 'cine',
+        categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿A DÓNDE VAN LOS NIÑOS?',
+        pictos: [
+          'cine/picto.png',
+          'cine//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'cine/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿A dónde van los niños?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿A dónde?',
+              opciones: [
+                { id: 'situacio', texto: 'RESTAURANTE', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'CIRC', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'CINE', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      
+      
+      
+      
+      
+      
+      
+      
 
       //       {
       //   id: 'patatas',
