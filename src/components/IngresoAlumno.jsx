@@ -231,7 +231,7 @@ export default function IngresoAlumno() {
           {!loading && usuarios.length > 0 && (
              <Box
               component="img"
-              src="/public/3d.gif" // Reemplaza con la ruta a tu imagen
+              src="/3d.gif" // Reemplaza con la ruta a tu imagen
               alt="Personajes en 3d"
               sx={{
                 width: { xs: '50%', sm: '35%', md: '25%' },
