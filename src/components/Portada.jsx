@@ -1,7 +1,7 @@
 // src/components/Portada.jsx
 import React from 'react';
 import { Stack, Typography, Button, Box } from '@mui/material';
-import { useActua } from '../context/ActuaContext';
+import { useActua } from '../context/ActuaContext'; // [cite: 740]
 import textos from '../textos';
 
 export default function Portada() {
@@ -10,22 +10,21 @@ export default function Portada() {
 
   return (
     <Box sx={{
-      minHeight: 'calc(100vh - 48px)',
+      minHeight: 'calc(100vh - 48px)', // [cite: 741]
       display: 'flex',
       flexDirection: 'column',
-      position: 'relative', // Keep this for the footer positioning
-      pt: { xs: 1, sm: 1 },
-      paddingBottom: { xs: '100px', sm: '60px' }
+      position: 'relative',
+      pt: { xs: 2, sm: 3 }, // Increased top padding slightly for overall content
+      paddingBottom: { xs: '100px', sm: '80px' } // Adjusted bottom padding for footer
     }}>
       <Stack
         alignItems="center"
-        justifyContent="center"
-        sx={{ 
-          flexGrow: 1, 
-          textAlign: 'center', 
+        justifyContent="flex-start" // Changed from center to flex-start
+        sx={{
+          flexGrow: 1,
+          textAlign: 'center', // [cite: 744]
           px: 2,
-          // Ensure Stack does not prevent clicks on its children
-          // pointerEvents: 'auto', // Default, but good to be mindful of
+          pt: { xs: 2, sm: 4 }, // Added padding top to the Stack
         }}
       >
         <Box
@@ -33,10 +32,10 @@ export default function Portada() {
           src="/logo.png"
           alt="Logo TE(A)NTENC"
           sx={{
-            width: { xs: '70%', sm: '60%' },
-            maxWidth: 400,
-            height: 'auto',
-            mb: 2, // Distancia entre logo y botón Empezar
+            width: { xs: '70%', sm: '55%' }, // Adjusted size
+            maxWidth: 380, // Slightly adjusted max width
+            height: 'auto', // [cite: 748]
+            mb: { xs: 3, sm: 4 }, // Adjusted margin bottom for spacing
           }}
         />
 
@@ -45,10 +44,12 @@ export default function Portada() {
           size="large"
           onClick={() => setStage('ingreso')}
           sx={{
-            minWidth: '180px',
-            mb: 0, // Distancia entre botón Empezar y GIF
-            zIndex: 1, // Ensure button is on top if any weird overlaps occur at zoom
-            // pointerEvents: 'auto' // Ensure button itself is interactive
+            minWidth: { xs: '180px', sm: '220px' }, // [cite: 751]
+            fontSize: { xs: '1rem', sm: '1.15rem'},
+            padding: { xs: '10px 20px', sm: '12px 28px'},
+            mb: { xs: 3, sm: 4 }, // Adjusted margin bottom for spacing (equidistant attempt)
+            mt: { xs: 1, sm: 2 }, // Added margin top for spacing from logo
+            zIndex: 1, // [cite: 752]
           }}
         >
           {portadaButton}
@@ -59,9 +60,9 @@ export default function Portada() {
           src="/portada.gif"
           alt="Portada Actua"
           sx={{
-            width: { xs: '85%', sm: '75%' },
-            maxWidth: 500,
-            height: 'auto',
+            width: { xs: '85%', sm: '70%' }, // Adjusted size
+            maxWidth: 480, // Slightly adjusted
+            height: 'auto', // [cite: 756]
             mb: 1,
           }}
         />
@@ -70,24 +71,24 @@ export default function Portada() {
       <Box
         sx={{
           position: 'absolute',
-          bottom: 16,
-          left: 0, // Change to 0 to allow full width for centering
-          right: 0, // Change to 0
-          textAlign: { xs: 'center', sm: 'left'},
+          bottom: 16, // [cite: 758]
+          left: 0, // [cite: 759]
+          right: 0, // [cite: 759]
+          textAlign: 'center', // Changed sm: 'left' to 'center'
           color: 'text.secondary',
-          p: 1,
+          p: 1, // [cite: 760]
           zIndex: 0,
         }}
       >
         <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}>
           NICOLE DAHYAN ALFARO RUÍZ
-        </Typography> {/* [cite: 1264] */}
-        <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}> {/* [cite: 1265] */}
+        </Typography>
+        <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}>
           TRABAJO DE FIN DE GRADO
-        </Typography> {/* [cite: 1266] */}
-        <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}> {/* [cite: 1265] */}
+        </Typography>
+        <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}>
           EN EDUCACIÓN PRIMÁRIA
-        </Typography> {/* [cite: 1266] */}
+        </Typography>
         <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}>
           CURSO 2024/2025
         </Typography>

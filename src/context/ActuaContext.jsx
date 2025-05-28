@@ -1,98 +1,150 @@
 // src/context/ActuaContext.jsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import useIdioma from '../hooks/useIdioma';
-import ordenEscenasEstructura, { obtenerSecuenciaEscenas } from '../ordenEscenas'; // Renombrado ordenEscenas a ordenEscenasEstructura si es el array de config
-import textosGlobal from '../textos'; 
+import ordenEscenasEstructura, { obtenerSecuenciaEscenas } from '../ordenEscenas';
+import textosGlobal from '../textos';
 
-const ActuaContext = createContext();
+const ActuaContext = createContext(); // [cite: 767]
 
 export function ActuaProvider({ children }) {
-  const [stage, setStage] = useState('portada');  
-  const [user, setUser] = useState(null);       
-  const [perfiles, setPerfiles] = useState({});         
-  const [elecciones, setElecciones] = useState({});     
-  const [indiceEscena, setIndiceEscena] = useState(0); 
-  const [paso, setPaso] = useState(0);
+  const [stage, setStage] = useState('portada');
+  const [user, setUser] = useState(null);
+  const [perfiles, setPerfiles] = useState({});
+  const [elecciones, setElecciones] = useState({});
+  const [indiceEscena, setIndiceEscena] = useState(0);
+  const [paso, setPaso] = useState(0); // [cite: 768]
   const reiniciarPaso = () => setPaso(0);
 
   const [isDocente, setDocente] = useState(() => {
     try {
       return !!localStorage.getItem('docente_token');
     } catch {
-      return false;
+      return false; // [cite: 769]
     }
   });
 
   const [idioma, cambiarIdioma] = useIdioma();
 
-  // Declaraciones originales y correctas de las funciones
   const getIdEscenaActual = () => {
     const secuencia = obtenerSecuenciaEscenas();
-    return secuencia[indiceEscena];
+    return secuencia[indiceEscena]; // [cite: 770]
   };
 
   const getEscenaActual = () => {
     const idEscena = getIdEscenaActual();
     if (!idEscena) return null;
-    // Asegurarse que textosGlobal[idioma] existe antes de acceder a escenas
-    const escenasDisponibles = textosGlobal[idioma]?.escenas || [];
+    const escenasDisponibles = textosGlobal[idioma]?.escenas || []; // [cite: 771]
     return escenasDisponibles.find(e => e.id === idEscena);
   };
 
+  const procesarRespuestasParaEleccionesContext = (respuestasAlumno) => {
+    if (!respuestasAlumno || !Array.isArray(respuestasAlumno)) {
+      return {};
+    }
+    const eleccionesExtraidas = {};
+    const sortedRespuestas = [...respuestasAlumno].sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+    sortedRespuestas.forEach(reg => {
+      if (reg.tipoPaso === 'eleccion' && reg.situacionId && reg.respuesta) {
+        if (!eleccionesExtraidas[reg.situacionId]) { 
+          eleccionesExtraidas[reg.situacionId] = reg.respuesta;
+        }
+      }
+    });
+    return eleccionesExtraidas;
+  };
+
   useEffect(() => {
-    const stored = localStorage.getItem('perfiles');
-    if (stored) {
+    const storedPerfiles = localStorage.getItem('perfiles');
+    let parsedPerfiles = {};
+    if (storedPerfiles) {
         try {
-            const parsedPerfiles = JSON.parse(stored);
-            setPerfiles(parsedPerfiles || {}); // Asegurar que perfiles sea un objeto
+            parsedPerfiles = JSON.parse(storedPerfiles) || {}; // [cite: 772]
+            setPerfiles(parsedPerfiles);
         } catch (error) {
             console.error("Error parsing perfiles from localStorage", error);
-            localStorage.removeItem('perfiles'); 
-            setPerfiles({}); // Resetear a objeto vacío en caso de error
+            localStorage.removeItem('perfiles'); // [cite: 774]
+            setPerfiles({});
         }
     } else {
-        setPerfiles({}); // Si no hay nada en localStorage, inicializar como objeto vacío
+        setPerfiles({}); // [cite: 775]
+    }
+
+    const storedUser = localStorage.getItem('actua_currentUser');
+    if (storedUser) {
+        try {
+            const parsedUser = JSON.parse(storedUser);
+            if (parsedUser && parsedUser.name) {
+                setUser(parsedUser);
+                const userProfile = parsedPerfiles[parsedUser.name];
+                if (userProfile) {
+                    const respuestasDelStorage = userProfile.respuestas || [];
+                    const eleccionesProcesadas = procesarRespuestasParaEleccionesContext(respuestasDelStorage);
+                    setElecciones(eleccionesProcesadas || userProfile.elecciones || {});
+                } else {
+                    setElecciones({});
+                }
+            }
+        } catch (error) {
+            console.error("Error parsing stored user", error);
+            localStorage.removeItem('actua_currentUser');
+        }
     }
   }, []);
 
+
   useEffect(() => {
-    // Solo guardar si perfiles no está vacío para evitar guardar "{}" innecesariamente
-    if (Object.keys(perfiles).length > 0) {
+    if (Object.keys(perfiles).length > 0) { // [cite: 776]
         localStorage.setItem('perfiles', JSON.stringify(perfiles));
     } else {
-        // Opcional: si quieres limpiar localStorage cuando perfiles esté vacío
-        // localStorage.removeItem('perfiles');
+        localStorage.removeItem('perfiles'); // [cite: 777]
     }
   }, [perfiles]);
 
   useEffect(() => {
     if (user && user.name) {
       setPerfiles(prev => {
-        const userProfile = prev[user.name] || { date: user.date }; // Mantener la fecha si ya existe
+        const userProfileFromStorage = prev[user.name] || { date: user.date, respuestas: [], elecciones: {} }; // [cite: 778]
         return {
           ...prev,
-          [user.name]: { ...userProfile, elecciones: elecciones || {} }
-        };
+          [user.name]: { 
+            ...userProfileFromStorage, 
+            elecciones: elecciones, // Persist current derived elecciones for quick load
+            // 'respuestas' should be the source of truth, updated by API calls.
+            // This effect ensures the 'elecciones' key in 'perfiles' reflects the current state.
+          }
+        }; // [cite: 779, 780]
       });
+      localStorage.setItem('actua_currentUser', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('actua_currentUser');
     }
   }, [elecciones, user]);
 
+
   function login(name) {
-    const now = new Date().toISOString(); 
-    const existing = perfiles[name];
-    if (existing) {
-      setElecciones(existing.elecciones || {});
-      setUser({ name, date: existing.date });
+    const now = new Date().toISOString();
+    const perfilExistente = perfiles[name]; 
+    let eleccionesParaUsuario = {};
+
+    if (perfilExistente) {
+        const respuestasDelStorage = perfilExistente.respuestas || [];
+        const eleccionesPreProcesadasDelStorage = perfilExistente.elecciones || {}; // Fallback
+        
+        eleccionesParaUsuario = respuestasDelStorage.length > 0 
+            ? procesarRespuestasParaEleccionesContext(respuestasDelStorage) 
+            : eleccionesPreProcesadasDelStorage;
+        setUser({ name, date: perfilExistente.date });
     } else {
-      const newUserProfile = { date: now, elecciones: {} };
-      setElecciones({}); // Para el nuevo usuario, las elecciones empiezan vacías
-      setUser({ name, date: now });
-      setPerfiles(prev => ({
-        ...prev,
-        [name]: newUserProfile
-      }));
+        eleccionesParaUsuario = {};
+        setUser({ name, date: now });
+        setPerfiles(prev => ({
+            ...prev,
+            [name]: { date: now, elecciones: {}, respuestas: [] } // Initialize with empty respuestas
+        }));
     }
-    setStage('menu');
+    setElecciones(eleccionesParaUsuario); // [cite: 781]
+    setStage('menu'); // [cite: 783]
   }
 
   function fullLogoutAndGoToPortada() {
@@ -102,36 +154,34 @@ export function ActuaProvider({ children }) {
     setPaso(0);
     setDocente(false);
     localStorage.removeItem('docente_token');
-    localStorage.removeItem('access_token'); 
-    // localStorage.removeItem('perfiles'); // Opcional: si quieres borrar todos los perfiles al hacer logout completo
-    setStage('portada'); 
+    localStorage.removeItem('access_token');
+    // Consider if 'perfiles' or 'actua_currentUser' should be cleared too.
+    // localStorage.removeItem('perfiles'); // Potentially clears all student data from local
+    localStorage.removeItem('actua_currentUser');
+    setStage('portada');
   }
 
-  function exitStudentSession() {
+  function exitStudentSession() { // [cite: 784]
     setUser(null);
-    // setElecciones({}); // No resetear elecciones globales si se quiere que se guarden en perfiles
     setIndiceEscena(0);
     setPaso(0);
     setStage('ingreso');
   }
 
-  // Las líneas que causaban el error (reasignaciones de getIdEscenaActual y getEscenaActual)
-  // que estaban aquí abajo han sido eliminadas. Las declaraciones `const` de arriba son suficientes.
-
   return (
     <ActuaContext.Provider
       value={{
-        stage, setStage,
+        stage, setStage, // [cite: 786]
         user, perfiles,
-        login, 
+        login,
         logout: fullLogoutAndGoToPortada,
-        exitStudentSession,
+        exitStudentSession, // [cite: 787]
         idioma, cambiarIdioma,
-        elecciones, setElecciones, 
-        indiceEscena, setIndiceEscena, 
-        getIdEscenaActual, // <- Se usa la función declarada arriba
-        getEscenaActual,   // <- Se usa la función declarada arriba
-        paso, setPaso, reiniciarPaso,
+        elecciones, setElecciones,
+        indiceEscena, setIndiceEscena,
+        getIdEscenaActual, // [cite: 788]
+        getEscenaActual,
+        paso, setPaso, reiniciarPaso, // [cite: 789]
         isDocente, setDocente
       }}
     >
@@ -141,7 +191,7 @@ export function ActuaProvider({ children }) {
 }
 
 export function useActua() {
-  const ctx = useContext(ActuaContext);
+  const ctx = useContext(ActuaContext); // [cite: 790]
   if (!ctx) throw new Error('useActua debe usarse dentro de ActuaProvider');
   return ctx;
 }
