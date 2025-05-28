@@ -43,7 +43,7 @@ const textos = {
       comentarioGuardado: 'Guardado',
       guardar: 'Guardar',
       pasoTituloSituacion: 'SITUACIÓN',
-      pasoTituloEleccion: '¿QUÉ PUEDE HACER EL NIÑO Y?', // O un genérico si varía mucho
+      pasoTituloEleccion: '¿QUÉ HACES?', // O un genérico si varía mucho
       pasoTituloResultado: 'CONSECUENCIA PROBABLE',
       categories: {
         social: 'Situaciones sociales',
@@ -1496,7 +1496,7 @@ const textos = {
   },
   ca: {
     ui: {
-      portadaTitle: 'ACTUM',
+      portadaTitle: 'TE(A)NTENC',
       portadaButton: 'COMENÇA',
       ingresoPrompt: 'SELECCIONA EL TEU NOM',
       ingresoLabel: 'Nom', // [cite: 450]
@@ -1537,7 +1537,7 @@ const textos = {
       comentarioGuardado: 'Desat',
       guardar: 'Desar',
       pasoTituloSituacion: 'SITUACIÓ',
-      pasoTituloEleccion: 'QUÈ POT FER EL NEN Y?', // O un genérico
+      pasoTituloEleccion: 'QUÈ FAS', // O un genérico
       pasoTituloResultado: 'CONSEQÜÈNCIA PROBABLE',
       categories: {
         social: 'Situacions socials',

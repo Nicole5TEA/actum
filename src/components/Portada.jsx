@@ -31,12 +31,12 @@ export default function Portada() {
         <Box
           component="img"
           src="/logo.png"
-          alt="Logo Actum"
+          alt="Logo TE(A)NTENC"
           sx={{
             width: { xs: '70%', sm: '60%' },
             maxWidth: 400,
             height: 'auto',
-            mb: 1, // Distancia entre logo y botón Empezar
+            mb: 2, // Distancia entre logo y botón Empezar
           }}
         />
 
@@ -46,7 +46,7 @@ export default function Portada() {
           onClick={() => setStage('ingreso')}
           sx={{
             minWidth: '180px',
-            mb: 1, // Distancia entre botón Empezar y GIF
+            mb: 0, // Distancia entre botón Empezar y GIF
             zIndex: 1, // Ensure button is on top if any weird overlaps occur at zoom
             // pointerEvents: 'auto' // Ensure button itself is interactive
           }}
@@ -71,12 +71,12 @@ export default function Portada() {
         sx={{
           position: 'absolute',
           bottom: 16,
-          left: 16,
-          right: 16,
+          left: 0, // Change to 0 to allow full width for centering
+          right: 0, // Change to 0
           textAlign: { xs: 'center', sm: 'left'},
           color: 'text.secondary',
           p: 1,
-          zIndex: 0, // Ensure footer is behind clickable elements if overlap is an issue
+          zIndex: 0,
         }}
       >
         <Typography variant="caption" component="div" sx={{ fontSize: {xs: '0.65rem', sm: '0.75rem'} }}>

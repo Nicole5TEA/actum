@@ -289,23 +289,28 @@ const ActuaEscenario = () => {
     }
     if (pasoActual.tipo === 'eleccion') {
       return (
-        <Grid container spacing={2} mb={2}>
+        <> {/* Use Fragment to group title and grid */}
+          <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mt: 2, mb: 2, textAlign: 'center' }}>
+            {pasoActual.titulo} {/* This will now display titles like "¿Cómo te sientes?" */}
+          </Typography>
+          <Grid container spacing={2} mb={2}>
             {pasoActual.opciones.map(op => (
-              <Grid item xs={12} sm={6} key={op.id}>
+              <Grid item xs={12} sm={6} key={op.id}> {/* [cite: 361] */}
                 <Box onClick={() => avanzar(op.id)}
-                  sx={{ border: 1, borderColor: 'grey.400', p: 2, cursor: 'pointer', textAlign: 'center', borderRadius: 1, '&:hover': { backgroundColor: '#e0e0e0' } }}
+                   sx={{ border: 1, borderColor: 'grey.400', p: 2, cursor: 'pointer', textAlign: 'center', borderRadius: 1, '&:hover': { backgroundColor: '#e0e0e0' } }}
                 >
                   <img 
                     src={`/${op.imagen}`} 
                     alt={op.texto} 
                     style={{ maxWidth: '100%', height: 'auto', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} 
-                    loading="lazy" // Añadido para optimización
+                    loading="lazy"
                   />
-                  <Typography mt={1}>{op.texto}</Typography>
+                  <Typography mt={1}>{op.texto}</Typography> {/* [cite: 367] */}
                 </Box>
               </Grid>
             ))}
           </Grid>
+        </>
       );
     }
     if (pasoActual.tipo === 'resultado') {

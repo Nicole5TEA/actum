@@ -23,10 +23,11 @@ find "$DIR" -type f \
   ! -iname "*.ico" \
   ! -iname "*.env" \
   ! -iname "*.lock" \
+  ! -iname "*-lock.json" \
   ! -name "$OUTPUT" | while read archivo; do
     num_lineas=$(wc -l < "$archivo")
-    if [ "$num_lineas" -gt 1500 ]; then
-      echo "↪️  Saltado (más de 1500 líneas): $archivo"
+    if [ "$num_lineas" -gt 4000 ]; then
+      echo "↪️  Saltado (más de 4000 líneas): $archivo"
       continue
     fi
 

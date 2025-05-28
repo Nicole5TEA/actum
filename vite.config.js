@@ -23,9 +23,9 @@ export default defineConfig({
       },
 
       manifest: {
-        name: 'ACTUM',
-        short_name: 'ACTUM',
-        description: 'Aplicación ACTUM para el aprendizaje de habilidades sociales y emocionales',
+        name: 'TE(A)NTENC',
+        short_name: 'TE(A)NTENC',
+        description: 'Aplicación TE(A)NTENC para el aprendizaje de habilidades sociales y emocionales',
         theme_color: '#6a5d4d', // Color principal de tu app (tomado de tu App.jsx)
         background_color: '#f6f5f1', // Color de fondo (tomado de tu App.jsx)
         display: 'standalone',
