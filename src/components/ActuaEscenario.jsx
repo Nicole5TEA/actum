@@ -306,7 +306,6 @@ const ActuaEscenario = () => {
               </Grid>
             ))}
           </Grid>
-        </>
       );
     }
     if (pasoActual.tipo === 'resultado') {
