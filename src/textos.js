@@ -42,7 +42,6 @@ const textos = {
       labelComentario: 'Comentario (opcional)',
       comentarioGuardado: 'Guardado',
       guardar: 'Guardar',
-	  // Nuevas claves para títulos de pasos
       pasoTituloSituacion: 'SITUACIÓN',
       pasoTituloEleccion: '¿QUÉ PUEDE HACER EL NIÑO Y?', // O un genérico si varía mucho
       pasoTituloResultado: 'CONSECUENCIA PROBABLE',
@@ -1537,7 +1536,6 @@ const textos = {
       labelComentario: 'Comentari (opcional)',
       comentarioGuardado: 'Desat',
       guardar: 'Desar',
-	  // Nuevas claves para títulos de pasos en catalán
       pasoTituloSituacion: 'SITUACIÓ',
       pasoTituloEleccion: 'QUÈ POT FER EL NEN Y?', // O un genérico
       pasoTituloResultado: 'CONSEQÜÈNCIA PROBABLE',
@@ -2869,7 +2867,6 @@ const textos = {
       },
     ]
   }
-};
-
+}
 
 export default textos;
