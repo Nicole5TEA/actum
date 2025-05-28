@@ -27,7 +27,7 @@ const ordenEscenas = [
     categorias: {
       social: [],
       emocionajena: [],
-      emocionpropia: ['vacaciones','elegirFruta','ventanaFuerte'],
+      emocionpropia: ['vacaciones','elegirFruta','ventanaFuerte','repartidor','equivocar','charco','nuevoProfe'],
       teoriamente: [],
       coherencia: ['museo','comedor'],
       ejecutiva: [],

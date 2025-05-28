@@ -495,6 +495,135 @@ const textos = {
           
         })()
       },
+      {
+        id: 'repartidor',
+        categoria: 'emocionpropia',
+        nivel: 3,
+        titulo: 'LLEGA EL REPARTIDOR',
+        pictos: [
+          'repartidor/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'repartidor/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Llega el repartidor de la comida del comedor',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      {
+        id: 'equivocar',
+        categoria: 'emocionpropia',
+        nivel: 3,
+        titulo: 'TE EQUIVOCAS',
+        pictos: [
+          'equivocar/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'equivocar/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Te equivocas bailando',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'nervios', texto: 'NERVIOSO', imagen: base + 'nervios.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },   
+      {
+        id: 'charco',
+        categoria: 'emocionpropia',
+        nivel: 3,
+        titulo: 'PISAS UN CHARCO',
+        pictos: [
+          'charco/picto.png',
+          'charco/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'charco/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Pisas un charco y te mojas en pie',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'nervios', texto: 'NERVIOSO', imagen: base + 'nervios.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      {
+        id: 'nuevoProfe',
+        categoria: 'emocionpropia',
+        nivel: 3,
+        titulo: 'NUEVO MAESTRO',
+        pictos: [
+          'nuevoProfe/picto.png',
+          'nuevoProfe/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'nuevoProfe/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Mañana llega un nuevo profesor',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo te sientes?',
+              opciones: [
+                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'nervios', texto: 'NERVIOSO', imagen: base + 'nervios.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },     
             {
         id: 'responderMal',
         categoria: 'emocionpropia',
