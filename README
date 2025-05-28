@@ -10,7 +10,7 @@ npm install -g @azure/static-web-apps-cli (swa)
 npm install                 # instala vite, react, etc.
 cd api && npm install       # instala paquetes de tus Azure Functions
 
-
+-------------------------------------------------------------------------------
 En un nuevo terminal:
 azurite --silent --location .azurite --debug .azurite/debug.log
 
