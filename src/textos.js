@@ -2593,7 +2593,7 @@ const textos = {
         id: 'estacionAño',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿EN QUÉ ESTACIÓN DEL AÑO ESTÁN',
+        titulo: '¿EN QUÉ ESTACIÓN DEL AÑO ESTÁN?',
         pictos: [
           'estacionAño/picto.png',
           'estacionAño//picto2.png',
@@ -2609,7 +2609,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: 'Cúal estación del año?',
+              titulo: '¿Cúal estación del año?',
               opciones: [
                 { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
