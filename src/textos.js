@@ -349,6 +349,12 @@ const textos = {
               imagen: base + 'escena1.png'
             },
             {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'El autobús llega tarde',
+              imagen: base + 'escena2.png'
+            },            
+            {
               tipo: 'eleccion',
               titulo: '¿Cómo te sientes?',
               opciones: [
@@ -844,7 +850,7 @@ const textos = {
         titulo: '¿QUÉ VAN HACER ESTOS NIÑOS?',
         pictos: [
           'excursion/picto.png',
-          'exccursion//picto2.png',
+          'excursion//picto2.png',
         ],
         pasos: (() => { // [cite: 417]
           const base = 'excursion/';
@@ -859,7 +865,7 @@ const textos = {
               tipo: 'eleccion',
               titulo: '¿Dónde van?',
               opciones: [
-                { id: 'situacio', texto: 'VAN HA MONTAR BICICLETA', imagen: base + 'situacio.png' },
+                { id: 'situacio', texto: 'VAN A MONTAR BICICLETA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'VAN AL SUPERMERCADO', imagen: base + 'situacio2.png' },
                 { id: 'situacio3', texto: 'VAN DE EXCURSIÓN', imagen: base + 'situacio3.png' },
               ]
