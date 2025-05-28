@@ -1,189 +1,217 @@
 // src/components/MainMenu.jsx
-import React from 'react';
-import { Box, Stack, Typography, Button, CircularProgress, useTheme, useMediaQuery, Container } from '@mui/material'; // [cite: 1184]
-// ... (resto de las importaciones)
-import { useActua } from '../context/ActuaContext'; // [cite: 1185]
-import textos from '../textos'; // [cite: 1185]
-import DrawerMenu from './DrawerMenu'; // [cite: 1185]
-import { obtenerSecuenciaEscenas } from '../ordenEscenas'; // [cite: 1189]
+import React, { useMemo } from 'react'; // Added useMemo
+import { Box, Stack, Typography, Button, CircularProgress, useTheme, useMediaQuery, Container } from '@mui/material';
+import { useActua } from '../context/ActuaContext';
+import textos from '../textos';
+import DrawerMenu from './DrawerMenu';
+import { obtenerSecuenciaEscenas } from '../ordenEscenas';
 
 export default function MainMenu() {
   const {
     user,
-    exitStudentSession, // [cite: 1186]
+    exitStudentSession, // [cite: 695]
     setStage,
     setIndiceEscena,
-    reiniciarPaso, // [cite: 1187]
+    reiniciarPaso,
     elecciones,
     idioma
   } = useActua();
   
-  const theme = useTheme(); // [cite: 1187]
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const theme = useTheme(); // [cite: 696]
+  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // [cite: 696]
 
   const data = textos[idioma];
   const ui = data.ui;
   const todasEscenas = data.escenas; 
-  const secuenciaEscenasOrdenadas = obtenerSecuenciaEscenas(); // [cite: 1189]
+  const secuenciaEscenasOrdenadas = useMemo(() => obtenerSecuenciaEscenas(), []); // Memoize
 
-  const handleStart = () => {
-    const primeraEscenaId = obtenerSecuenciaEscenas()[0];
-    if (primeraEscenaId) {
-        const indiceGlobal = obtenerSecuenciaEscenas().findIndex(id => id === primeraEscenaId); // [cite: 1190]
-        if (indiceGlobal !== -1) {
-            setIndiceEscena(indiceGlobal);
-            reiniciarPaso();
-            setStage('escenario');
-        } else { // [cite: 1191]
-            console.error("Error: No se encontró la primera escena en la secuencia global.");
-        }
-    } else { // [cite: 1192]
-        console.error("Error: No hay escenas definidas en ordenEscenas.js");
+  const primeraEscenaSinRespuesta = useMemo(() => {
+    for (let i = 0; i < secuenciaEscenasOrdenadas.length; i++) {
+      const escenaId = secuenciaEscenasOrdenadas[i];
+      if (!elecciones[escenaId]) {
+        return i; // Devuelve el índice global de la primera escena no completada
+      }
+    }
+    return 0; // Si todas están completas, o no hay escenas, por defecto la primera
+  }, [secuenciaEscenasOrdenadas, elecciones]);
+
+  const hayProgreso = useMemo(() => Object.keys(elecciones || {}).length > 0, [elecciones]);
+
+  const handleStartOrContinue = () => {
+    const indiceGlobal = hayProgreso ? primeraEscenaSinRespuesta : 0;
+    
+    if (secuenciaEscenasOrdenadas[indiceGlobal]) {
+        setIndiceEscena(indiceGlobal); // [cite: 698]
+        reiniciarPaso(); // [cite: 698]
+        setStage('escenario'); // [cite: 698]
+    } else {
+        console.error("Error: No se encontró la escena de inicio/continuación."); // [cite: 699]
     }
   };
 
-  const handleSelect = globalIndex => { // [cite: 1193]
-    setIndiceEscena(globalIndex);
-    reiniciarPaso();
-    setStage('escenario');
+
+  const handleSelect = globalIndex => {
+    setIndiceEscena(globalIndex); // [cite: 700]
+    reiniciarPaso(); // [cite: 700]
+    setStage('escenario'); // [cite: 700]
   };
 
-  const totalSituaciones = secuenciaEscenasOrdenadas.length;
-  const situacionesCompletadas = Object.keys(elecciones || {}).filter(
-    idEscena => (elecciones[idEscena] && elecciones[idEscena] !== '') && secuenciaEscenasOrdenadas.includes(idEscena) // [cite: 1194]
-  ).length;
+  const totalSituaciones = secuenciaEscenasOrdenadas.length; // [cite: 700]
+  const situacionesCompletadas = Object.keys(elecciones || {}).filter( // [cite: 700]
+    idEscena => (elecciones[idEscena] && elecciones[idEscena] !== '') && secuenciaEscenasOrdenadas.includes(idEscena)
+  ).length; // [cite: 701]
 
-  const porcentajeCompletado = totalSituaciones > 0 
+  const porcentajeCompletado = totalSituaciones > 0  // [cite: 701]
     ? Math.round((situacionesCompletadas / totalSituaciones) * 100) 
-    : 0; // [cite: 1195]
+    : 0;
 
   const TopBarContent = () => (
-    <Stack 
+    <Stack // [cite: 702]
       direction="row" 
-      justifyContent="space-between" // [cite: 1196]
+      justifyContent="space-between"
       alignItems="center" 
       mb={2} 
-      sx={{ width: '100%', maxWidth: 'sm', 
-      px: {xs: 1, sm: 0} }} // [cite: 1197]
+      sx={{ // [cite: 703]
+        width: '100%', maxWidth: 'sm', 
+        px: {xs: 1, sm: 0} }}
     >
       <Typography variant="h6" sx={{fontSize: {xs: '1rem', sm: '1.25rem'}}}>
-        {ui.greeting} {user?.name || ''} {/* [cite: 1198] */}
+        {ui.greeting} {user?.name || ''} {/* [cite: 704] */}
       </Typography>
       {user?.name === 'admin' && !isMobile && (
-           <Button variant="outlined" onClick={() => setStage('admin')} size="small"> {/* [cite: 1199] */}
-           {ui.adminPanelTitle} {/* [cite: 1200] */}
-            </Button>
+        <Button variant="outlined" onClick={() => setStage('admin')} size="small"> {/* [cite: 705] */}
+           {ui.adminPanelTitle} {/* [cite: 705] */}
+        </Button> // [cite: 706]
          )}
-    </Stack> // [cite: 1201]
+    </Stack>
   );
 
   const DrawerMenuComponent = () => ( 
     <Box sx={{ 
-        width: { xs: '100%', md: 280 }, // [cite: 1202]
+      width: { xs: '100%', md: 280 }, // [cite: 707]
         flexShrink: { md: 0 }, 
-        maxHeight: { xs: '40vh', md: 'calc(100vh - 220px)' }, // [cite: 1203]
-        overflowY: 'auto', // [cite: 1204]
+        maxHeight: { // [cite: 708]
+          xs: 'calc(50vh - 120px)', // Ajusta la altura máxima en móvil
+          md: 'calc(100vh - 240px)'  // Ajusta la altura máxima en desktop
+        }, 
+        overflowY: 'auto', // [cite: 708]
         mb: {xs: 2, md: 0},
-        border: {xs: `1px solid ${theme.palette.divider}`, md: 'none'}, // [cite: 1205]
-        borderRadius: {xs: 1, md: 0},
+        border: {xs: `1px solid ${theme.palette.divider}`, md: 'none'}, // [cite: 709]
+        borderRadius: {xs: 1, md: 0}, // [cite: 709]
     }}>
       <DrawerMenu
-        items={todasEscenas} // [cite: 1206]
-        completed={elecciones || {}}
-        categories={ui.categories}
-        nivelesLabels={ui.niveles || {}} // [cite: 1207]
-        onSelect={handleSelect}
-        isGlobalMenu={true}
-      /> {/* [cite: 1208] */}
-    </Box>
+        items={todasEscenas} // [cite: 710]
+        completed={elecciones || {}} // [cite: 710]
+        categories={ui.categories} // [cite: 710]
+        nivelesLabels={ui.niveles || {}} // [cite: 711]
+        onSelect={handleSelect} // [cite: 711]
+        isGlobalMenu={true} // [cite: 711]
+      />
+    </Box> // [cite: 709]
   );
 
-  const ProgressChartComponent = () => (
-    <Box sx={{ textAlign: 'center', my: 2 }}>
-      <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}> {/* [cite: 1209] */}
-        {/* Background track for 0% visibility */}
-        <CircularProgress
-          variant="determinate"
-          value={100}
-          size={isMobile ? 80 : 100}
-          thickness={4}
-          sx={{
-            color: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800], // Light grey track
-            position: 'absolute', // Overlay the main progress
-            left: 0,
-            top: 0,
-            zIndex: 1, // Behind the main progress
+  const ProgressChartComponent = () => ( // [cite: 712]
+    <Box sx={{ textAlign: 'center', my: 2 }}> {/* [cite: 712] */}
+      <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
+        <CircularProgress // [cite: 713]
+          variant="determinate" // [cite: 713]
+          value={100} // [cite: 714]
+          size={isMobile ? 80 : 100} // [cite: 714]
+          thickness={4} // [cite: 714]
+          sx={{ // [cite: 715]
+            color: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+            position: 'absolute', // [cite: 716]
+            left: 0, // [cite: 716]
+            top: 0, // [cite: 716]
+            zIndex: 1, // [cite: 717]
           }}
         />
-        <CircularProgress 
-          variant="determinate" 
-          value={porcentajeCompletado} // [cite: 1210]
-          size={isMobile ? 80 : 100} // [cite: 1211]
-          thickness={4}
-          sx={{ 
-            color: 'primary.main', // [cite: 1212]
-            zIndex: 2 // On top of the background track
-          }}
+        <CircularProgress // [cite: 718]
+          variant="determinate" // [cite: 718]
+          value={porcentajeCompletado}
+          size={isMobile ? 80 : 100} // [cite: 719]
+          thickness={4} // [cite: 719]
+          sx={{ // [cite: 720]
+            color: 'primary.main',
+            zIndex: 2 // [cite: 720]
+          }} // [cite: 721]
         />
         <Box
-          sx={{ // [cite: 1213]
-            top: 0, left: 0, bottom: 0, right: 0,
-            position: 'absolute', display: 'flex', // [cite: 1214]
-            alignItems: 'center', justifyContent: 'center', // [cite: 1215]
+          sx={{ // [cite: 721]
+            top: 0, left: 0, bottom: 0, right: 0, // [cite: 722]
+            position: 'absolute', display: 'flex', // [cite: 722]
+            alignItems: 'center', justifyContent: 'center', // [cite: 723]
           }}
         >
-          <Typography variant="caption" component="div" color="text.secondary" sx={{fontSize: isMobile? '1rem':'1.2rem'}}> {/* [cite: 1216] */}
-            {`${porcentajeCompletado}%`}
-          </Typography> {/* [cite: 1217] */}
-        </Box>
+          <Typography variant="caption" component="div" color="text.secondary" sx={{fontSize: isMobile? '1rem':'1.2rem'}}> {/* [cite: 724] */}
+            {`${porcentajeCompletado}%`} {/* [cite: 724] */}
+          </Typography>
+        </Box> {/* [cite: 725] */}
       </Box>
-      <Typography variant="body2" color="text.secondary"> {/* [cite: 1218] */}
-        {situacionesCompletadas} de {totalSituaciones} situaciones completadas
+      <Typography variant="body2" color="text.secondary"> {/* [cite: 725] */}
+        {situacionesCompletadas} de {totalSituaciones} situaciones completadas {/* [cite: 726] */}
       </Typography>
-    </Box>
-  ); // [cite: 1219]
+    </Box> // [cite: 719]
+  );
   
   if (isMobile) {
     return (
-      <Container sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 2, pb: 2, 
-      minHeight: 'calc(100vh - 48px)'}}> {/* [cite: 1220] */}
+      <Container sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 2, pb: 2, minHeight: 'calc(100vh - 48px)'}}> {/* [cite: 727] */}
         <Typography variant="h4" align="center" gutterBottom>
-          {ui.inicioTitle}
-        </Typography> {/* [cite: 1221] */}
-        <TopBarContent />
-        {user?.name === 'admin' && ( // [cite: 1222]
+           {ui.inicioTitle} {/* [cite: 728] */}
+        </Typography>
+        <TopBarContent /> {/* [cite: 728] */}
+        {user?.name === 'admin' && ( // [cite: 729]
             <Button variant="outlined" onClick={() => setStage('admin')} size="small" sx={{mb:2, alignSelf: 'flex-end'}}>
-              {ui.adminPanelTitle} {/* [cite: 1223] */}
+              {ui.adminPanelTitle} {/* [cite: 730] */}
             </Button>
-          )} {/* [cite: 1224] */}
-        <Button variant="outlined" size="large" onClick={handleStart} sx={{ mb: 2 }}> {/* Changed variant */}
-           {ui.empezar} {/* [cite: 1225] */}
-        </Button>
-        <DrawerMenuComponent />
-        <ProgressChartComponent /> {/* [cite: 1226] */}
-        <Button variant="outlined" onClick={exitStudentSession} sx={{ mt: 'auto', width: 'fit-content' }}>
-           {ui.logout || "SALIR"} {/* [cite: 1227] */}
-        </Button>
+          )} {/* [cite: 730] */}
+        <Button 
+          variant="contained" // Changed to contained for more prominence
+          size="large" 
+          onClick={handleStartOrContinue} 
+          sx={{ 
+            mb: 2, 
+            fontSize: '1.1rem', // Larger font
+            padding: '10px 20px' // More padding
+          }}
+        >
+           {hayProgreso ? (ui.continuar || "CONTINUAR") : ui.empezar}
+        </Button> {/* [cite: 731] */}
+        <DrawerMenuComponent /> {/* [cite: 732] */}
+        <ProgressChartComponent />
+        <Button variant="outlined" onClick={exitStudentSession} sx={{ mt: 'auto', width: 'fit-content' }}> {/* [cite: 733] */}
+          {ui.logout || "SALIR"}
+        </Button> {/* [cite: 733] */}
       </Container>
     );
   }
 
-  return ( // [cite: 1228]
-    <Stack direction="row" spacing={3} sx={{ mt: 4, mb: 4, position: 'relative' }}>
+  return ( // [cite: 734]
+    <Stack direction="row" spacing={3} sx={{ mt: 4, mb: 4, position: 'relative' }}> {/* [cite: 734] */}
       <DrawerMenuComponent />
-      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 0 }}> {/* [cite: 1229] */}
+      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 0 }}> {/* [cite: 735] */}
         <Typography variant="h4" align="center" gutterBottom>
-          {ui.inicioTitle} {/* [cite: 1230] */}
-        </Typography>
-        <TopBarContent /> {/* [cite: 1231] */}
-        <Button variant="outlined" size="large" onClick={handleStart} sx={{ mb: 3 }}> {/* Changed variant */}
-          {ui.empezar}
-        </Button> {/* [cite: 1232] */}
-        <ProgressChartComponent />
-        <Button variant="outlined" onClick={exitStudentSession} sx={{ mt: 2, width: 'fit-content' }}> {/* [cite: 1233] */}
-         {ui.logout || "SALIR"}
+          {ui.inicioTitle} {/* [cite: 736] */}
+        </Typography> {/* [cite: 736] */}
+        <TopBarContent />
+        <Button 
+          variant="contained" // Changed to contained
+          size="large" 
+          onClick={handleStartOrContinue} 
+          sx={{ 
+            mb: 3,
+            fontSize: '1.1rem', // Larger font
+            padding: '10px 20px' // More padding
+          }}
+        >
+          {hayProgreso ? (ui.continuar || "CONTINUAR") : ui.empezar}
         </Button>
-      </Box> {/* [cite: 1234] */}
+        <ProgressChartComponent /> {/* [cite: 737] */}
+        <Button variant="outlined" onClick={exitStudentSession} sx={{ mt: 2, width: 'fit-content' }}> {/* [cite: 738] */}
+         {ui.logout || "SALIR"} {/* [cite: 738] */}
+        </Button>
+      </Box> {/* [cite: 739] */}
     </Stack>
   );
 }
