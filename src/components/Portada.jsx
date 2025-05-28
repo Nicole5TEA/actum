@@ -10,20 +10,20 @@ export default function Portada() {
 
   return (
     <Box sx={{
-      minHeight: 'calc(100vh - 40px)', // Adjusted minHeight slightly
+      minHeight: 'calc(100vh - 40px)', 
       display: 'flex',
       flexDirection: 'column',
-      // pt: { xs: 1, sm: 2 }, // Adjusted top padding
-      // paddingBottom: { xs: '100px', sm: '80px' } // Will be handled by Stack spacing
     }}>
       <Stack
         alignItems="center"
-        justifyContent="center" // Reverted to center, will use margins for spacing children
+        justifyContent="center" 
+        spacing={{ xs: 2, sm: 3 }} // Added spacing for the Stack children
         sx={{
           flexGrow: 1,
           textAlign: 'center',
           px: 2,
-          width: '100%', // Ensure stack takes full width for centering children
+          width: '100%', 
+          mt: { xs: 1, sm: 0 } // Reduced top margin for the stack itself
         }}
       >
         <Box
@@ -31,24 +31,24 @@ export default function Portada() {
           src="/logo.png"
           alt="Logo TE(A)NTENC"
           sx={{
-            width: { xs: '60%', sm: '50%', md: '40%' },
-            maxWidth: 350,
+            width: { xs: '80%', sm: '65%', md: '50%' }, // Made logo significantly larger
+            maxWidth: { xs: 300, sm: 450 }, // Increased max width
             height: 'auto',
-            mt: { xs: 2, sm: 3 }, // Margin top for space from screen top
-            mb: { xs: 2, sm: 3 }, // Margin bottom for space to button
+            // mb: { xs: 2, sm: 3 }, // Spacing handled by Stack now
           }}
         />
 
         <Button
-          variant="outlined"
-          size="large"
+          variant="contained" // Changed to contained for more prominence
+          color="primary"    // Using primary color
           onClick={() => setStage('ingreso')}
           sx={{
-            minWidth: { xs: '200px', sm: '250px' },
-            fontSize: { xs: '1.1rem', sm: '1.25rem'}, // Increased font size
-            padding: { xs: '12px 24px', sm: '15px 30px'}, // Increased padding
-            my: { xs: 2, sm: 3}, // Vertical margin to balance space
+            minWidth: { xs: '200px', sm: '280px' }, // Further increase minWidth
+            fontSize: { xs: '1.15rem', sm: '1.35rem'}, // Further increase font size
+            padding: { xs: '12px 28px', sm: '16px 35px'}, // Further increase padding
+            // my: { xs: 2, sm: 3}, // Spacing handled by Stack now
             zIndex: 1,
+            fontWeight: 'bold', // Make text bolder
           }}
         >
           {portadaButton}
@@ -59,11 +59,11 @@ export default function Portada() {
           src="/portada.gif"
           alt="Portada Actua"
           sx={{
-            width: { xs: '80%', sm: '65%', md: '55%' },
-            maxWidth: 450,
+            width: { xs: '85%', sm: '70%', md: '60%' },
+            maxWidth: 480, 
             height: 'auto',
-            mt: { xs: 2, sm: 3 }, // Margin top for space from button
-            mb: { xs: 2, sm: 3}, // Margin bottom before footer area
+            // mt: { xs: 2, sm: 3 }, // Spacing handled by Stack now
+            // mb: { xs: 2, sm: 3},
           }}
         />
       </Stack>
@@ -71,11 +71,11 @@ export default function Portada() {
       {/* Footer Section - Centered block, left-aligned text */}
       <Box
         sx={{
-          width: '100%', // Take full width to allow text alignment within
+          width: '100%', 
           display: 'flex',
-          justifyContent: 'center', // Center the inner Box
-          py: 2, // Padding top and bottom
-          mt: 'auto', // Pushes to the bottom if there's space
+          justifyContent: 'center', 
+          py: 1, // Reduced padding slightly
+          mt: 'auto', 
         }}
       >
         <Box sx={{ textAlign: 'left', color: 'text.secondary'}}>
