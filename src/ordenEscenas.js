@@ -7,7 +7,8 @@ const ordenEscenas = [
       emocionajena: [],
       emocionpropia: ['perroSentarse','apagarLuz','psicomotricidad','pegatina','chocarCinco','globoExplota','busTarde','canastaAplaudir','chupachup','relojCaer','oler','pluja','llamarProfe','estoig'],
       teoriamente: [],
-      coherencia: ['excursion','naturaleza','piscina','cumpleaños','estacionAño','dondeVan','bancAliments','cocinar','cine']
+      coherencia: ['excursion','naturaleza','piscina','cumpleaños','estacionAño','dondeVan','bancAliments','cocinar','cine'],
+      ejecutiva: [],
     }
   },
   {
@@ -17,7 +18,8 @@ const ordenEscenas = [
       emocionajena: [],
       emocionpropia: ['pelotaRota','seOlvidaDeTi','cremalleraRota','responderMal','hacerFoto','mancharse', 'mochilaRota','ventanaAvion','profeAmor','botonPlay'],
       teoriamente: [],
-      coherencia: ['cumpleaños2','estacionAño2','aeropuerto','queHacen','estacionAño3']
+      coherencia: ['cumpleaños2','estacionAño2','aeropuerto','queHacen','estacionAño3'],
+      ejecutiva: [],
     }
   },
   {
@@ -25,9 +27,10 @@ const ordenEscenas = [
     categorias: {
       social: [],
       emocionajena: [],
-      emocionpropia: ['vacaciones','elegirFruta'],
+      emocionpropia: ['vacaciones','elegirFruta','ventanaFuerte'],
       teoriamente: [],
-      coherencia: ['museo','comedor']
+      coherencia: ['museo','comedor'],
+      ejecutiva: [],
     }
   }
 ];

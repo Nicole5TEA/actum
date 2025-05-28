@@ -48,6 +48,7 @@ const textos = {
         emocionpropia: 'Emociones propias',
         teoriamente: 'Teoria de la mente',
         coherencia: 'Coherencia central',
+        ejecutiva: 'Función ejecutiva'
       },
       niveles: { 1: 'Nivel 1', 2: 'Nivel 2', 3: 'Nivel 3' }, // [cite: 454]
     },
@@ -768,9 +769,71 @@ const textos = {
               ]
             },
           ]
-          
-          })()
-        },
+        })()
+      },
+      {
+      id: 'elegirFruta',
+      categoria: 'emocionpropia',
+      nivel: 3,
+      titulo: 'ELEGIR FRUTA',
+      pictos: [
+        'elegirFruta/picto.png',
+          'elegirFruta/picto2.png',
+      ],
+      pasos: (() => { // [cite: 417]
+        const base = 'elegirFruta/';
+        return [
+          {
+            tipo: 'situacion',
+            titulo: 'SITUACIÓN',
+            descripcion: 'El monitor del comedor te deja elegir la fruta de postre',
+            imagen: base + 'escena1.png'
+          },
+          {
+            tipo: 'eleccion',
+            titulo: '¿Cómo te sientes?',
+            opciones: [
+              { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+              { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+              { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+              { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+            ]
+          },
+        ]
+        })()
+      },
+      {
+      id: 'ventanaFuerte',
+      categoria: 'emocionpropia',
+      nivel: 3,
+      titulo: 'CIERRAN LA VENTANA FUERTE',
+      pictos: [
+        'ventanaFuerte/picto.png',
+      ],
+      pasos: (() => { // [cite: 417]
+        const base = 'ventanaFuerte/';
+        return [
+          {
+            tipo: 'situacion',
+            titulo: 'SITUACIÓN',
+            descripcion: 'Un compañero cierra la ventana fuerte',
+            imagen: base + 'escena1.png'
+          },
+          {
+            tipo: 'eleccion',
+            titulo: '¿Cómo te sientes?',
+            opciones: [
+              { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
+              { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
+              { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
+              { id: 'sorpresa', texto: 'SORPRENDIDO', imagen: base + 'sorpresa.png' },
+            ]
+          },
+        ]
+        })()
+      },      
+
+
       { 
         id: 'excursion',
         categoria: 'coherencia',
@@ -1242,9 +1305,40 @@ const textos = {
           
         })()
       },
-        { 
+      { 
         id: 'cine',
         categoria: 'coherencia',
+        nivel: 1,
+        titulo: '¿A DÓNDE VAN LOS NIÑOS?',
+        pictos: [
+          'cine/picto.png',
+          'cine//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'cine/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿A dónde van los niños?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿A dónde?',
+              opciones: [
+                { id: 'situacio', texto: 'RESTAURANTE', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'CIRC', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'CINE', imagen: base + 'situacio3.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'cine',
+        categoria: 'ejecutiva',
         nivel: 1,
         titulo: '¿A DÓNDE VAN LOS NIÑOS?',
         pictos: [
