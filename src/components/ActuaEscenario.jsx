@@ -289,12 +289,7 @@ const ActuaEscenario = () => {
     }
     if (pasoActual.tipo === 'eleccion') {
       return (
-        <>
-          {/* Título del paso de elección */}
-           <Typography variant="h6" component="div" align="center" sx={{ fontWeight: 'bold', mb: 2 }}>
-            {data.ui.pasoTituloEleccion || pasoActual.titulo} {/* Usar clave de textos.js */}
-          </Typography>
-          <Grid container spacing={2} mb={2}>
+        <Grid container spacing={2} mb={2}>
             {pasoActual.opciones.map(op => (
               <Grid item xs={12} sm={6} key={op.id}>
                 <Box onClick={() => avanzar(op.id)}
