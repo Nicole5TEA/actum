@@ -17,13 +17,13 @@ export default function Portada() {
       <Stack
         alignItems="center"
         justifyContent="center" 
-        spacing={{ xs: 2, sm: 3 }} // Added spacing for the Stack children
+        // spacing={{ xs: 2, sm: 3 }} // We will control spacing with margins for more precision
         sx={{
           flexGrow: 1,
           textAlign: 'center',
           px: 2,
           width: '100%', 
-          mt: { xs: 1, sm: 0 } // Reduced top margin for the stack itself
+          mt: { xs: 1, sm: 0 } 
         }}
       >
         <Box
@@ -31,24 +31,25 @@ export default function Portada() {
           src="/logo.png"
           alt="Logo TE(A)NTENC"
           sx={{
-            width: { xs: '80%', sm: '65%', md: '50%' }, // Made logo significantly larger
-            maxWidth: { xs: 300, sm: 450 }, // Increased max width
+            width: { xs: '100%', sm: '90%', md: '80%' },
+            maxWidth: { xs: 520, sm: 630, md: 840 }, // Slightly larger logo
             height: 'auto',
-            // mb: { xs: 2, sm: 3 }, // Spacing handled by Stack now
+            mt: { xs: 2, sm: 1 }, // Adjusted top margin for logo
+            mb: { xs: 8, sm: 10 }, // Increased space between logo and button
           }}
         />
 
         <Button
-          variant="contained" // Changed to contained for more prominence
-          color="primary"    // Using primary color
+          variant="contained" 
+          color="primary"    
           onClick={() => setStage('ingreso')}
           sx={{
-            minWidth: { xs: '200px', sm: '280px' }, // Further increase minWidth
-            fontSize: { xs: '1.15rem', sm: '1.35rem'}, // Further increase font size
-            padding: { xs: '12px 28px', sm: '16px 35px'}, // Further increase padding
-            // my: { xs: 2, sm: 3}, // Spacing handled by Stack now
+            minWidth: { xs: '200px', sm: '280px' }, 
+            fontSize: { xs: '1.15rem', sm: '1.35rem'}, 
+            padding: { xs: '12px 28px', sm: '16px 35px'}, 
             zIndex: 1,
-            fontWeight: 'bold', // Make text bolder
+            fontWeight: 'bold', 
+            mb: { xs: 2, sm: 2.5 }, // Decreased space between button and gif
           }}
         >
           {portadaButton}
@@ -62,8 +63,8 @@ export default function Portada() {
             width: { xs: '85%', sm: '70%', md: '60%' },
             maxWidth: 480, 
             height: 'auto',
-            // mt: { xs: 2, sm: 3 }, // Spacing handled by Stack now
-            // mb: { xs: 2, sm: 3},
+            // mt is implicitly handled by button's mb
+            mb: { xs: 2, sm: 3},
           }}
         />
       </Stack>
@@ -74,7 +75,7 @@ export default function Portada() {
           width: '100%', 
           display: 'flex',
           justifyContent: 'center', 
-          py: 1, // Reduced padding slightly
+          py: 1, 
           mt: 'auto', 
         }}
       >
