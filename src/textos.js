@@ -1475,36 +1475,248 @@ const textos = {
         })()
       },
       { 
-        id: 'cine',
+        id: 'cambioRutina',
         categoria: 'ejecutiva',
         nivel: 1,
-        titulo: '¿A DÓNDE VAN LOS NIÑOS?',
+        titulo: 'PAPÁ SALE TARDE DE TRABAJAR',
         pictos: [
-          'cine/picto.png',
-          'cine//picto2.png',
+          'cambioRutina/picto.png',
+          'cambioRutina//picto2.png',
         ],
         pasos: (() => { // [cite: 417]
-          const base = 'cine/';
+          const base = 'cambioRutina/';
           return [
             {
               tipo: 'situacion',
               titulo: 'SITUACIÓN',
-              descripcion: '¿A dónde van los niños?',
+              descripcion: 'Papá debería recogerte en el colegio. Pero llega tu tia porque papá sale tarde del trabajo.',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿A dónde?',
+              titulo: '¿Con quién vuelves a casa hoy?',
               opciones: [
-                { id: 'situacio', texto: 'RESTAURANTE', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'CIRC', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'CINE', imagen: base + 'situacio3.png' },
+                { id: 'situacio', texto: 'PAPÁ', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'TÍA', imagen: base + 'situacio2.png' }
               ]
             },
           ]
           
         })()
       },
+      { 
+        id: 'cumpleañosFamiliar',
+        categoria: 'ejecutiva',
+        nivel: 3,
+        titulo: 'ES EL CUMPLEAÑOS DE UN FAMILIAR',
+        pictos: [
+          'cumpleañosFamiliar/picto.png',
+          'cumpleañosFamiliar//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'cumpleañosFamiliar/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Es el cumpleaños de tu tia',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Dónde cenaréis?',
+              opciones: [
+                { id: 'situacio', texto: 'CASA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'CASA DE TUS TIOS', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'paris',
+        categoria: 'ejecutiva',
+        nivel: 1,
+        titulo: 'MAMÁ ESTÁ DE VIAJE',
+        pictos: [
+          'paris/picto.png',
+          'paris//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'paris/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Mamá está de viaje. ¿Quién te viene a buscar al colegio?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Quién te viene a buscar al colegio?',
+              opciones: [
+                { id: 'situacio', texto: 'ABUELO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'MAMÁ', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+            { 
+        id: 'cambioMantas',
+        categoria: 'ejecutiva',
+        nivel: 1,
+        titulo: 'HOY SE LAVAN LAS SÁBANAS DE TU CAMA',
+        pictos: [
+          'cambioMantas/picto.png',
+          'cambioMantas//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'cambioMantas/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿Las sábanas tendran otro color u oleran diferente cuándo vaya a dormir esta noche?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Quién te viene a buscar al colegio?',
+              opciones: [
+                { id: 'situacio', texto: 'SÍ', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'NO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'papaMedico',
+        categoria: 'ejecutiva',
+        nivel: 2,
+        titulo: 'HOY PAPÁ TIENE MÉDICO',
+        pictos: [
+          'papaMedico/picto.png',
+          'papaMedico//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'papaMedico/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Papá te recoge siempre del colegio. Hoy tiene medico por la tarde. ¿Quién te recoge hoy?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Quién te viene a buscar al colegio?',
+              opciones: [
+                { id: 'situacio', texto: 'PAPÁ', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'ABUELA', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'pan',
+        categoria: 'ejecutiva',
+        nivel: 1,
+        titulo: 'NO HAY PAN EN EL SUPERMERCADO',
+        pictos: [
+          'pan/picto.png',
+          'pan//picto2.png',
+          'pan//picto3.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'pan/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'No hay pan en el supermercado. ¿Habrá pan para cenar?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Habrá pan para cenar?',
+              opciones: [
+                { id: 'situacio', texto: 'SÍ', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'NO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'mochila',
+        categoria: 'ejecutiva',
+        nivel: 2,
+        titulo: 'SE HA MOJADO Y ENSUCIADO LA MOCHILA',
+        pictos: [
+          'mochila/picto.png',
+          'mochila//picto2.png',
+          'mochila//picto3.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'pan/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Se ha mojado y ensuciado la mochila. ¿Cómo llevarás las cosas al colegio?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Cómo llevarás las cosas al colegio?',
+              opciones: [
+                { id: 'situacio', texto: 'EN LA MISMA MOCHILA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'EN OTRA MOCHILA', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'herida',
+        categoria: 'ejecutiva',
+        nivel: 2,
+        titulo: 'ME HE CAIDO Y ME HE HERIDO EN LA RODILLA',
+        pictos: [
+          'herida/picto.png',
+          'herida//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'pan/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Me he caido y me he herido en la rodilla. ¿Dónde iré para sanar la herida?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Dónde iré para sanar la herida?',
+              opciones: [
+                { id: 'situacio', texto: 'CASA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'HOSPITAL', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+
       
       
       
