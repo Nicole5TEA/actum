@@ -1716,6 +1716,125 @@ const textos = {
           
         })()
       },
+      { 
+        id: 'mojado',
+        categoria: 'ejecutiva',
+        nivel: 2,
+        titulo: 'SE HA PUESTO A LLOVER Y ME HE MOJADO LA ROPA',
+        pictos: [
+          'mojado/picto.png',
+          'mojado//picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'mojado/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Se ha puesto a llover y me he mojado la ropa. ¿Qué hago?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Qué hago?',
+              opciones: [
+                { id: 'situacio', texto: 'ME DEJO LA ROPA MOJADA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'ME PONGO ROPA SECA', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'dentista',
+        categoria: 'ejecutiva',
+        nivel: 3,
+        titulo: '¿A DÓNDE VAS A IR DESPUÉS DEL COLEGIO?',
+        pictos: [
+          'dentista/picto.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'dentista/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿A dónde vas a ir después del colegio?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿A dónde?',
+              opciones: [
+                { id: 'situacio', texto: 'DENTISTA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'CASA', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'pedirAyuda',
+        categoria: 'ejecutiva',
+        nivel: 3,
+        titulo: 'LA MAESTRA SE VA DE CLASE. ¿A QUIÉN PIDO AYUDA CON LA TAREA?',
+        pictos: [
+          'pedirAyuda/picto.png',
+          'pedirAyuda/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'pedirAyuda/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿A quién pido ayuda con la tarea?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿A quién?',
+              opciones: [
+                { id: 'situacio', texto: 'A LA MISMA MAESTRA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'A OTRO MAESTRO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+            { 
+        id: 'verano',
+        categoria: 'ejecutiva',
+        nivel: 3,
+        titulo: 'ES VERANO Y HACE MUCHO CALOR. ¿QUÉ PUEDO COMER PARA NO TENER CALOR?',
+        pictos: [
+          'verano/picto.png',
+          'verano/picto2.png',
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'verano/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿Qué puedo comer?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿Qué puedo comer?',
+              opciones: [
+                { id: 'situacio', texto: 'SOPA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'HELADO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
 
       
       

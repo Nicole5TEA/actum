@@ -20,7 +20,7 @@ const ordenEscenas = [
       emocionpropia: ['pelotaRota','seOlvidaDeTi','cremalleraRota','responderMal','hacerFoto','mancharse', 'mochilaRota','ventanaAvion','profeAmor','botonPlay'],
       teoriamente: [],
       coherencia: ['cumpleaños2','estacionAño2','aeropuerto','queHacen','estacionAño3'],
-      ejecutiva: ['papaMedico','mochila','herida'],
+      ejecutiva: ['papaMedico','mochila','herida','mojado'],
     } // [cite: 799]
   },
   {
@@ -31,7 +31,7 @@ const ordenEscenas = [
       emocionpropia: ['vacaciones','elegirFruta','ventanaFuerte','repartidor','equivocar','charco','nuevoProfe'], // [cite: 800]
       teoriamente: [],
       coherencia: ['museo','comedor'],
-      ejecutiva: ['cumpleañosFamiliar'],
+      ejecutiva: ['cumpleañosFamiliar','dentista','pedirAyuda','verano'],
     }
   }
 ];
