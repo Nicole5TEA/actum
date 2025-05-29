@@ -7,7 +7,7 @@ const ordenEscenas = [
       emocionajena: [],
       // Removed 'oler' and 'pluja' from this list
       emocionpropia: ['perroSentarse','apagarLuz','psicomotricidad','pegatina','chocarCinco','globoExplota','busTarde','canastaAplaudir','chupachup','relojCaer', 'llamarProfe'],
-      teoriamente: [],
+      teoriamente: ['avionRysa'],
       coherencia: ['excursion','naturaleza','piscina','cumpleaños','estacionAño','dondeVan','bancAliments','cocinar','cine'], // [cite: 797]
       ejecutiva: ['cambioRutina','paris','cambioMantas','pan'],
     }

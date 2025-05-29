@@ -1805,7 +1805,7 @@ const textos = {
           
         })()
       },
-            { 
+      { 
         id: 'verano',
         categoria: 'ejecutiva',
         nivel: 3,
@@ -1829,6 +1829,34 @@ const textos = {
               opciones: [
                 { id: 'situacio', texto: 'SOPA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'HELADO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'avionRysa',
+        categoria: 'teoriamente',
+        nivel: 1,
+        titulo: 'SITUACIÓN',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'avionRysa/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿HA VISTO RYSA EL AVIÓN?',
+              opciones: [
+                { id: 'situacio', texto: 'NO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SÍ', imagen: base + 'situacio2.png' }
               ]
             },
           ]
