@@ -1863,7 +1863,266 @@ const textos = {
           
         })()
       },
-
+      { 
+        id: 'ivan',
+        categoria: 'teoriamente',
+        nivel: 1,
+        titulo: 'SITUACIÓN',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'ivan/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿DÓNDE MIRA IVÁN?',
+              opciones: [
+                { id: 'situacio', texto: 'A LA PANTALLA DIGITAL', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'TOBOGAN', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'mirar',
+        categoria: 'teoriamente',
+        nivel: 1,
+        titulo: 'SITUACIÓN',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'mirar/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿DÓNDE MIRA EL NIÑO?',
+              opciones: [
+                { id: 'situacio', texto: 'AUTOBÚS', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SUPERMERCADO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'erupto',
+        categoria: 'teoriamente',
+        nivel: 2,
+        titulo: 'TIRARSE UN ERUPTO',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'erupto/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿LE HA GUSTADO A LA MAESTRA?',
+              opciones: [
+                { id: 'situacio', texto: 'NO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SÍ', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'abrazo',
+        categoria: 'teoriamente',
+        nivel: 2,
+        titulo: 'DAR UN ABRAZO',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'abrazo/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿LE HA GUSTADO A LA MAESTRA?',
+              opciones: [
+                { id: 'situacio', texto: 'NO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SÍ', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'chocarFuerte',
+        categoria: 'teoriamente',
+        nivel: 2,
+        titulo: 'CHOCAR LAS MANOS MUY FUERTE',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'chocarFuerte/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿LE HA GUSTADO A LA MAESTRA?',
+              opciones: [
+                { id: 'situacio', texto: 'NO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SÍ', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'perroRafa',
+        categoria: 'teoriamente',
+        nivel: 3,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'perroRafa/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'RAFA ESTÁ CON EL PERRO',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'LA MAESTRA LE DICE A RAFA QUE VAYA A BUSCAR CHAPAS',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'EL PERRO SALE AL PATIO',
+              imagen: base + 'escena3.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿DÓNDE PIENSA RAFA QUE ESTÁ EL PERRO?',
+              opciones: [
+                { id: 'situacio', texto: 'EN CLASE', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'EN EL PATIO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'pintarMesa',
+        categoria: 'teoriamente',
+        nivel: 3,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'pintarMesa/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'SARA GUARDA SU LÁPIZ EN EL ESTUCHE',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'SARA VA AL LAVABO',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'LEO COGE EL LÁPIZ DEL ESTUCHE',
+              imagen: base + 'escena3.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'LEO DIBUJA EN LA MESA',
+              imagen: base + 'escena4.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿DÓNDE IRÁ A BUSCAR SARA SU LÁPIZ?',
+              opciones: [
+                { id: 'situacio', texto: 'EN EL ESTUCHE', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'DONDE LEO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'claseB',
+        categoria: 'teoriamente',
+        nivel: 3,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'claseB/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'LOS ALUMNOS DE LA CLASE "B" ESTÁN EN CLASE',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'LOS ALUMNOS DE LA CLSE "A" VAN A PISCINA Y SE ENTERAN QUE NO HAY AGUA',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿SABEN LOS ALUMNO "B" QUE NO HAY AGUA EN LA PSICINA?',
+              opciones: [
+                { id: 'situacio', texto: 'SÍ', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'NO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
       
       
       
