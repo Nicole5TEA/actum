@@ -57,7 +57,7 @@ const ordenEscenas = [
         'pintarMesa2',
         'guardarTablet'
       ],
-      caras: []
+      caras: ['felicdad','triste','sorpresa','enfadado'],
     }
   },
   {

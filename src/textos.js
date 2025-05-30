@@ -2182,9 +2182,126 @@ const textos = {
           
         })()
       },
-
-
-
+      { 
+        id: 'felicdad',
+        categoria: 'caras',
+        nivel: 1,
+        titulo: 'EXPRESIONES FACIALES',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'felicidad/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿RECONOCES LA EXPRESIÓN FACIAL?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿RECONOCES LA EXPRESIÓN FACIAL?',
+              opciones: [
+                { id: 'situacio', texto: 'FELICIDAD', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
+                { id: 'situacio2', texto: 'ENFADADO', imagen: base + 'situacio3.png' },
+                { id: 'situacio2', texto: 'CONTENTO', imagen: base + 'situacio4.png' }
+              ]
+            },
+          ]
+          
+        })()
+      }, 
+      { 
+        id: 'triste',
+        categoria: 'caras',
+        nivel: 1,
+        titulo: 'EXPRESIONES FACIALES',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'triste/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿RECONOCES LA EXPRESIÓN FACIAL?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿RECONOCES LA EXPRESIÓN FACIAL?',
+              opciones: [
+                { id: 'situacio', texto: 'FELICIDAD', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
+                { id: 'situacio2', texto: 'ENFADADO', imagen: base + 'situacio3.png' },
+                { id: 'situacio2', texto: 'CONTENTO', imagen: base + 'situacio4.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },       
+      { 
+        id: 'sorpresa',
+        categoria: 'caras',
+        nivel: 1,
+        titulo: 'EXPRESIONES FACIALES',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'sorpresa/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿RECONOCES LA EXPRESIÓN FACIAL?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿RECONOCES LA EXPRESIÓN FACIAL?',
+              opciones: [
+                { id: 'situacio', texto: 'FELICIDAD', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
+                { id: 'situacio2', texto: 'ENFADADO', imagen: base + 'situacio3.png' },
+                { id: 'situacio2', texto: 'CONTENTO', imagen: base + 'situacio4.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },       
+      { 
+        id: 'enfadado',
+        categoria: 'caras',
+        nivel: 1,
+        titulo: 'EXPRESIONES FACIALES',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'enfadado/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: '¿RECONOCES LA EXPRESIÓN FACIAL?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿RECONOCES LA EXPRESIÓN FACIAL?',
+              opciones: [
+                { id: 'situacio', texto: 'FELICIDAD', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
+                { id: 'situacio2', texto: 'ENFADADO', imagen: base + 'situacio3.png' },
+                { id: 'situacio2', texto: 'CONTENTO', imagen: base + 'situacio4.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },  
       {
         id: 'pastelPequenoFiesta',
         categoria: 'social',
