@@ -2182,128 +2182,677 @@ const textos = {
           
         })()
       },
-      
-      
-      
-      
-      
-      
-      
-      
 
-      //       {
-      //   id: 'patatas',
-      //   categoria: 'social',
-      //   nivel: 1, // Añadido nivel
-      //   titulo: 'YO TAMBIÉN QUIERO PATATAS',
-      //   pictos: [
-      //     'situacion1/picto1.png',
-      //     'situacion1/picto2.png',
-      //     'situacion1/picto3.png'
-      //   ],
-      //   pasos: (() => { // [cite: 417]
-      //     const base = 'situacion1/';
-      //     return [
-      //       {
-      //         tipo: 'situacion',
-      //         titulo: 'SITUACIÓN',
-      //         descripcion: 'EL NIÑO Y OBSERVA A DOS NIÑOS COMIENDO PATATAS.',
-      //         imagen: base + 'escena1.png' // [cite: 418]
-      //       },
-      //       {
-      //         tipo: 'eleccion',
-      //         titulo: '¿QUÉ PUEDE HACER EL NIÑO Y?',
-      //         opciones: [
-      //           { id: 'nada', texto: 'NO HACE NADA', imagen: base + 'eleccion1.png' }, // [cite: 419]
-      //           { id: 'enfado', texto: 'SE ENFADA', imagen: base + 'eleccion2.png' },
-      //           { id: 'gesto', texto: 'HACE UN GESTO', imagen: base + 'eleccion3.png' }
-      //         ]
-      //       },
-      //       { // [cite: 420]
-      //         tipo: 'resultado',
-      //         titulo: 'CONSECUENCIA PROBABLE',
-      //         resultados: {
-      //           nada: { texto: 'LOS OTROS NIÑOS NO REACCIONAN', imagen: base + 'resultado1.png' },
-      //           enfado: { texto: 'LOS OTROS NIÑOS SE ALEJAN', imagen: base + 'resultado2.png' }, // [cite: 421]
-      //           gesto: { texto: 'LOS NIÑOS COMPARTEN LAS PATATAS', imagen: base + 'resultado3.png' }
-      //         }
-      //       }
-      //     ]
-      //   })()
-      // },
-      // {
-      //   id: 'aniversario', // [cite: 422]
-      //   categoria: 'emocionpropia',
-      //   nivel: 2, // Añadido nivel
-      //   titulo: 'TROZO PEQUEÑO DE PASTEL EN FIESTA DE ANIVERSARIO',
-      //   pictos: [
-      //     'emocionpropiaAniversario/picto1.png',
-      //     'emocionpropiaAniversario/picto2.png',
-      //     'emocionpropiaAniversario/picto3.png'
-      //   ],
-      //   pasos: (() => {
-      //     const base = 'emocionpropiaAniversario/'; // [cite: 423]
-      //     return [
-      //       {
-      //         tipo: 'situacion',
-      //         titulo: 'SITUACIÓN',
-      //         descripcion: 'TODOS COMEN PASTEL EN LA FIESTA DE ANIVERSARIO DE UN AMIGO. A TI TE DAN UN TROZO MUCHO MÁS PEQUEÑO QUE AL RESTO, ALGUNOS RÍEN', // [cite: 424]
-      //         imagen: base + 'escena1.png'
-      //       },
-      //       {
-      //         tipo: 'eleccion',
-      //         titulo: '¿CÓMO REACCIONAS?',
-      //         opciones: [ // [cite: 425]
-      //           { id: 'nada', texto: 'ME PONGO TRISTE', imagen: base + 'eleccion1.png' },
-      //           { id: 'enfado', texto: 'PREGUNTO POR QUÉ ME HAN DADO MENOS', imagen: base + 'eleccion2.png' },
-      //           { id: 'gesto', texto: 'RÍO CON LOS OTROS', imagen: base + 'eleccion3.png' },
-      //           { id: 'contento', texto: 'ME PONGO CONTENTO', imagen: base + 'eleccion4.png' } // Cambiado id para ser único [cite: 426]
-      //         ]
-      //       },
-      //     ]
-      //   })()
-      // },
-      // {
-      //   id: 'juguete',
-      //   nivel: 1, // Añadido nivel
-      //   categoria: 'emocionajena',
-      //   titulo: 'SE ROMPE UN JUGUETE', // [cite: 427]
-      //   pictos: [
-      //     'situacion2/picto1.png',
-      //     'situacion2/picto2.png'
-      //   ],
-      //   pasos: (() => {
-      //     const base = 'situacion2/';
-      //     return [ // [cite: 428]
-      //       {
-      //         tipo: 'situacion',
-      //         titulo: 'SITUACIÓN',
-      //         descripcion: 'EL NIÑO Y VE CÓMO UN JUGUETE FAVORITO SE ROMPE AL CAER.',
-      //         imagen: base + 'escena1.png'
-      //       },
-      //       { // [cite: 429]
-      //         tipo: 'eleccion',
-      //         titulo: '¿QUÉ PUEDE HACER EL NIÑO Y?',
-      //         opciones: [
-      //           { id: 'llora', texto: 'LLORA', imagen: base + 'eleccion1.png' },
-      //           { id: 'ayuda', texto: 'PIDE AYUDA', imagen: base + 'eleccion2.png' }, // [cite: 430]
-      //           { id: 'ignora', texto: 'IGNORA EL JUGUETE', imagen: base + 'eleccion3.png' },
-      //           { id: 'tira', texto: 'SE ENFADA Y LO TIRA', imagen: base + 'eleccion4.png' }
-      //         ]
-      //       },
-      //       { // [cite: 431]
-      //         tipo: 'resultado',
-      //         titulo: 'CONSECUENCIA PROBABLE',
-      //         resultados: {
-      //           llora: { texto: 'UN ADULTO LO CONSUELA', imagen: base + 'resultado1.png' },
-      //           ayuda: { texto: 'REPARAN EL JUGUETE JUNTOS', imagen: base + 'resultado2.png' }, // [cite: 432]
-      //           ignora: { texto: 'SE SIENTE TRISTE PERO CALMADO', imagen: base + 'resultado3.png' },
-      //           tira: { texto: 'ROMPE OTROS OBJETOS Y LO REGAÑAN', imagen: base + 'resultado4.png' }
-      //         }
-      //       }
-      //     ]
-      //   })() // [cite: 433]
-      // },
+
+      
+      {
+        id: 'pastelPequenoFiesta',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'TROZO DE PASTEL PEQUEÑO EN FIESTA',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Todos comen tarta en la fiesta de cumpleaños de un amigo. A Leo le dan un trozo mucho más pequeño que a los demás, y algunos ríen.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿CÓMO REACCIONA LEO?',
+              opciones: [
+                { id: 'triste', texto: 'Leo se pone triste', imagen: '' },
+                { id: 'contento', texto: 'Leo se pone contento igualmente', imagen: '' },
+                { id: 'pregunta', texto: 'Leo pregunta por qué le han dado menos', imagen: '' },
+                { id: 'rie', texto: 'Leo ríe con los demás', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                triste: { texto: 'Leo se queda callado y no disfruta mucho de la fiesta. Los demás podrían notarlo o seguir con la fiesta.', imagen: '' },
+                contento: { texto: 'Leo come su trozo de tarta y sigue participando y divirtiéndose en la fiesta.', imagen: '' },
+                pregunta: { texto: 'El amigo o un adulto podría darle una explicación (quizás fue un error o quedaban pocos trozos grandes).', imagen: '' },
+                rie: { texto: 'La situación se toma con humor, la fiesta continúa y Leo sigue participando.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'jugueteRotoMisterio',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'JUGUETE ROTO MISTERIOSO',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Mia deja su juguete preferido en la mesa y va al baño. Cuando vuelve, el juguete está roto y Alex le dice "no sé qué ha pasado".',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE MIA?',
+              opciones: [
+                { id: 'enfadaAcusa', texto: 'Mia se enfada y acusa a Alex', imagen: '' },
+                { id: 'tristeLlora', texto: 'Mia se pone triste y llora', imagen: '' },
+                { id: 'diceNoPasaNada', texto: 'Mia dice "está bien, no pasa nada"', imagen: '' },
+                { id: 'rieBroma', texto: 'Mia ríe pensando que es una broma', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                enfadaAcusa: { texto: 'Alex podría enfadarse también o negar haberlo hecho, creando un conflicto.', imagen: '' },
+                tristeLlora: { texto: 'Alex podría sentirse mal o intentar consolarla. Quizás un adulto intervenga.', imagen: '' },
+                diceNoPasaNada: { texto: 'Alex podría sentirse aliviado. Mia podría buscar una solución o quedarse triste por dentro.', imagen: '' },
+                rieBroma: { texto: 'Alex podría sorprenderse o seguir el juego si era una broma, o confundirse si no lo era.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'sinFelicitacionClase',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'SIN FELICITACIÓN EN CLASE',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'En clase, la maestra felicita solo a algunos alumnos por el trabajo hecho. Lucas también lo hizo pero no recibe ninguna mención.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE O PIENSA LUCAS?',
+              opciones: [
+                { id: 'piensaMalTriste', texto: 'Lucas piensa que no lo ha hecho suficientemente bien y se pone triste', imagen: '' },
+                { id: 'piensaOlvidoJuega', texto: 'Lucas piensa que la maestra se ha olvidado y se va a jugar igualmente', imagen: '' },
+                { id: 'enfadaMaestra', texto: 'Lucas se enfada con la maestra', imagen: '' },
+                { id: 'felicitaCompaneros', texto: 'Lucas felicita a los compañeros', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                piensaMalTriste: { texto: 'Lucas podría sentirse desanimado y menos motivado para futuros trabajos.', imagen: '' },
+                piensaOlvidoJuega: { texto: 'Lucas no se ve afectado negativamente y disfruta de su tiempo de juego.', imagen: '' },
+                enfadaMaestra: { texto: 'La maestra podría no entender su enfado o podría llevar a una conversación.', imagen: '' },
+                felicitaCompaneros: { texto: 'Los compañeros se sentirán bien y Lucas mostrará una actitud positiva.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'regaloNoGustado',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'REGALO QUE NO GUSTA EN INTERCAMBIO',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'En la escuela hacen un intercambio de regalos. A Sofia le dan un regalo que no le gusta nada, mientras ve que los otros reciben cosas que sí les gustan.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE SOFIA?',
+              opciones: [
+                { id: 'diceEncanta', texto: 'Sofia dice que le encanta para no hacer sentir mal al otro', imagen: '' },
+                { id: 'caraDecepcion', texto: 'Sofia pone cara de decepción', imagen: '' },
+                { id: 'preguntaCambiar', texto: 'Sofia pregunta si puede cambiar el regalo', imagen: '' },
+                { id: 'levantaMarcha', texto: 'Sofia se levanta y se va', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                diceEncanta: { texto: 'El compañero que le dio el regalo se sentirá bien, aunque Sofia no sea sincera.', imagen: '' },
+                caraDecepcion: { texto: 'El compañero podría sentirse mal o incómodo al notar su decepción.', imagen: '' },
+                preguntaCambiar: { texto: 'Podría generar una situación incómoda o quizás se pueda encontrar una solución.', imagen: '' },
+                levantaMarcha: { texto: 'Los demás podrían sorprenderse o pensar que es maleducada.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'noDejanJugarFutbol',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'NO LE DEJAN JUGAR AL FÚTBOL',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Hugo se acerca a un grupo para jugar a fútbol, pero le dicen que no pueden jugar más porque ya están completos.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE HUGO?',
+              opciones: [
+                { id: 'estaBienTriste', texto: 'Hugo dice "está bien" y se va triste', imagen: '' },
+                { id: 'insisteEnfada', texto: 'Hugo insiste y se enfada', imagen: '' },
+                { id: 'noPasaNadaBuscaOtra', texto: 'Hugo dice "no pasa nada" y busca otra actividad', imagen: '' },
+                { id: 'gritaLlora', texto: 'Hugo grita y se pone a llorar', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                estaBienTriste: { texto: 'Hugo se queda sin jugar con ellos y podría sentirse mal un rato.', imagen: '' },
+                insisteEnfada: { texto: 'El grupo podría molestarse y seguir sin dejarle jugar, o podría crearse una discusión.', imagen: '' },
+                noPasaNadaBuscaOtra: { texto: 'Hugo encontrará otra forma de divertirse y no generará un conflicto.', imagen: '' },
+                gritaLlora: { texto: 'Los otros niños podrían asustarse o alejarse. Quizás un adulto intervenga.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'quiereJugueteAjeno',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'QUIERE EL JUGUETE DE OTRO NIÑO',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Daniel está mirando cómo Elena juega con un juguete que a Daniel le gusta mucho. Quiere cogerlo pero Elena no ha terminado de jugar.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE DANIEL?',
+              opciones: [
+                { id: 'enfadaGrita', texto: 'Daniel se enfada y grita a Elena', imagen: '' },
+                { id: 'pideDespues', texto: 'Daniel le pide a Elena si puede jugar después', imagen: '' },
+                { id: 'quitaSinDecir', texto: 'Daniel le quita el juguete sin decir nada', imagen: '' },
+                { id: 'poneLlorar', texto: 'Daniel se pone a llorar', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                enfadaGrita: { texto: 'Elena podría asustarse o enfadarse, y probablemente no quiera compartir el juguete.', imagen: '' },
+                pideDespues: { texto: 'Elena podría aceptar y Daniel jugaría después, o podría decir que no.', imagen: '' },
+                quitaSinDecir: { texto: 'Elena se enfadará y podría haber una pelea por el juguete.', imagen: '' },
+                poneLlorar: { texto: 'Elena podría sentirse mal o confundida. Un adulto podría intervenir.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'manchaDibujoSinQuerer',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'MANCHA EL DIBUJO SIN QUERER',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Adrian está pintando muy concentrado y Julia, sin querer, le mancha el dibujo al pasar por su lado.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE ADRIAN?',
+              opciones: [
+                { id: 'diceCuidado', texto: 'Adrian dice a Julia que vaya con más cuidado', imagen: '' },
+                { id: 'nerviosoGolpea', texto: 'Adrian se pone muy nervioso y golpea a Julia', imagen: '' },
+                { id: 'diceAdrede', texto: 'Adrian dice a Julia que ha estropeado el dibujo a propósito', imagen: '' },
+                { id: 'sabeAccidenteArregla', texto: 'Adrian le dice a Julia que sabe que ha sido un accidentee intenta arreglar el dibujo', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                diceCuidado: { texto: 'Julia podría disculparse y tener más cuidado la próxima vez.', imagen: '' },
+                nerviosoGolpea: { texto: 'Julia se asustará o se enfadará, y Adrian podría meterse en problemas.', imagen: '' },
+                diceAdrede: { texto: 'Julia se sentirá mal o se defenderá, negando que fuera a propósito.', imagen: '' },
+                sabeAccidenteArregla: { texto: 'Julia se sentirá aliviada y podrían intentar arreglarlo juntos.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'escondeZapatosBroma',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'LE ESCONDEN LOS ZAPATOS',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Paula esconde los zapatos de Mateo mientras juegan, riéndose, y Mateo no los encuentra y empieza a preocuparse.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE MATEO?',
+              opciones: [
+                { id: 'enfadaDiceNoGusta', texto: 'Mateo se enfada y le dice a Paula que no le ha gustado', imagen: '' },
+                { id: 'rieJuegaIgual', texto: 'Mateo ríe y juega igualmente', imagen: '' },
+                { id: 'ignoraVaTriste', texto: 'Mateo ignora la situación y se va triste', imagen: '' },
+                { id: 'pideAyudaDocente', texto: 'Mateo pide ayuda al docente y explica qué ha pasado', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                enfadaDiceNoGusta: { texto: 'Paula podría darse cuenta de que su broma no fue divertida y devolver los zapatos.', imagen: '' },
+                rieJuegaIgual: { texto: 'Paula podría pensar que a Mateo le parece divertido y seguir con la broma o parar.', imagen: '' },
+                ignoraVaTriste: { texto: 'Paula podría sentirse mal o seguir con la broma. Mateo no resolverá la situación.', imagen: '' },
+                pideAyudaDocente: { texto: 'El docente ayudará a Mateo a encontrar sus zapatos y hablará con Paula sobre la broma.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'cogeTijerasMaestra',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'COGE LAS TIJERAS DE LA MAESTRA',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'David coge unas tijeras grandes de la mesa de la maestra sin permiso. La maestra le dice que las tiene que devolver.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE DAVID?',
+              opciones: [
+                { id: 'noDevuelveNecesita', texto: 'David dice que no las devolverá porque las necesita', imagen: '' },
+                { id: 'devuelveNoSabia', texto: 'David las devuelve y dice que no sabía que no podía cogerlas', imagen: '' },
+                { id: 'escondeNadieEncuentre', texto: 'David las esconde para que nadie las encuentre', imagen: '' },
+                { id: 'gritaTodosCogen', texto: 'David grita que todo el mundo coge cosas', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                noDevuelveNecesita: { texto: 'La maestra insistirá y le explicará por qué no puede usarlas sin permiso.', imagen: '' },
+                devuelveNoSabia: { texto: 'La maestra aceptará las tijeras y le recordará que debe pedir permiso.', imagen: '' },
+                escondeNadieEncuentre: { texto: 'La maestra se preocupará y buscará las tijeras. David podría tener problemas.', imagen: '' },
+                gritaTodosCogen: { texto: 'La maestra intentará calmarlo y le explicará las normas de la clase.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'cogeMagdalenaAntesTiempo',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'COGE UNA MAGDALENA ANTES DE TIEMPO',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Valeria ha cogido una magdalena de la bandeja que era para después de la actividad. La docente le dice que no es el momento de comer.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE VALERIA?',
+              opciones: [
+                { id: 'devuelveNoSabia', texto: 'Valeria la devuelve y dice que no lo sabía', imagen: '' },
+                { id: 'comeRapido', texto: 'Valeria se la come rápidamente antes de que le puedan decir nada', imagen: '' },
+                { id: 'diceHambreNoEspera', texto: 'Valeria dice que tiene hambre y no quiere esperar', imagen: '' },
+                { id: 'lloraTratoMal', texto: 'Valeria llora y dice que todo el mundo le trata mal', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                devuelveNoSabia: { texto: 'La docente aceptará la magdalena y le recordará esperar al momento indicado.', imagen: '' },
+                comeRapido: { texto: 'La docente le dirá que no estuvo bien y que debe respetar las normas.', imagen: '' },
+                diceHambreNoEspera: { texto: 'La docente le explicará que debe esperar como los demás y quizás le ofrezca algo pequeño si es necesario.', imagen: '' },
+                lloraTratoMal: { texto: 'La docente intentará calmarla y explicarle la situación con paciencia.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'ignoraOrdenDocente',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'IGNORA LA ORDEN DE LA DOCENTE',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Martin está jugando con piezas que son para otra actividad y la docente le dice dos veces que las deje.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE MARTIN?',
+              opciones: [
+                { id: 'noParaSigueJugando', texto: 'Martin dice que no quiere parar y continúa jugando', imagen: '' },
+                { id: 'noContestaHaceNoEscucha', texto: 'Martin no contesta y hace como que no escucha', imagen: '' },
+                { id: 'ignoraLuegoDevuelvePideOtras', texto: 'Martin ignora pero después devuelve las piezas y pide usar otras', imagen: '' },
+                { id: 'sigueJugandoDiceNoOyo', texto: 'Martin continúa jugando y después dice que no había oído nada', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                noParaSigueJugando: { texto: 'La docente podría detener la actividad o tomar medidas para que Martin siga las instrucciones.', imagen: '' },
+                noContestaHaceNoEscucha: { texto: 'La docente se acercará y le repetirá la instrucción directamente.', imagen: '' },
+                ignoraLuegoDevuelvePideOtras: { texto: 'La docente podría apreciar que finalmente cooperó, aunque tarde.', imagen: '' },
+                sigueJugandoDiceNoOyo: { texto: 'La docente podría no creerle y le recordará la importancia de escuchar.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'cogeZumoAjenoEnfado',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'COGE EL ZUMO DE OTRO Y SE ENFADA',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Olivia ha cogido el zumo de otro niño. Cuando le dicen que no es suyo, lo devuelve pero se pone a gritar y se encierra en sí misma.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ PASA DESPUÉS?',
+              opciones: [
+                { id: 'diceNoVolveraPidePerdon', texto: 'Olivia dice que no lo volverá a hacer y pide perdón', imagen: '' },
+                { id: 'devuelveNoHablaMas', texto: 'Olivia lo devuelve pero dice que no quiere hablar con nadie más', imagen: '' },
+                { id: 'lanzaZumoSuelo', texto: 'Olivia lanza el zumo al suelo', imagen: '' },
+                { id: 'noImportaNadieDiceQueHacer', texto: 'Olivia dice que no le importa y que nadie le dice qué tiene que hacer', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                diceNoVolveraPidePerdon: { texto: 'El otro niño y el docente apreciarán su disculpa y la situación se calmará.', imagen: '' },
+                devuelveNoHablaMas: { texto: 'Olivia necesitará un tiempo para calmarse. Los demás respetarán su espacio.', imagen: '' },
+                lanzaZumoSuelo: { texto: 'Se creará un desorden y Olivia podría tener consecuencias por su comportamiento.', imagen: '' },
+                noImportaNadieDiceQueHacer: { texto: 'La situación podría empeorar y necesitar la intervención de un adulto para resolver el conflicto.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'invitacionJugarFutbol',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'INVITACIÓN A JUGAR AL FÚTBOL',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Carla se acerca a Leo y le dice: "¿Quieres jugar con nosotros a fútbol?"',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ RESPONDE LEO?',
+              opciones: [
+                { id: 'siPreguntaQueHacer', texto: 'Leo dice que sí y pregunta qué tienen que hacer', imagen: '' },
+                { id: 'noQuiereJugarNunca', texto: 'Leo dice que no quiere jugar con nadie nunca', imagen: '' },
+                { id: 'ignoraMarcha', texto: 'Leo los ignora y se va', imagen: '' },
+                { id: 'jugadVosotrosOtraCosa', texto: 'Leo dice "jugad vosotros, yo haré otra cosa" sin mirarlos', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                siPreguntaQueHacer: { texto: 'Leo se unirá al juego y se divertirá con Carla y los demás.', imagen: '' },
+                noQuiereJugarNunca: { texto: 'Carla y los demás se sorprenderán y jugarán sin él. Leo se quedará solo.', imagen: '' },
+                ignoraMarcha: { texto: 'Carla se sentirá rechazada y jugarán sin él. Leo no interactuará.', imagen: '' },
+                jugadVosotrosOtraCosa: { texto: 'Carla podría sentirse un poco mal, pero respetará su decisión y jugarán sin él.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'esperarTurnoBano',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'ESPERAR TURNO PARA EL BAÑO',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Mia está en una fila para ir al baño. Quiere pasar primero, pero hay otros niños delante.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE MIA?',
+              opciones: [
+                { id: 'esperaTurno', texto: 'Mia espera su turno', imagen: '' },
+                { id: 'enfadaAdelanta', texto: 'Mia se enfada y se adelanta', imagen: '' },
+                { id: 'gritaNecesitaMas', texto: 'Mia grita que lo necesita más que nadie', imagen: '' },
+                { id: 'intentaEntrarSinVer', texto: 'Mia intenta entrar sin que nadie le vea', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                esperaTurno: { texto: 'Mia usará el baño cuando le toque, respetando a los demás.', imagen: '' },
+                enfadaAdelanta: { texto: 'Los otros niños se molestarán y podrían quejarse al profesor.', imagen: '' },
+                gritaNecesitaMas: { texto: 'Generará malestar en la fila y es probable que no consiga pasar antes.', imagen: '' },
+                intentaEntrarSinVer: { texto: 'Podría ser descubierta y recibir una llamada de atención.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'quiereOtroJuegoGrupo',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'QUIERE JUGAR A OTRA COSA DIFERENTE AL GRUPO',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'El grupo ha decidido jugar a las cartas, pero Lucas quiere jugar a construcciones.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE LUCAS?',
+              opciones: [
+                { id: 'proponeAmbas', texto: 'Lucas propone hacer las dos cosas después de un tiempo', imagen: '' },
+                { id: 'marchaEnfadado', texto: 'Lucas se va enfadado', imagen: '' },
+                { id: 'diceAburrido', texto: 'Lucas dice que el juego del grupo es aburrido', imagen: '' },
+                { id: 'insisteCambien', texto: 'Lucas insiste hasta que todos cambian', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                proponeAmbas: { texto: 'El grupo podría aceptar la propuesta y todos podrían disfrutar de ambos juegos.', imagen: '' },
+                marchaEnfadado: { texto: 'Lucas no jugará con el grupo y se perderá la diversión. El grupo jugará a las cartas.', imagen: '' },
+                diceAburrido: { texto: 'Los miembros del grupo podrían sentirse mal o ignorar su comentario.', imagen: '' },
+                insisteCambien: { texto: 'El grupo podría ceder o molestarse por la insistencia.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'noCompartenGalleta',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'NO LE COMPARTEN UNA GALLETA',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Sofia quiere una galleta del desayuno de su compañero Samuel, pero Samuel le dice que no puede compartir porque solo tiene una.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE SOFIA?',
+              opciones: [
+                { id: 'acuerdoComeSuyo', texto: 'Sofia dice "de acuerdo" y come su desayuno', imagen: '' },
+                { id: 'diceEgoista', texto: 'Sofia dice "eres un egoísta"', imagen: '' },
+                { id: 'quitaGalletaRapido', texto: 'Sofia le quita la galleta rápidamente', imagen: '' },
+                { id: 'lloraGritando', texto: 'Sofia se pone a llorar gritando', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                acuerdoComeSuyo: { texto: 'Sofia respeta la decisión de Samuel y ambos comen su desayuno tranquilamente.', imagen: '' },
+                diceEgoista: { texto: 'Samuel podría sentirse mal o enfadarse con Sofia.', imagen: '' },
+                quitaGalletaRapido: { texto: 'Samuel se enfadará mucho y podría haber una discusión o pelea.', imagen: '' },
+                lloraGritando: { texto: 'Llamará la atención de todos y un adulto probablemente intervendrá.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'unirseJuegoParque',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'UNIRSE A UN JUEGO EN EL PARQUE',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Hugo llega al parque y ve un grupo de niños que conoce, pero no sabe cómo unirse al juego.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE HUGO?',
+              opciones: [
+                { id: 'holaPuedoJugar', texto: 'Hugo dice "¿hola, puedo jugar con vosotros?"', imagen: '' },
+                { id: 'miraNoDiceNada', texto: 'Hugo se queda mirando y no dice nada', imagen: '' },
+                { id: 'acercaCogeJuguete', texto: 'Hugo se acerca y coge un juguete sin pedir permiso', imagen: '' },
+                { id: 'yaEstoyAquiGrita', texto: 'Hugo dice "¡ya estoy aquí!" y grita muy fuerte', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                holaPuedoJugar: { texto: 'Los niños probablemente le dirán que sí y Hugo se unirá al juego.', imagen: '' },
+                miraNoDiceNada: { texto: 'Los niños seguirán jugando y Hugo se quedará sin participar a menos que alguien lo invite.', imagen: '' },
+                acercaCogeJuguete: { texto: 'Los niños podrían enfadarse porque no pidió permiso y no quieran jugar con él.', imagen: '' },
+                yaEstoyAquiGrita: { texto: 'Los niños podrían sorprenderse o asustarse. Podrían aceptarlo o rechazarlo.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'errorEnJuegoCorregido',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'COMETE UN ERROR Y LE CORRIGEN',
+        pictos: [],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'Daniel confunde las instrucciones de un juego y todos le corrigen. Se siente avergonzado.',
+              imagen: ''
+            },
+            {
+              tipo: 'eleccion',
+              titulo: '¿QUÉ HACE DANIEL?',
+              opciones: [
+                { id: 'graciasNoSabia', texto: 'Daniel dice "gracias, no lo sabía" y continúa jugando', imagen: '' },
+                { id: 'enfadaDejaJuego', texto: 'Daniel se enfada y deja el juego', imagen: '' },
+                { id: 'otrosTambienEquivocan', texto: 'Daniel dice que los otros también se equivocan', imagen: '' },
+                { id: 'gritaNoEsJusto', texto: 'Daniel grita "¡no es justo!"', imagen: '' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSECUENCIA PROBABLE',
+              resultados: {
+                graciasNoSabia: { texto: 'El juego continúa con normalidad y Daniel aprende de su error.', imagen: '' },
+                enfadaDejaJuego: { texto: 'Daniel no disfrutará del juego y los demás seguirán jugando sin él.', imagen: '' },
+                otrosTambienEquivocan: { texto: 'Podría generar una discusión y un ambiente tenso en el juego.', imagen: '' },
+                gritaNoEsJusto: { texto: 'Los demás jugadores se sentirán incómodos y el juego podría interrumpirse.', imagen: '' }
+              }
+            }
+          ]
+        })()
+      }
+// END OF NEW SOCIAL SITUATIONS
+// [ ... rest of textos.js ... ]
     ]
   },
   ca: {
