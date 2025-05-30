@@ -47,11 +47,12 @@ const textos = {
       pasoTituloResultado: 'CONSECUENCIA PROBABLE',
       categories: {
         social: 'Situaciones sociales',
-        emocionajena: 'Emociones ajenas',
-        emocionpropia: 'Emociones propias',
+        emocionpropia: 'Emociones',
         teoriamente: 'Teoria de la mente',
         coherencia: 'Coherencia central',
-        ejecutiva: 'Función ejecutiva'
+        ejecutiva: 'Función ejecutiva',
+        memoria: 'Planificación de memoria',
+        caras: 'Reconocimiento expresión facial',
       },
       niveles: { 1: 'Nivel 1', 2: 'Nivel 2', 3: 'Nivel 3' }, // [cite: 454]
     },
@@ -2123,6 +2124,64 @@ const textos = {
           
         })()
       },
+      { 
+        id: 'pintarMesa2',
+        categoria: 'memoria',
+        nivel: 1,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'pintarMesa2/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'EL ALUMNO DIBUJA EN LA MESA. ¿QUÉ TIENE QUE HACER CUANDO ACABE?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'EL ALUMNO CUANDO ACABE DE PINTAR TIENE QUE BORRAR EL DIBUJO',
+              imagen: base + 'escena2.png'
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'guardarTablet',
+        categoria: 'memoria',
+        nivel: 1,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { // [cite: 417]
+          const base = 'guardarTablet/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'LA CHICA COGE UNA TABLET DEL ARMARIO',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'LA CHICA ESTÁ USANDO LA TABLET. ¿QUÉ TIENE QUE HACER LA CHICA CUANDO ACABE DE USAR LA TABLET? ',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓN',
+              descripcion: 'LA CHICA GUARDA LA TABLET EN EL ARMARIO',
+              imagen: base + 'escena3.png'
+            },    
+          ]
+          
+        })()
+      },
       
       
       
@@ -2294,7 +2353,6 @@ const textos = {
       pasoTituloResultado: 'CONSEQÜÈNCIA PROBABLE',
       categories: {
         social: 'Situacions socials',
-        emocionajena: 'Emocions dels altres',
         emocionpropia: 'Emocions pròpies',
         teoriamente: 'Teoria de la ment',
         coherencia: 'Coherència central', // [cite: 454]

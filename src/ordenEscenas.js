@@ -4,19 +4,19 @@ const ordenEscenas = [
     nivel: 1, // [cite: 796]
     categorias: {
       social: [],
-      emocionajena: [],
       // Removed 'oler' and 'pluja' from this list
       emocionpropia: ['perroSentarse','apagarLuz','psicomotricidad','pegatina','chocarCinco','globoExplota','busTarde','canastaAplaudir','chupachup','relojCaer', 'llamarProfe'],
       teoriamente: ['avionRysa','ivan','mirar'],
       coherencia: ['excursion','naturaleza','piscina','cumpleaños','estacionAño','dondeVan','bancAliments','cocinar','cine'], // [cite: 797]
       ejecutiva: ['cambioRutina','paris','cambioMantas','pan'],
+      memoria: ['pintarMesa2','guardarTablet'],
+      caras: [],
     }
   },
   {
     nivel: 2,
     categorias: {
       social: [], // [cite: 798]
-      emocionajena: [],
       emocionpropia: ['pelotaRota','seOlvidaDeTi','cremalleraRota','responderMal','hacerFoto','mancharse', 'mochilaRota','ventanaAvion','profeAmor','botonPlay'],
       teoriamente: ['erupto','abrazo','chocarFuerte'],
       coherencia: ['cumpleaños2','estacionAño2','aeropuerto','queHacen','estacionAño3'],
@@ -27,7 +27,6 @@ const ordenEscenas = [
     nivel: 3,
     categorias: {
       social: [],
-      emocionajena: [],
       emocionpropia: ['vacaciones','elegirFruta','ventanaFuerte','repartidor','equivocar','charco','nuevoProfe'], // [cite: 800]
       teoriamente: ['perroRafa','pintarMesa','claseB'],
       coherencia: ['museo','comedor'],
