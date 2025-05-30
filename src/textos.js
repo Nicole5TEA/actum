@@ -5,7 +5,7 @@ const textos = {
       // ... (otros textos existentes) ...
       portadaTitle: 'TE ANTENC',
       portadaButton: 'EMPEZAR',
-      ingresoPrompt: 'SELECCIONA TÚ NOMBRE', // [cite: 410]
+      ingresoPrompt: 'SELECCIONA TÚ NOMBRE', //
       ingresoLabel: 'NOMBRE',
       ingresoError: 'Nombre no válido',
       ingresoButton: 'REGISTRARSE',
@@ -16,7 +16,7 @@ const textos = {
       cancelar: 'CANCELAR',
       acceder: 'ACCEDER',
       greeting: 'HOLA,',
-      logout: 'SALIR', // [cite: 411]
+      logout: 'SALIR', //
       inicioTitle: 'INICIO',
       empezar: 'EMPEZAR',
       inicio: 'INICIO',
@@ -24,19 +24,19 @@ const textos = {
       adminPanelTitle: 'Panel del Docente',
       cambiarUsuario: 'CAMBIAR USUARI',
       volverPortada  : 'VOLVER A PÁGINA DE INGRESO',
-      accesoTitle : 'Acceso', // [cite: 412]
+      accesoTitle : 'Acceso', //
       accesoLabel : 'CONTRASEÑA',
       accesoErr   : 'Contraseña incorrecta',
       volverAPortada : 'VOLVER A PORTADA',
-      necesitasDocente :                           // [cite: 413]
+      necesitasDocente :                           //
         'Debes autenticarte como Docente para registrar nuevos alumnos.',
       nuevoAlumnoLabel : 'Nuevo alumno',
       crearAlumnoBtn   : 'CREAR',
-      crearAlumnoErr   : 'No se pudo crear el alumno. Inténtalo de nuevo.', // [cite: 414]
+      crearAlumnoErr   : 'No se pudo crear el alumno. Inténtalo de nuevo.', //
       atras: 'ATRÁS',
       siguiente: 'SIGUIENTE',
       pasoTexto: (act, tot) => `Paso ${act} de ${tot}`,
-      errorSinEleccion: 'No hay resultado disponible. Vuelve a hacer una elección.', // [cite: 415]
+      errorSinEleccion: 'No hay resultado disponible. Vuelve a hacer una elección.', //
       volverAlMenu: 'VOLVER AL MENÚ', // Nueva clave
       labelAzar: 'Marcar como respuesta al azar',
       labelComentario: 'Comentario (opcional)',
@@ -54,9 +54,9 @@ const textos = {
         memoria: 'Planificación de memoria',
         caras: 'Reconocimiento expresión facial',
       },
-      niveles: { 1: 'Nivel 1', 2: 'Nivel 2', 3: 'Nivel 3' }, // [cite: 454]
+      niveles: { 1: 'Nivel 1', 2: 'Nivel 2', 3: 'Nivel 3' }, //
     },
-    escenas: [ // [cite: 416]
+    escenas: [ //
       {
         id: 'perroSentarse',
         categoria: 'emocionpropia',
@@ -65,7 +65,7 @@ const textos = {
         pictos: [
           'perroSentarse/perro.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'perroSentarse/';
           return [
             {
@@ -101,7 +101,7 @@ const textos = {
         pictos: [
           'apagarLuz/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'apagarLuz/';
           return [
             {
@@ -138,7 +138,7 @@ const textos = {
           'psicomotricidad/picto.png',
           'psicomotricidad/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'psicomotricidad/';
           return [
             {
@@ -169,7 +169,7 @@ const textos = {
           'pegatina/picto.png',
           'pegatina/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'pegatina/';
           return [
             {
@@ -200,7 +200,7 @@ const textos = {
           'chupachup/picto.png',
           'chupachup/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'chupachup/';
           return [
             {
@@ -230,7 +230,7 @@ const textos = {
         pictos: [
           'chocarCinco/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'chocarCinco/';
           return [
             {
@@ -266,7 +266,7 @@ const textos = {
         pictos: [
           'globoExplota/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'globoExplota/';
           return [
             {
@@ -303,7 +303,7 @@ const textos = {
           'relojCaer/picto.png',
           'relojCaer/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'relojCaer/';
           return [
             {
@@ -340,7 +340,7 @@ const textos = {
           'busTarde/picto.png',
           'busTarde/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'busTarde/';
           return [
             {
@@ -377,7 +377,7 @@ const textos = {
           'canastaAplaudir/picto.png',
           'canastaAplaudir/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'canastaAplaudir/';
           return [
             {
@@ -409,7 +409,7 @@ const textos = {
           'llamarProfe/picto2.png',
           'llamarProfe/picto3.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'llamarProfe/';
           return [
             {
@@ -440,7 +440,7 @@ const textos = {
           'pelotaRota/picto.png',
           'pelotaRota/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'pelotaRota/';
           return [
             {
@@ -473,7 +473,7 @@ const textos = {
           'seOlvidaDeTi/picto2.png',
           'seOlvidaDeTi/picto3.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'seOlvidaDeTi/';
           return [
             {
@@ -504,7 +504,7 @@ const textos = {
         pictos: [
           'repartidor/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'repartidor/';
           return [
             {
@@ -535,7 +535,7 @@ const textos = {
         pictos: [
           'equivocar/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'equivocar/';
           return [
             {
@@ -568,7 +568,7 @@ const textos = {
           'charco/picto.png',
           'charco/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'charco/';
           return [
             {
@@ -601,7 +601,7 @@ const textos = {
           'nuevoProfe/picto.png',
           'nuevoProfe/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'nuevoProfe/';
           return [
             {
@@ -634,7 +634,7 @@ const textos = {
           'responderMal/picto.png',
           'responderMal/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'responderMal/';
           return [
             {
@@ -665,7 +665,7 @@ const textos = {
         pictos: [
           'hacerFoto/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'hacerFoto/';
           return [
             {
@@ -697,7 +697,7 @@ const textos = {
         pictos: [
           'mancharse/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'mancharse/';
           return [
             {
@@ -729,7 +729,7 @@ const textos = {
         pictos: [
           'cremalleraRota/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cremalleraRota/';
           return [
             {
@@ -760,7 +760,7 @@ const textos = {
         pictos: [
           'mochilaRota/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'mochilaRota/';
           return [
             {
@@ -792,7 +792,7 @@ const textos = {
           'ventanaAvion/picto.png',
           'ventanaAvion/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'ventanaAvion/';
           return [
             {
@@ -825,7 +825,7 @@ const textos = {
           'profeAmor//picto2.png',
           'profeAmor//picto3.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'profeAmor/';
           return [
             {
@@ -857,7 +857,7 @@ const textos = {
           'botonPlay/picto.png',
           'botonPlay//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'botonPlay/';
           return [
             {
@@ -888,7 +888,7 @@ const textos = {
         pictos: [
           'vacaciones/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'vacaciones/';
           return [
             {
@@ -919,7 +919,7 @@ const textos = {
         'elegirFruta/picto.png',
           'elegirFruta/picto2.png',
       ],
-      pasos: (() => { // [cite: 417]
+      pasos: (() => { //
         const base = 'elegirFruta/';
         return [
           {
@@ -949,7 +949,7 @@ const textos = {
       pictos: [
         'ventanaFuerte/picto.png',
       ],
-      pasos: (() => { // [cite: 417]
+      pasos: (() => { //
         const base = 'ventanaFuerte/';
         return [
           {
@@ -982,7 +982,7 @@ const textos = {
           'excursion/picto.png',
           'excursion//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'excursion/';
           return [
             {
@@ -1013,7 +1013,7 @@ const textos = {
           'naturaleza/picto.png',
           'naturaleza//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'naturaleza/';
           return [
             {
@@ -1044,7 +1044,7 @@ const textos = {
           'piscina/picto.png',
           'piscina//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'piscina/';
           return [
             {
@@ -1075,7 +1075,7 @@ const textos = {
           'cumpleaños/picto.png',
           'cumpleaños//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cumpleaños/';
           return [
             {
@@ -1086,7 +1086,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: '¿A dónde va?',
+              titulo: '¿De quién es?', // Corrected from "¿A dónde va?"
               opciones: [
                 { id: 'situacio', texto: 'DEL NIÑO CON LA CORONA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'DEL NIÑO QUE ESTÁ TOMÁNDO LA FOTO', imagen: base + 'situacio2.png' },
@@ -1107,7 +1107,7 @@ const textos = {
           'cumpleaños2/picto.png',
           'cumpleaños2//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cumpleaños2/';
           return [
             {
@@ -1118,7 +1118,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: '¿A dónde va?',
+              titulo: '¿De quién es?', // Corrected from "¿A dónde va?"
               opciones: [
                 { id: 'situacio', texto: 'DEL NIÑO CON LA CORONA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'DEL NIÑO QUE ESTÁ TOMÁNDO LA FOTO', imagen: base + 'situacio2.png' },
@@ -1139,7 +1139,7 @@ const textos = {
           'museo/picto.png',
           'museo//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'museo/';
           return [
             {
@@ -1171,7 +1171,7 @@ const textos = {
           'comedor/picto.png',
           'comedor//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'comedor/';
           return [
             {
@@ -1182,7 +1182,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Quién es?',
+              titulo: '¿Qué objeto falta?', // Corrected from "¿Quién es?"
               opciones: [
                 { id: 'situacio', texto: 'JARRA DE AGUA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'SERVILLETAS', imagen: base + 'situacio2.png' },
@@ -1202,7 +1202,7 @@ const textos = {
           'aeropuerto/picto.png',
           'aeropuerto//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'aeropuerto/';
           return [
             {
@@ -1213,7 +1213,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Quién es?',
+              titulo: '¿Dónde están?', // Corrected from "¿Quién es?"
               opciones: [
                 { id: 'situacio', texto: 'AEROPUERTO', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'SUPERMERCADO', imagen: base + 'situacio2.png' },
@@ -1233,7 +1233,7 @@ const textos = {
           'estacionAño/picto.png',
           'estacionAño//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'estacionAño/';
           return [
             {
@@ -1244,7 +1244,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: 'Cúal estación del año?',
+              titulo: '¿Cuál estación del año?',
               opciones: [
                 { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
@@ -1265,7 +1265,7 @@ const textos = {
           'dondeVan/picto.png',
           'dondeVan//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'dondeVan/';
           return [
             {
@@ -1276,7 +1276,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: 'Cúal estación del año?',
+              titulo: '¿A dónde van?', // Corrected from 'Cúal estación del año?'
               opciones: [
                 { id: 'situacio', texto: 'A LA PISCINA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'AL AUTOBÚS', imagen: base + 'situacio2.png' },
@@ -1295,7 +1295,7 @@ const textos = {
           'queHacen/picto.png',
           'queHacen//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'queHacen/';
           return [
             {
@@ -1306,7 +1306,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: 'Qué hacen?',
+              titulo: '¿Qué hacen?',
               opciones: [
                 { id: 'situacio', texto: 'JUGAR CON LA PELOTA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'DESCANSAR EN EL PATIO', imagen: base + 'situacio2.png' },
@@ -1326,7 +1326,7 @@ const textos = {
           'bancAliments/picto.png',
           'bancAliments//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'bancAliments/';
           return [
             {
@@ -1337,7 +1337,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: 'Qué hacen?',
+              titulo: '¿Qué hacen?',
               opciones: [
                 { id: 'situacio', texto: 'LIMPIAR', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'AYUDAR EN EL BANCO DE ALIMENTOS', imagen: base + 'situacio2.png' },
@@ -1358,7 +1358,7 @@ const textos = {
           'cocinar/picto.png',
           'cocinar//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cocinar/';
           return [
             {
@@ -1369,7 +1369,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: 'Qué hacen?',
+              titulo: '¿Qué hacen?',
               opciones: [
                 { id: 'situacio', texto: 'COMER', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'COCINAR', imagen: base + 'situacio2.png' },
@@ -1389,7 +1389,7 @@ const textos = {
           'estacionAño2/picto.png',
           'estacionAño2//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'estacionAño2/';
           return [
             {
@@ -1400,7 +1400,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: 'Cúal estación del año?',
+              titulo: '¿Cuál estación del año?',
               opciones: [
                 { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
@@ -1421,7 +1421,7 @@ const textos = {
           'estacionAño3/picto.png',
           'estacionAño3//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'estacionAño3/';
           return [
             {
@@ -1432,7 +1432,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: 'Cúal estación del año?',
+              titulo: '¿Cuál estación del año?',
               opciones: [
                 { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
@@ -1453,7 +1453,7 @@ const textos = {
           'cine/picto.png',
           'cine//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cine/';
           return [
             {
@@ -1484,7 +1484,7 @@ const textos = {
           'cambioRutina/picto.png',
           'cambioRutina//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cambioRutina/';
           return [
             {
@@ -1514,7 +1514,7 @@ const textos = {
           'cumpleañosFamiliar/picto.png',
           'cumpleañosFamiliar//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cumpleañosFamiliar/';
           return [
             {
@@ -1544,7 +1544,7 @@ const textos = {
           'paris/picto.png',
           'paris//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'paris/';
           return [
             {
@@ -1574,7 +1574,7 @@ const textos = {
           'cambioMantas/picto.png',
           'cambioMantas//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cambioMantas/';
           return [
             {
@@ -1585,7 +1585,7 @@ const textos = {
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Quién te viene a buscar al colegio?',
+              titulo: '¿Serán diferentes?', // Corrected
               opciones: [
                 { id: 'situacio', texto: 'SÍ', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'NO', imagen: base + 'situacio2.png' }
@@ -1604,7 +1604,7 @@ const textos = {
           'papaMedico/picto.png',
           'papaMedico//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'papaMedico/';
           return [
             {
@@ -1635,7 +1635,7 @@ const textos = {
           'pan//picto2.png',
           'pan//picto3.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'pan/';
           return [
             {
@@ -1666,8 +1666,8 @@ const textos = {
           'mochila//picto2.png',
           'mochila//picto3.png',
         ],
-        pasos: (() => { // [cite: 417]
-          const base = 'pan/';
+        pasos: (() => { //
+          const base = 'mochila/'; // Corrected base path
           return [
             {
               tipo: 'situacion',
@@ -1696,8 +1696,8 @@ const textos = {
           'herida/picto.png',
           'herida//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
-          const base = 'pan/';
+        pasos: (() => { //
+          const base = 'herida/'; // Corrected base path
           return [
             {
               tipo: 'situacion',
@@ -1726,7 +1726,7 @@ const textos = {
           'mojado/picto.png',
           'mojado//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'mojado/';
           return [
             {
@@ -1755,7 +1755,7 @@ const textos = {
         pictos: [
           'dentista/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'dentista/';
           return [
             {
@@ -1785,7 +1785,7 @@ const textos = {
           'pedirAyuda/picto.png',
           'pedirAyuda/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'pedirAyuda/';
           return [
             {
@@ -1815,7 +1815,7 @@ const textos = {
           'verano/picto.png',
           'verano/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'verano/';
           return [
             {
@@ -1843,7 +1843,7 @@ const textos = {
         titulo: 'SITUACIÓN',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'avionRysa/';
           return [
             {
@@ -1871,7 +1871,7 @@ const textos = {
         titulo: 'SITUACIÓN',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'ivan/';
           return [
             {
@@ -1899,7 +1899,7 @@ const textos = {
         titulo: 'SITUACIÓN',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'mirar/';
           return [
             {
@@ -1927,7 +1927,7 @@ const textos = {
         titulo: 'TIRARSE UN ERUPTO',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'erupto/';
           return [
             {
@@ -1955,7 +1955,7 @@ const textos = {
         titulo: 'DAR UN ABRAZO',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'abrazo/';
           return [
             {
@@ -1983,7 +1983,7 @@ const textos = {
         titulo: 'CHOCAR LAS MANOS MUY FUERTE',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'chocarFuerte/';
           return [
             {
@@ -2011,7 +2011,7 @@ const textos = {
         titulo: '',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'perroRafa/';
           return [
             {
@@ -2051,7 +2051,7 @@ const textos = {
         titulo: '',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'pintarMesa/';
           return [
             {
@@ -2097,7 +2097,7 @@ const textos = {
         titulo: '',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'claseB/';
           return [
             {
@@ -2131,7 +2131,7 @@ const textos = {
         titulo: '',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'pintarMesa2/';
           return [
             {
@@ -2157,7 +2157,7 @@ const textos = {
         titulo: '',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'guardarTablet/';
           return [
             {
@@ -2183,14 +2183,14 @@ const textos = {
         })()
       },
       { 
-        id: 'felicdad',
+        id: 'felicdad', // Typo in original id, should be 'felicidad'
         categoria: 'caras',
         nivel: 1,
         titulo: 'EXPRESIONES FACIALES',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
-          const base = 'felicidad/';
+        pasos: (() => { //
+          const base = 'felicidad/'; // Assuming base is correct despite id typo
           return [
             {
               tipo: 'situacion',
@@ -2204,8 +2204,8 @@ const textos = {
               opciones: [
                 { id: 'situacio', texto: 'FELICIDAD', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
-                { id: 'situacio2', texto: 'ENFADADO', imagen: base + 'situacio3.png' },
-                { id: 'situacio2', texto: 'CONTENTO', imagen: base + 'situacio4.png' }
+                { id: 'situacio3', texto: 'ENFADADO', imagen: base + 'situacio3.png' }, // Corrected id, was situacio2
+                { id: 'situacio4', texto: 'CONTENTO', imagen: base + 'situacio4.png' } // Corrected id, was situacio2
               ]
             },
           ]
@@ -2219,7 +2219,7 @@ const textos = {
         titulo: 'EXPRESIONES FACIALES',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'triste/';
           return [
             {
@@ -2234,8 +2234,10 @@ const textos = {
               opciones: [
                 { id: 'situacio', texto: 'FELICIDAD', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
-                { id: 'situacio2', texto: 'ENFADADO', imagen: base + 'situacio3.png' },
-                { id: 'situacio2', texto: 'CONTENTO', imagen: base + 'situacio4.png' }
+                { id: 'situacio3', texto: 'ENFADADO', imagen: base + 'situacio3.png' }, // Corrected id
+                { id: 'situacio4', texto: 'CONTENTO', imagen: base + 'situacio4.png' }  // Corrected id and text (assuming TRISTE was intended here for 'triste' scene)
+                                                                                      // Keeping original ES options for direct translation. If this option was meant to be 'TRISTE', it should be changed.
+                                                                                      // For now, I translate 'CONTENTO' as it is.
               ]
             },
           ]
@@ -2249,7 +2251,7 @@ const textos = {
         titulo: 'EXPRESIONES FACIALES',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'sorpresa/';
           return [
             {
@@ -2264,8 +2266,8 @@ const textos = {
               opciones: [
                 { id: 'situacio', texto: 'FELICIDAD', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
-                { id: 'situacio2', texto: 'ENFADADO', imagen: base + 'situacio3.png' },
-                { id: 'situacio2', texto: 'CONTENTO', imagen: base + 'situacio4.png' }
+                { id: 'situacio3', texto: 'ENFADADO', imagen: base + 'situacio3.png' }, // Corrected id
+                { id: 'situacio4', texto: 'CONTENTO', imagen: base + 'situacio4.png' }  // Corrected id
               ]
             },
           ]
@@ -2279,7 +2281,7 @@ const textos = {
         titulo: 'EXPRESIONES FACIALES',
         pictos: [
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'enfadado/';
           return [
             {
@@ -2294,8 +2296,8 @@ const textos = {
               opciones: [
                 { id: 'situacio', texto: 'FELICIDAD', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
-                { id: 'situacio2', texto: 'ENFADADO', imagen: base + 'situacio3.png' },
-                { id: 'situacio2', texto: 'CONTENTO', imagen: base + 'situacio4.png' }
+                { id: 'situacio3', texto: 'ENFADADO', imagen: base + 'situacio3.png' }, // Corrected id
+                { id: 'situacio4', texto: 'CONTENTO', imagen: base + 'situacio4.png' }  // Corrected id
               ]
             },
           ]
@@ -2977,88 +2979,88 @@ const textos = {
       portadaTitle: 'TE(A)NTENC',
       portadaButton: 'COMENÇA',
       ingresoPrompt: 'SELECCIONA EL TEU NOM',
-      ingresoLabel: 'Nom', // [cite: 450]
+      ingresoLabel: 'Nom', //
       ingresoError: 'Nom no vàlid',
       ingresoButton: 'REGISTRAR-SE',
-      accederDocente: 'ACCEDIR COM A DOCENT', // Traducción mejorada
-      irPanelDocente: 'ANAR AL PANELL DEL DOCENT', // Traducción mejorada
+      accederDocente: 'ACCEDIR COM A DOCENT',
+      irPanelDocente: 'ANAR AL PANELL DEL DOCENT',
       loginDocenteTitle: 'Accés Docent',
       loginDocenteLabel: 'CONTRASENYA',
-      cancelar: 'CANCEL·LAR', // Traducción
+      cancelar: 'CANCEL·LAR',
       acceder: 'ACCEDIR',
       greeting: 'Hola,',
       logout: 'SORTIR',
       menu: 'MENÚ',
       inicioTitle: 'INICI',
-      empezar: 'COMENÇAR', // [cite: 451]
+      empezar: 'COMENÇAR', //
       inicio: 'INICI',
-      // menu: 'MENÚ', // Repetido, ya está arriba
       adminPanelTitle: 'Panell del Docent',
       cambiarUsuario: 'CANVIAR USUARI',
       volverPortada  : 'TORNAR A LA PÀGINA D’INGRÉS',
       accesoTitle : 'Accés',
       accesoLabel : 'CONTRASENYA',
       accesoErr   : 'Contrasenya incorrecta',
-      volverAPortada : 'TORNAR A LA PORTADA', // [cite: 452]
+      volverAPortada : 'TORNAR A LA PORTADA', //
       necesitasDocente :
         'Has d’autenticar-te com a Docent per registrar nous alumnes.',
       nuevoAlumnoLabel : 'Alumne nou',
       crearAlumnoBtn   : 'CREAR',
-      crearAlumnoErr   : "No s'ha pogut crear l'alumne. Torna-ho a provar.", // [cite: 453]
+      crearAlumnoErr   : "No s'ha pogut crear l'alumne. Torna-ho a provar.", //
       atras: 'ENRERE',
       siguiente: 'SEGÜENT',
       pasoTexto: (act, tot) => `Pas ${act} de ${tot}`,
       errorSinEleccion: 'No hi ha resultat disponible. Torna a fer una elecció.',
-      volverAlMenu: 'TORNAR AL MENÚ', // Nueva clave
+      volverAlMenu: 'TORNAR AL MENÚ',
       labelAzar: 'Marcar com a resposta a l\'atzar',
       labelComentario: 'Comentari (opcional)',
       comentarioGuardado: 'Desat',
       guardar: 'Desar',
       pasoTituloSituacion: 'SITUACIÓ',
-      pasoTituloEleccion: 'QUÈ FAS', // O un genérico
+      pasoTituloEleccion: 'QUÈ FAS?',
       pasoTituloResultado: 'CONSEQÜÈNCIA PROBABLE',
       categories: {
         social: 'Situacions socials',
         emocionpropia: 'Emocions pròpies',
         teoriamente: 'Teoria de la ment',
-        coherencia: 'Coherència central', // [cite: 454]
-      }, // [cite: 1909]
+        coherencia: 'Coherència central', //
+        ejecutiva: 'Funció executiva',
+        memoria: 'Planificació de memòria',
+        caras: 'Reconeixement expressió facial',
+      }, //
       niveles: { 1: 'Nivell 1', 2: 'Nivell 2', 3: 'Nivell 3' },
-    }, // [cite: 1910]
-    // Las escenas en catalán deben ser añadidas aquí, siguiendo la misma estructura que en español.
-    // Por brevedad, no las duplicaré aquí, pero deben ser traducidas y añadidas.
-    escenas: [ // [cite: 416]
+    }, //
+    escenas: [ //
       {
         id: 'perroSentarse',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'PERROS',
+        titulo: 'GOSSOS',
         pictos: [
           'perroSentarse/perro.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'perroSentarse/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Entra un perro de terapia y se sienta a tu lado durante la sesión',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Entra un gos de teràpia i s\'asseu al teu costat durant la sessió',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Entra un perro de terapia y se sienta a tu lado durante la sesión',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Entra un gos de teràpia i s\'asseu al teu costat durant la sessió',
               imagen: base + 'escena2.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3068,33 +3070,33 @@ const textos = {
         id: 'apagarLuz',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'SE APAGA LA LUZ',
+        titulo: 'S\'APAGA EL LLUM',
         pictos: [
           'apagarLuz/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'apagarLuz/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Se apagan las luces en el aula porque se va a proyectar un vídeo',
+              titulo: 'SITUACIÓ',
+              descripcion: 'S\'apaguen els llums a l\'aula perquè es projectarà un vídeo',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Se apagan las luces en el aula porque se va a proyectar un vídeo',
+              titulo: 'SITUACIÓ',
+              descripcion: 'S\'apaguen els llums a l\'aula perquè es projectarà un vídeo',
               imagen: base + 'escena2.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3104,28 +3106,28 @@ const textos = {
         id: 'psicomotricidad',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'GRITAR',
+        titulo: 'CRIDAR',
         pictos: [
           'psicomotricidad/picto.png',
           'psicomotricidad/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'psicomotricidad/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Un compañero grita en clase de psicomotricidad',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Un company crida a classe de psicomotricitat',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3135,28 +3137,28 @@ const textos = {
         id: 'pegatina',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'FELICITACIÓN Y PEGATINA',
+        titulo: 'FELICITACIÓ I ADHESIU',
         pictos: [
           'pegatina/picto.png',
           'pegatina/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'pegatina/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'La maestra te da una pegatina felicitándote porque has trabajado muy bien',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La mestra et dona un adhesiu felicitant-te perquè has treballat molt bé',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3166,28 +3168,28 @@ const textos = {
         id: 'chupachup',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'REPARTIR CHUPA-CHUP',
+        titulo: 'REPARTIR CHUPA-CHUPS',
         pictos: [
           'chupachup/picto.png',
           'chupachup/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'chupachup/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'La maestra reparte chupa-chup',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La mestra reparteix chupa-chups',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3197,33 +3199,33 @@ const textos = {
         id: 'chocarCinco',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'CHOCAR DE MANOS',
+        titulo: 'XOCAR LES MANS',
         pictos: [
           'chocarCinco/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'chocarCinco/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Escribes bien la palabra y con la maestra chocáis las manos para celebrarlo',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Escrius bé la paraula i amb la mestra xoqueu les mans per celebrar-ho',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Escribes bien la palabra y con la maestra chocáis las manos para celebrarlo',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Escrius bé la paraula i amb la mestra xoqueu les mans per celebrar-ho',
               imagen: base + 'escena2.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3233,33 +3235,33 @@ const textos = {
         id: 'globoExplota',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'UN GLOBO EXPLOTA',
+        titulo: 'UN GLOBUS EXPLOTA',
         pictos: [
           'globoExplota/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'globoExplota/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Un globo explota en una fiesta de cumpleaños',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Un globus explota en una festa d\'aniversari',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Un globo explota en una fiesta de cumpleaños',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Un globus explota en una festa d\'aniversari',
               imagen: base + 'escena2.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3269,34 +3271,34 @@ const textos = {
         id: 'relojCaer',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'SE CAE EL RELOJ',
+        titulo: 'CAU EL RELLOTGE',
         pictos: [
           'relojCaer/picto.png',
           'relojCaer/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'relojCaer/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Estás trabajando y se cae el reloj de la pared',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Estàs treballant i cau el rellotge de la paret',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Estás trabajando y se cae el reloj de la pared',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Estàs treballant i cau el rellotge de la paret',
               imagen: base + 'escena2.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3306,28 +3308,34 @@ const textos = {
         id: 'busTarde',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'EL AUTOBÚS LLEGA TARDE',
+        titulo: 'L\'AUTOBÚS ARRIBA TARD',
         pictos: [
           'busTarde/picto.png',
           'busTarde/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'busTarde/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'El autobús llega tarde',
+              titulo: 'SITUACIÓ',
+              descripcion: 'L\'autobús arriba tard',
               imagen: base + 'escena1.png'
             },
             {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'L\'autobús arriba tard',
+              imagen: base + 'escena2.png'
+            },            
+            {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3337,28 +3345,28 @@ const textos = {
         id: 'canastaAplaudir',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'HACER CANASTA',
+        titulo: 'FER CISTELLA',
         pictos: [
           'canastaAplaudir/picto.png',
           'canastaAplaudir/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'canastaAplaudir/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Haces canasta y tus compañeros y maestra te aplauden',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Fas cistella i els teus companys i mestra t\'aplaudeixen',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3368,29 +3376,29 @@ const textos = {
         id: 'llamarProfe',
         categoria: 'emocionpropia',
         nivel: 1,
-        titulo: 'LLAMAS A LA MAESTRA Y NO TE ESCUCHA',
+        titulo: 'CRIDES LA MESTRA I NO T\'ESCOLTA',
         pictos: [
           'llamarProfe/picto.png',
           'llamarProfe/picto2.png',
           'llamarProfe/picto3.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'llamarProfe/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Llamas a la maestra y no te escucha ',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Crides la mestra i no t\'escolta',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'asustado', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'asustado', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3400,28 +3408,28 @@ const textos = {
         id: 'pelotaRota',
         categoria: 'emocionpropia',
         nivel: 2,
-        titulo: 'SE ROMPE LA PELOTA',
+        titulo: 'ES TRENCALA PILOTA',
         pictos: [
           'pelotaRota/picto.png',
           'pelotaRota/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'pelotaRota/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Estás jugando al fútbol y la pelota se rompe ',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Estàs jugant a futbol i la pilota es trenca',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3432,61 +3440,190 @@ const textos = {
         id: 'seOlvidaDeTi',
         categoria: 'emocionpropia',
         nivel: 2,
-        titulo: 'EL MAESTRO SE OLVIDA DE TI',
+        titulo: 'EL MESTRE S\'OBLIDA DE TU',
         pictos: [
           'seOlvidaDeTi/picto.png',
           'seOlvidaDeTi/picto2.png',
           'seOlvidaDeTi/picto3.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'seOlvidaDeTi/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'En la clase el maestro reparte una actividad y se olvida de ti ',
+              titulo: 'SITUACIÓ',
+              descripcion: 'A la classe el mestre reparteix una activitat i s\'oblida de tu',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
           
         })()
       },
-            {
-        id: 'responderMal',
+      {
+        id: 'repartidor',
         categoria: 'emocionpropia',
-        nivel: 2,
-        titulo: 'HACER MAL UNA ACTIVIDAD',
+        nivel: 3,
+        titulo: 'ARRIBA EL REPARTIDOR',
         pictos: [
-          'responderMal/picto.png',
-          'responderMal/picto2.png',
+          'repartidor/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
-          const base = 'responderMal/';
+        pasos: (() => { //
+          const base = 'repartidor/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Haces una actividad mal delante de tus compañeros ',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Arriba el repartidor del menjar del menjador',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      {
+        id: 'equivocar',
+        categoria: 'emocionpropia',
+        nivel: 3,
+        titulo: 'T\'EQUIVOQUES',
+        pictos: [
+          'equivocar/picto.png',
+        ],
+        pasos: (() => { //
+          const base = 'equivocar/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'T\'equivoques ballant',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Com et sents?',
+              opciones: [
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
+                { id: 'nervios', texto: 'NERVIÓS', imagen: base + 'nervios.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },   
+      {
+        id: 'charco',
+        categoria: 'emocionpropia',
+        nivel: 3,
+        titulo: 'TREPITGES UN BASSAL',
+        pictos: [
+          'charco/picto.png',
+          'charco/picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'charco/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Trepitges un bassal i et mulles el peu',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Com et sents?',
+              opciones: [
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
+                { id: 'nervios', texto: 'NERVIÓS', imagen: base + 'nervios.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },
+      {
+        id: 'nuevoProfe',
+        categoria: 'emocionpropia',
+        nivel: 3,
+        titulo: 'NOU MESTRE',
+        pictos: [
+          'nuevoProfe/picto.png',
+          'nuevoProfe/picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'nuevoProfe/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Demà arriba un nou professor',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Com et sents?',
+              opciones: [
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
+                { id: 'nervios', texto: 'NERVIÓS', imagen: base + 'nervios.png' },
+              ]
+            },
+          ]
+          
+        })()
+      },     
+            {
+        id: 'responderMal',
+        categoria: 'emocionpropia',
+        nivel: 2,
+        titulo: 'FER MALAMENT UNA ACTIVITAT',
+        pictos: [
+          'responderMal/picto.png',
+          'responderMal/picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'responderMal/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Fas una activitat malament davant dels teus companys',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Com et sents?',
+              opciones: [
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3497,28 +3634,28 @@ const textos = {
         id: 'hacerFoto',
         categoria: 'emocionpropia',
         nivel: 2,
-        titulo: 'HACER FOTO',
+        titulo: 'FER FOTO',
         pictos: [
           'hacerFoto/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'hacerFoto/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'La maestra te hace una foto',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La mestra et fa una foto',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
-                { id: 'vergüenza', texto: 'VERGÜENZA', imagen: base + 'vergüenza.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
+                { id: 'vergüenza', texto: 'VERGONYA', imagen: base + 'vergüenza.png' },
               ]
             },
           ]
@@ -3529,28 +3666,28 @@ const textos = {
         id: 'mancharse',
         categoria: 'emocionpropia',
         nivel: 2,
-        titulo: 'MANCHARSE',
+        titulo: 'TACAR-SE',
         pictos: [
           'mancharse/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'mancharse/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Te manchas de pintura la camiseta y la cara en una actividad y tus compañeros miran.',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Et taques de pintura la samarreta i la cara en una activitat i els teus companys miren.',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
-                { id: 'vergüenza', texto: 'VERGÜENZA', imagen: base + 'vergüenza.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
+                { id: 'vergüenza', texto: 'VERGONYA', imagen: base + 'vergüenza.png' },
               ]
             },
           ]
@@ -3561,27 +3698,27 @@ const textos = {
         id: 'cremalleraRota',
         categoria: 'emocionpropia',
         nivel: 2,
-        titulo: 'SE ROMPE LA CREMALLERA DEL JERSEY',
+        titulo: 'ES TRENCALA CREMALLERA DEL JERSEI',
         pictos: [
           'cremalleraRota/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cremalleraRota/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Te pones el jersey y te das cuenta que la cremallera esta rota.',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Et poses el jersei i t\'adones que la cremallera està trencada.',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3592,27 +3729,27 @@ const textos = {
         id: 'mochilaRota',
         categoria: 'emocionpropia',
         nivel: 2,
-        titulo: 'SE ROMPE LA CREMALLERA DE LA MOCHILA',
+        titulo: 'ES TRENCALA CREMALLERA DE LA MOTXILLA',
         pictos: [
           'mochilaRota/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'mochilaRota/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Cierras la mochila y se te rompe la cremallera.',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Tanca la motxilla i se\'t trenca la cremallera.',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3623,28 +3760,28 @@ const textos = {
         id: 'ventanaAvion',
         categoria: 'emocionpropia',
         nivel: 2,
-        titulo: 'VES UN AVIÓN POR LA VENTANA',
+        titulo: 'VEUS UN AVIÓ PER LA FINESTRA',
         pictos: [
           'ventanaAvion/picto.png',
           'ventanaAvion/picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'ventanaAvion/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Ves pasar un avión por la ventana.',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Veus passar un avió per la finestra.',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'miedo', texto: 'ASUSTADO', imagen: base + 'miedo.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'miedo', texto: 'ESVERAT', imagen: base + 'miedo.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3655,29 +3792,29 @@ const textos = {
         id: 'profeAmor',
         categoria: 'emocionpropia',
         nivel: 2,
-        titulo: 'LA MAESTRA TE LLAMA AMOR',
+        titulo: 'LA MESTRA ET DIU "AMOR"',
         pictos: [
           'profeAmor/picto.png',
           'profeAmor//picto2.png',
           'profeAmor//picto3.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'profeAmor/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'La maestra te llama cariñosamente "AMOR".',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La mestra et diu afectuosament "amor".',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3688,28 +3825,28 @@ const textos = {
         id: 'botonPlay',
         categoria: 'emocionpropia',
         nivel: 2,
-        titulo: 'PULSAR BOTÓN PLAY',
+        titulo: 'PRÉMER EL BOTÓ PLAY',
         pictos: [
           'botonPlay/picto.png',
           'botonPlay//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'botonPlay/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'Pulsas el botón play y no funciona',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Prems el botó play i no funciona',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3720,27 +3857,27 @@ const textos = {
         id: 'vacaciones',
         categoria: 'emocionpropia',
         nivel: 3,
-        titulo: 'VACACIONES',
+        titulo: 'VACANCES',
         pictos: [
           'vacaciones/picto.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'vacaciones/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: 'último día de colegio y te vas de',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Últim dia d\'escola i te\'n vas de vacances',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cómo te sientes?',
+              titulo: 'Com et sents?',
               opciones: [
-                { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-                { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-                { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-                { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+                { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+                { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+                { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+                { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
               ]
             },
           ]
@@ -3750,28 +3887,28 @@ const textos = {
       id: 'elegirFruta',
       categoria: 'emocionpropia',
       nivel: 3,
-      titulo: 'ELEGIR FRUTA',
+      titulo: 'TRIAR FRUITA',
       pictos: [
         'elegirFruta/picto.png',
           'elegirFruta/picto2.png',
       ],
-      pasos: (() => { // [cite: 417]
+      pasos: (() => { //
         const base = 'elegirFruta/';
         return [
           {
             tipo: 'situacion',
-            titulo: 'SITUACIÓN',
-            descripcion: 'El monitor del comedor te deja elegir la fruta de postre',
+            titulo: 'SITUACIÓ',
+            descripcion: 'El monitor del menjador et deixa triar la fruita de postres',
             imagen: base + 'escena1.png'
           },
           {
             tipo: 'eleccion',
-            titulo: '¿Cómo te sientes?',
+            titulo: 'Com et sents?',
             opciones: [
-              { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-              { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-              { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-              { id: 'triste', texto: 'TRISTE', imagen: base + 'triste.png' },
+              { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+              { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+              { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+              { id: 'triste', texto: 'TRIST', imagen: base + 'triste.png' },
             ]
           },
         ]
@@ -3781,59 +3918,57 @@ const textos = {
       id: 'ventanaFuerte',
       categoria: 'emocionpropia',
       nivel: 3,
-      titulo: 'CIERRAN LA VENTANA FUERTE',
+      titulo: 'TANQUEN LA FINESTRA FORT',
       pictos: [
         'ventanaFuerte/picto.png',
       ],
-      pasos: (() => { // [cite: 417]
+      pasos: (() => { //
         const base = 'ventanaFuerte/';
         return [
           {
             tipo: 'situacion',
-            titulo: 'SITUACIÓN',
-            descripcion: 'Un compañero cierra la ventana fuerte',
+            titulo: 'SITUACIÓ',
+            descripcion: 'Un company tanca la finestra fort',
             imagen: base + 'escena1.png'
           },
           {
             tipo: 'eleccion',
-            titulo: '¿Cómo te sientes?',
+            titulo: 'Com et sents?',
             opciones: [
-              { id: 'igual', texto: 'ME DA IGUAL', imagen: base + 'igual.png' },
-              { id: 'feliz', texto: 'FELIZ', imagen: base + 'felicidad.png' },
-              { id: 'enfadado', texto: 'ENFADADO', imagen: base + 'enfadado.png' },
-              { id: 'sorpresa', texto: 'SORPRENDIDO', imagen: base + 'sorpresa.png' },
+              { id: 'igual', texto: 'TANT ME FA', imagen: base + 'igual.png' },
+              { id: 'feliz', texto: 'FELIÇ', imagen: base + 'felicidad.png' },
+              { id: 'enfadado', texto: 'ENFADAT', imagen: base + 'enfadado.png' },
+              { id: 'sorpresa', texto: 'SORPRÈS', imagen: base + 'sorpresa.png' },
             ]
           },
         ]
         })()
       },      
-
-
       { 
         id: 'excursion',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿QUÉ VAN HACER ESTOS NIÑOS?',
+        titulo: 'QUÈ FARAN AQUESTS NENS?',
         pictos: [
           'excursion/picto.png',
-          'exccursion//picto2.png',
+          'excursion//picto2.png', // Assuming original typo 'exccursion' was meant to be 'excursion'
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'excursion/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿A dónde van este grupo de niños?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'On va aquest grup de nens?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Dónde van?',
+              titulo: 'On van?',
               opciones: [
-                { id: 'situacio', texto: 'VAN HA MONTAR BICICLETA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'VAN AL SUPERMERCADO', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'VAN DE EXCURSIÓN', imagen: base + 'situacio3.png' },
+                { id: 'situacio', texto: 'ANIRAN EN BICICLETA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'VAN AL SUPERMERCAT', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'VAN D\'EXCURSIÓ', imagen: base + 'situacio3.png' },
               ]
             },
           ]
@@ -3844,27 +3979,27 @@ const textos = {
         id: 'naturaleza',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿QUÉ HACEN ESTOS NIÑOS?',
+        titulo: 'QUÈ FAN AQUESTS NENS?',
         pictos: [
           'naturaleza/picto.png',
           'naturaleza//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'naturaleza/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿Qúe estan haciendo estos niños?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Què estan fent aquests nens?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Qué hacen?',
+              titulo: 'Què fan?',
               opciones: [
-                { id: 'situacio', texto: 'COMER', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'OBSERVAR LAS HOJAS', imagen: base + 'situacio2.png',},
-                { id: 'situacio3', texto: 'DIBUJAR', imagen: base + 'situacio3.png' },
+                { id: 'situacio', texto: 'MENJAR', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'OBSERVAR LES FULLES', imagen: base + 'situacio2.png',},
+                { id: 'situacio3', texto: 'DIBUIXAR', imagen: base + 'situacio3.png' },
               ]
             },
           ]
@@ -3875,27 +4010,27 @@ const textos = {
         id: 'piscina',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿A DÓNDE VA LA NIÑA?',
+        titulo: 'ON VA LA NENA?',
         pictos: [
           'piscina/picto.png',
           'piscina//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'piscina/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿A dónde va la niña?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'On va la nena?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿A dónde va?',
+              titulo: 'On va?',
               opciones: [
                 { id: 'situacio', texto: 'A LA PISCINA', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'A LA PARADA DE BUS', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'AL SUPERMERCADO', imagen: base + 'situacio3.png' },
+                { id: 'situacio3', texto: 'AL SUPERMERCAT', imagen: base + 'situacio3.png' },
               ]
             },
           ]
@@ -3906,28 +4041,28 @@ const textos = {
         id: 'cumpleaños',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿DE QUIÉN ES EL CUMPLEAÑOS?',
+        titulo: 'DE QUI ÉS L\'ANIVERSARI?',
         pictos: [
           'cumpleaños/picto.png',
           'cumpleaños//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cumpleaños/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿De quién es el cumpleaños?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'De qui és l\'aniversari?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿A dónde va?',
+              titulo: 'De qui és?',
               opciones: [
-                { id: 'situacio', texto: 'DEL NIÑO CON LA CORONA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'DEL NIÑO QUE ESTÁ TOMÁNDO LA FOTO', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'DE LA NIÑA QUE TIENE UN REGALO', imagen: base + 'situacio3.png' },
-                { id: 'situacio4', texto: 'DE LA NIÑA QUE ESTÁ BAILANDO', imagen: base + 'situacio4.png' },
+                { id: 'situacio', texto: 'DEL NEN AMB LA CORONA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'DEL NEN QUE ESTÀ FENT LA FOTO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'DE LA NENA QUE TÉ UN REGAL', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'DE LA NENA QUE ESTÀ BALLANT', imagen: base + 'situacio4.png' },
               ]
             },
           ]
@@ -3938,28 +4073,28 @@ const textos = {
         id: 'cumpleaños2',
         categoria: 'coherencia',
         nivel: 2,
-        titulo: '¿DE QUIÉN ES EL CUMPLEAÑOS?',
+        titulo: 'DE QUI ÉS L\'ANIVERSARI?',
         pictos: [
           'cumpleaños2/picto.png',
           'cumpleaños2//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cumpleaños2/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿De quién es el cumpleaños?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'De qui és l\'aniversari?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿A dónde va?',
+              titulo: 'De qui és?',
               opciones: [
-                { id: 'situacio', texto: 'DEL NIÑO CON LA CORONA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'DEL NIÑO QUE ESTÁ TOMÁNDO LA FOTO', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'DE LA NIÑA QUE TIENE UN REGALO', imagen: base + 'situacio3.png' },
-                { id: 'situacio4', texto: 'DEL NIÑO QUE ESTÁ COMIENDO', imagen: base + 'situacio4.png' },
+                { id: 'situacio', texto: 'DEL NEN AMB LA CORONA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'DEL NEN QUE ESTÀ FENT LA FOTO', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'DE LA NENA QUE TÉ UN REGAL', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'DEL NEN QUE ESTÀ MENJANT', imagen: base + 'situacio4.png' },
               ]
             },
           ]
@@ -3970,28 +4105,28 @@ const textos = {
         id: 'museo',
         categoria: 'coherencia',
         nivel: 3,
-        titulo: '¿QUIÉN ES EL PINTOR?',
+        titulo: 'QUI ÉS EL PINTOR?',
         pictos: [
           'museo/picto.png',
           'museo//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'museo/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿Quién es el pintor de la obra medio terminada?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Qui és el pintor de l\'obra mig acabada?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Quién es?',
+              titulo: 'Qui és?',
               opciones: [
-                { id: 'situacio', texto: 'LA NIÑA QUE ESTÁ MIRANDO EL CUADRO', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'EL SEÑOR QUE SALE DEL BAÑO', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'LA SEÑORA CON TURBANTE', imagen: base + 'situacio3.png' },
-                { id: 'situacio4', texto: 'EL SEÑOR QUE TIENE UN SOMBRERO', imagen: base + 'situacio4.png' },
+                { id: 'situacio', texto: 'LA NENA QUE ESTÀ MIRANT EL QUADRE', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'EL SENYOR QUE SURT DEL BANY', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'LA SENYORA AMB TURBANT', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'EL SENYOR QUE TÉ UN BARRET', imagen: base + 'situacio4.png' },
               ]
             },
           ]
@@ -4002,27 +4137,27 @@ const textos = {
         id: 'comedor',
         categoria: 'coherencia',
         nivel: 3,
-        titulo: '¿QUÉ OBJECTO FALTA PARA COMER?',
+        titulo: 'QUIN OBJECTE FALTA PER MENJAR?',
         pictos: [
           'comedor/picto.png',
           'comedor//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'comedor/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿Qué objecto falta para comer?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Quin objecte falta per menjar?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Quién es?',
+              titulo: 'Quin objecte falta?',
               opciones: [
-                { id: 'situacio', texto: 'JARRA DE AGUA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'SERVILLETAS', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'CUBIERTOS', imagen: base + 'situacio3.png' },
+                { id: 'situacio', texto: 'GERRA D\'AIGUA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'TOVALLONS', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'COBERTS', imagen: base + 'situacio3.png' },
               ]
             },
           ]
@@ -4033,27 +4168,27 @@ const textos = {
         id: 'aeropuerto',
         categoria: 'coherencia',
         nivel: 2,
-        titulo: '¿EN DÓNDE ESTÁN?',
+        titulo: 'ON SÓN?',
         pictos: [
           'aeropuerto/picto.png',
           'aeropuerto//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'aeropuerto/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿En dónde están?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'On són?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Quién es?',
+              titulo: 'On són?',
               opciones: [
-                { id: 'situacio', texto: 'AEROPUERTO', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'SUPERMERCADO', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'PARQUE DE BOMBEROS', imagen: base + 'situacio3.png' },
+                { id: 'situacio', texto: 'AEROPORT', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SUPERMERCAT', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'PARC DE BOMBERS', imagen: base + 'situacio3.png' },
               ]
             },
           ]
@@ -4064,28 +4199,28 @@ const textos = {
         id: 'estacionAño',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿EN QUÉ ESTACIÓN DEL AÑO ESTÁN?',
+        titulo: 'A QUINA ESTACIÓ DE L\'ANY SÓN?',
         pictos: [
           'estacionAño/picto.png',
           'estacionAño//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'estacionAño/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿En qué estación del año están?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'A quina estació de l\'any són?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿Cúal estación del año?',
+              titulo: 'Quina estació de l\'any?',
               opciones: [
                 { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'OTOÑO', imagen: base + 'situacio3.png' },
-                { id: 'situacio4', texto: 'INVIERNO', imagen: base + 'situacio4.png' },
+                { id: 'situacio2', texto: 'ESTIU', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'TARDOR', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'HIVERN', imagen: base + 'situacio4.png' },
               ]
             },
           ]
@@ -4096,26 +4231,26 @@ const textos = {
         id: 'dondeVan',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿A DÓNDE VAN LOS NIÑOS',
+        titulo: 'ON VAN ELS NENS?',
         pictos: [
           'dondeVan/picto.png',
           'dondeVan//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'dondeVan/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿A dónde van los niños?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'On van els nens?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: 'Cúal estación del año?',
+              titulo: 'On van?',
               opciones: [
                 { id: 'situacio', texto: 'A LA PISCINA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'AL AUTOBÚS', imagen: base + 'situacio2.png' },
+                { id: 'situacio2', texto: 'A L\'AUTOBÚS', imagen: base + 'situacio2.png' },
               ]
             },
           ]
@@ -4126,27 +4261,27 @@ const textos = {
         id: 'queHacen',
         categoria: 'coherencia',
         nivel: 2,
-        titulo: '¿QUÉ HACEN LOS NIÑOS',
+        titulo: 'QUÈ FAN ELS NENS?',
         pictos: [
           'queHacen/picto.png',
           'queHacen//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'queHacen/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿Qué hacen los niños?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Què fan els nens?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: 'Qué hacen?',
+              titulo: 'Què fan?',
               opciones: [
-                { id: 'situacio', texto: 'JUGAR CON LA PELOTA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'DESCANSAR EN EL PATIO', imagen: base + 'situacio2.png' },
-                 { id: 'situacio3', texto: 'UN PICNIC', imagen: base + 'situacio3.png' },
+                { id: 'situacio', texto: 'JUGAR A PILOTA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'DESCANSAR AL PATI', imagen: base + 'situacio2.png' },
+                 { id: 'situacio3', texto: 'UN PÍCNIC', imagen: base + 'situacio3.png' },
               ]
             },
           ]
@@ -4157,27 +4292,27 @@ const textos = {
         id: 'bancAliments',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿QUÉ HACEN LAS PERSONAS',
+        titulo: 'QUÈ FAN LES PERSONES?',
         pictos: [
           'bancAliments/picto.png',
           'bancAliments//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'bancAliments/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿Qué hacen las personas?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Què fan les persones?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: 'Qué hacen?',
+              titulo: 'Què fan?',
               opciones: [
-                { id: 'situacio', texto: 'LIMPIAR', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'AYUDAR EN EL BANCO DE ALIMENTOS', imagen: base + 'situacio2.png' },
-                 { id: 'situacio3', texto: 'COMPRAR EN EL SUPERMERCADO', imagen: base + 'situacio3.png' },
+                { id: 'situacio', texto: 'NETEJAR', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'AJUDAR AL BANC DELS ALIMENTS', imagen: base + 'situacio2.png' },
+                 { id: 'situacio3', texto: 'COMPRAR AL SUPERMERCAT', imagen: base + 'situacio3.png' },
               ]
             },
           ]
@@ -4189,27 +4324,27 @@ const textos = {
         id: 'cocinar',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿QUÉ HACEN LAS PERSONAS',
+        titulo: 'QUÈ FAN LES PERSONES?',
         pictos: [
           'cocinar/picto.png',
           'cocinar//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cocinar/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿Qué hacen las personas?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Què fan les persones?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: 'Qué hacen?',
+              titulo: 'Què fan?',
               opciones: [
-                { id: 'situacio', texto: 'COMER', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'COCINAR', imagen: base + 'situacio2.png' },
-                 { id: 'situacio3', texto: 'PASEAR', imagen: base + 'situacio3.png' },
+                { id: 'situacio', texto: 'MENJAR', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'CUINAR', imagen: base + 'situacio2.png' },
+                 { id: 'situacio3', texto: 'PASSEJAR', imagen: base + 'situacio3.png' },
               ]
             },
           ]
@@ -4220,28 +4355,28 @@ const textos = {
         id: 'estacionAño2',
         categoria: 'coherencia',
         nivel: 2,
-        titulo: '¿EN QUÉ ESTACIÓN DEL AÑO ESTÁN?',
+        titulo: 'A QUINA ESTACIÓ DE L\'ANY SÓN?',
         pictos: [
           'estacionAño2/picto.png',
           'estacionAño2//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'estacionAño2/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿En qué estación del año están?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'A quina estació de l\'any són?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: 'Cúal estación del año?',
+              titulo: 'Quina estació de l\'any?',
               opciones: [
                 { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'OTOÑO', imagen: base + 'situacio3.png' },
-                { id: 'situacio4', texto: 'INVIERNO', imagen: base + 'situacio4.png' },
+                { id: 'situacio2', texto: 'ESTIU', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'TARDOR', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'HIVERN', imagen: base + 'situacio4.png' },
               ]
             },
           ]
@@ -4252,28 +4387,28 @@ const textos = {
         id: 'estacionAño3',
         categoria: 'coherencia',
         nivel: 2,
-        titulo: '¿EN QUÉ ESTACIÓN DEL AÑO ESTÁN?',
+        titulo: 'A QUINA ESTACIÓ DE L\'ANY SÓN?',
         pictos: [
           'estacionAño3/picto.png',
           'estacionAño3//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'estacionAño3/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿En qué estación del año están?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'A quina estació de l\'any són?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: 'Cúal estación del año?',
+              titulo: 'Quina estació de l\'any?',
               opciones: [
                 { id: 'situacio', texto: 'PRIMAVERA', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'VERANO', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'OTOÑO', imagen: base + 'situacio3.png' },
-                { id: 'situacio4', texto: 'INVIERNO', imagen: base + 'situacio4.png' },
+                { id: 'situacio2', texto: 'ESTIU', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'TARDOR', imagen: base + 'situacio3.png' },
+                { id: 'situacio4', texto: 'HIVERN', imagen: base + 'situacio4.png' },
               ]
             },
           ]
@@ -4284,27 +4419,27 @@ const textos = {
         id: 'cine',
         categoria: 'coherencia',
         nivel: 1,
-        titulo: '¿A DÓNDE VAN LOS NIÑOS?',
+        titulo: 'ON VAN ELS NENS?',
         pictos: [
           'cine/picto.png',
           'cine//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
+        pasos: (() => { //
           const base = 'cine/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿A dónde van los niños?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'On van els nens?',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿A dónde?',
+              titulo: 'On?',
               opciones: [
-                { id: 'situacio', texto: 'RESTAURANTE', imagen: base + 'situacio.png' },
+                { id: 'situacio', texto: 'RESTAURANT', imagen: base + 'situacio.png' },
                 { id: 'situacio2', texto: 'CIRC', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'CINE', imagen: base + 'situacio3.png' },
+                { id: 'situacio3', texto: 'CINEMA', imagen: base + 'situacio3.png' },
               ]
             },
           ]
@@ -4312,36 +4447,1498 @@ const textos = {
         })()
       },
       { 
-        id: 'cine',
+        id: 'cambioRutina',
         categoria: 'ejecutiva',
         nivel: 1,
-        titulo: '¿A DÓNDE VAN LOS NIÑOS?',
+        titulo: 'EL PARE SURT TARD DE TREBALLAR',
         pictos: [
-          'cine/picto.png',
-          'cine//picto2.png',
+          'cambioRutina/picto.png',
+          'cambioRutina//picto2.png',
         ],
-        pasos: (() => { // [cite: 417]
-          const base = 'cine/';
+        pasos: (() => { //
+          const base = 'cambioRutina/';
           return [
             {
               tipo: 'situacion',
-              titulo: 'SITUACIÓN',
-              descripcion: '¿A dónde van los niños?',
+              titulo: 'SITUACIÓ',
+              descripcion: 'El pare hauria de recollir-te a l\'escola. Però arriba la teva tieta perquè el pare surt tard de la feina.',
               imagen: base + 'escena1.png'
             },
             {
               tipo: 'eleccion',
-              titulo: '¿A dónde?',
+              titulo: 'Amb qui tornes a casa avui?',
               opciones: [
-                { id: 'situacio', texto: 'RESTAURANTE', imagen: base + 'situacio.png' },
-                { id: 'situacio2', texto: 'CIRC', imagen: base + 'situacio2.png' },
-                { id: 'situacio3', texto: 'CINE', imagen: base + 'situacio3.png' },
+                { id: 'situacio', texto: 'PARE', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'TIETA', imagen: base + 'situacio2.png' }
               ]
             },
           ]
           
         })()
       },
+      { 
+        id: 'cumpleañosFamiliar',
+        categoria: 'ejecutiva',
+        nivel: 3,
+        titulo: 'ÉS L\'ANIVERSARI D\'UN FAMILIAR',
+        pictos: [
+          'cumpleañosFamiliar/picto.png',
+          'cumpleañosFamiliar//picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'cumpleañosFamiliar/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'És l\'aniversari de la teva tieta',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'On sopareu?',
+              opciones: [
+                { id: 'situacio', texto: 'A CASA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'A CASA DELS TIETS', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'paris',
+        categoria: 'ejecutiva',
+        nivel: 1,
+        titulo: 'LA MARE ESTÀ DE VIATGE',
+        pictos: [
+          'paris/picto.png',
+          'paris//picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'paris/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La mare està de viatge. Qui et ve a buscar a l\'escola?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Qui et ve a buscar a l\'escola?',
+              opciones: [
+                { id: 'situacio', texto: 'AVI', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'MARE', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+            { 
+        id: 'cambioMantas',
+        categoria: 'ejecutiva',
+        nivel: 1,
+        titulo: 'AVUI ES RENTEN ELS LLENÇOLS DEL TEU LLIT',
+        pictos: [
+          'cambioMantas/picto.png',
+          'cambioMantas//picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'cambioMantas/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Els llençols tindran un altre color o faran una olor diferent quan vagi a dormir aquesta nit?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Seran diferents?',
+              opciones: [
+                { id: 'situacio', texto: 'SÍ', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'NO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'papaMedico',
+        categoria: 'ejecutiva',
+        nivel: 2,
+        titulo: 'AVUI EL PARE TÉ METGE',
+        pictos: [
+          'papaMedico/picto.png',
+          'papaMedico//picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'papaMedico/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'El pare et recull sempre de l\'escola. Avui té metge a la tarda. Qui et recull avui?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Qui et recull avui?',
+              opciones: [
+                { id: 'situacio', texto: 'PARE', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'ÀVIA', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'pan',
+        categoria: 'ejecutiva',
+        nivel: 1,
+        titulo: 'NO HI HA PA AL SUPERMERCAT',
+        pictos: [
+          'pan/picto.png',
+          'pan//picto2.png',
+          'pan//picto3.png',
+        ],
+        pasos: (() => { //
+          const base = 'pan/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'No hi ha pa al supermercat. Hi haurà pa per sopar?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Hi haurà pa per sopar?',
+              opciones: [
+                { id: 'situacio', texto: 'SÍ', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'NO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'mochila',
+        categoria: 'ejecutiva',
+        nivel: 2,
+        titulo: 'S\'HA MULLAT I EMBRUTAT LA MOTXILLA',
+        pictos: [
+          'mochila/picto.png',
+          'mochila//picto2.png',
+          'mochila//picto3.png',
+        ],
+        pasos: (() => { //
+          const base = 'mochila/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'S\'ha mullat i embrutat la motxilla. Com portaràs les coses a l\'escola?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Com portaràs les coses a l\'escola?',
+              opciones: [
+                { id: 'situacio', texto: 'A LA MATEIXA MOTXILLA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'EN UNA ALTRA MOTXILLA', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'herida',
+        categoria: 'ejecutiva',
+        nivel: 2,
+        titulo: 'HE CAIGUT I M\'HE FET MAL AL GENOLL',
+        pictos: [
+          'herida/picto.png',
+          'herida//picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'herida/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'He caigut i m\'he fet mal al genoll. On aniré per curar-me la ferida?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'On aniré per curar-me la ferida?',
+              opciones: [
+                { id: 'situacio', texto: 'A CASA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'A L\'HOSPITAL', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'mojado',
+        categoria: 'ejecutiva',
+        nivel: 2,
+        titulo: 'S\'HA POSAT A PLOURE I M\'HE MULLAT LA ROBA',
+        pictos: [
+          'mojado/picto.png',
+          'mojado//picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'mojado/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'S\'ha posat a ploure i m\'he mullat la roba. Què faig?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Què faig?',
+              opciones: [
+                { id: 'situacio', texto: 'EM DEIXO LA ROBA MULLADA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'EM POSO ROBA SECA', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'dentista',
+        categoria: 'ejecutiva',
+        nivel: 3,
+        titulo: 'ON ANIRÀS DESPRÉS DE L\'ESCOLA?',
+        pictos: [
+          'dentista/picto.png',
+        ],
+        pasos: (() => { //
+          const base = 'dentista/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'On aniràs després de l\'escola?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'On?',
+              opciones: [
+                { id: 'situacio', texto: 'AL DENTISTA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'A CASA', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'pedirAyuda',
+        categoria: 'ejecutiva',
+        nivel: 3,
+        titulo: 'LA MESTRA SURT DE CLASSE. A QUI DEMANO AJUDA AMB LA TASCA?',
+        pictos: [
+          'pedirAyuda/picto.png',
+          'pedirAyuda/picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'pedirAyuda/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'A qui demano ajuda amb la tasca?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'A qui?',
+              opciones: [
+                { id: 'situacio', texto: 'A LA MATEIXA MESTRA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'A UN ALTRE MESTRE', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'verano',
+        categoria: 'ejecutiva',
+        nivel: 3,
+        titulo: 'ÉS ESTIU I FA MOLTA CALOR. QUÈ PUC MENJAR PER NO TENIR CALOR?',
+        pictos: [
+          'verano/picto.png',
+          'verano/picto2.png',
+        ],
+        pasos: (() => { //
+          const base = 'verano/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Què puc menjar?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'Què puc menjar?',
+              opciones: [
+                { id: 'situacio', texto: 'SOPA', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'GELAT', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'avionRysa',
+        categoria: 'teoriamente',
+        nivel: 1,
+        titulo: 'SITUACIÓ',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'avionRysa/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'HA VIST LA RYSA L\'AVIÓ?',
+              opciones: [
+                { id: 'situacio', texto: 'NO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SÍ', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'ivan',
+        categoria: 'teoriamente',
+        nivel: 1,
+        titulo: 'SITUACIÓ',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'ivan/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'ON MIRA L\'IVAN?',
+              opciones: [
+                { id: 'situacio', texto: 'A LA PANTALLA DIGITAL', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'AL TOBOGAN', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'mirar',
+        categoria: 'teoriamente',
+        nivel: 1,
+        titulo: 'SITUACIÓ',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'mirar/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'ON MIRA EL NEN?',
+              opciones: [
+                { id: 'situacio', texto: 'A L\'AUTOBÚS', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'AL SUPERMERCAT', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'erupto',
+        categoria: 'teoriamente',
+        nivel: 2,
+        titulo: 'FER UN ROT',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'erupto/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'LI HA AGRADAT A LA MESTRA?',
+              opciones: [
+                { id: 'situacio', texto: 'NO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SÍ', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'abrazo',
+        categoria: 'teoriamente',
+        nivel: 2,
+        titulo: 'FER UNA ABRAÇADA',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'abrazo/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'LI HA AGRADAT A LA MESTRA?',
+              opciones: [
+                { id: 'situacio', texto: 'NO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SÍ', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'chocarFuerte',
+        categoria: 'teoriamente',
+        nivel: 2,
+        titulo: 'XOCAR LES MANS MOLT FORT',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'chocarFuerte/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: '',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'LI HA AGRADAT A LA MESTRA?',
+              opciones: [
+                { id: 'situacio', texto: 'NO', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SÍ', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'perroRafa',
+        categoria: 'teoriamente',
+        nivel: 3,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'perroRafa/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'EN RAFA ESTÀ AMB EL GOS',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'LA MESTRA LI DIU A EN RAFA QUE VAGI A BUSCAR XAPES',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'EL GOS SURT AL PATI',
+              imagen: base + 'escena3.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'ON PENSA EN RAFA QUE ÉS EL GOS?',
+              opciones: [
+                { id: 'situacio', texto: 'A CLASSE', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'AL PATI', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'pintarMesa',
+        categoria: 'teoriamente',
+        nivel: 3,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'pintarMesa/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'LA SARA GUARDA EL SEU LLAPIS A L\'ESTOIG',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'LA SARA VA AL LAVABO',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'EN LEO AGAFA EL LLAPIS DE L\'ESTOIG',
+              imagen: base + 'escena3.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'EN LEO DIBUIXA A LA TAULA',
+              imagen: base + 'escena4.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'ON ANIRÀ A BUSCAR LA SARA EL SEU LLAPIS?',
+              opciones: [
+                { id: 'situacio', texto: 'A L\'ESTOIG', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'ON ÉS EN LEO', imagen: base + 'situacio2.png' } // Opció millorada per "DONDE LEO"
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'claseB',
+        categoria: 'teoriamente',
+        nivel: 3,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'claseB/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'ELS ALUMNES DE LA CLASSE "B" SÓN A CLASSE',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'ELS ALUMNES DE LA CLASSE "A" VAN A LA PISCINA I S\'ASSABENTEN QUE NO HI HA AIGUA',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'SABEN ELS ALUMNES DE LA CLASSE "B" QUE NO HI HA AIGUA A LA PISCINA?',
+              opciones: [
+                { id: 'situacio', texto: 'SÍ', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'NO', imagen: base + 'situacio2.png' }
+              ]
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'pintarMesa2',
+        categoria: 'memoria',
+        nivel: 1,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'pintarMesa2/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'L\'ALUMNE DIBUIXA A LA TAULA. QUÈ HA DE FER QUAN ACABI?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'L\'ALUMNE QUAN ACABI DE PINTAR HA D\'ESBORRAR EL DIBUIX',
+              imagen: base + 'escena2.png'
+            },
+          ]
+          
+        })()
+      },
+      { 
+        id: 'guardarTablet',
+        categoria: 'memoria',
+        nivel: 1,
+        titulo: '',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'guardarTablet/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'LA NOIA AGAFA UNA TAUFETA DE L\'ARMARI',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'LA NOIA ESTÀ UTILITZANT LA TAUFETA. QUÈ HA DE FER LA NOIA QUAN ACABI D\'UTILITZAR LA TAUFETA?',
+              imagen: base + 'escena2.png'
+            },
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'LA NOIA GUARDA LA TAUFETA A L\'ARMARI',
+              imagen: base + 'escena3.png'
+            },    
+          ]
+          
+        })()
+      },
+      { 
+        id: 'felicdad', // Mantenim l'ID original encara que sembli un error tipogràfic
+        categoria: 'caras',
+        nivel: 1,
+        titulo: 'EXPRESSIONS FACIALS',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'felicidad/'; 
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'RECONEIXES L\'EXPRESSIÓ FACIAL?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'RECONEIXES L\'EXPRESSIÓ FACIAL?',
+              opciones: [
+                { id: 'situacio', texto: 'FELICITAT', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'ENFADAT', imagen: base + 'situacio3.png' }, 
+                { id: 'situacio4', texto: 'CONTENT', imagen: base + 'situacio4.png' } 
+              ]
+            },
+          ]
+          
+        })()
+      }, 
+      { 
+        id: 'triste',
+        categoria: 'caras',
+        nivel: 1,
+        titulo: 'EXPRESSIONS FACIALS',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'triste/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'RECONEIXES L\'EXPRESSIÓ FACIAL?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'RECONEIXES L\'EXPRESSIÓ FACIAL?',
+              opciones: [ // Les opcions originals es repeteixen, les tradueixo literalment. Si cal ajustar-les per al context de "trist", s'hauria de modificar l'original.
+                { id: 'situacio', texto: 'FELICITAT', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'ENFADAT', imagen: base + 'situacio3.png' }, 
+                { id: 'situacio4', texto: 'CONTENT', imagen: base + 'situacio4.png' }  
+              ]
+            },
+          ]
+          
+        })()
+      },       
+      { 
+        id: 'sorpresa',
+        categoria: 'caras',
+        nivel: 1,
+        titulo: 'EXPRESSIONS FACIALS',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'sorpresa/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'RECONEIXES L\'EXPRESSIÓ FACIAL?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'RECONEIXES L\'EXPRESSIÓ FACIAL?',
+              opciones: [
+                { id: 'situacio', texto: 'FELICITAT', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'ENFADAT', imagen: base + 'situacio3.png' }, 
+                { id: 'situacio4', texto: 'CONTENT', imagen: base + 'situacio4.png' }  
+              ]
+            },
+          ]
+          
+        })()
+      },       
+      { 
+        id: 'enfadado',
+        categoria: 'caras',
+        nivel: 1,
+        titulo: 'EXPRESSIONS FACIALS',
+        pictos: [
+        ],
+        pasos: (() => { //
+          const base = 'enfadado/';
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'RECONEIXES L\'EXPRESSIÓ FACIAL?',
+              imagen: base + 'escena1.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'RECONEIXES L\'EXPRESSIÓ FACIAL?',
+              opciones: [
+                { id: 'situacio', texto: 'FELICITAT', imagen: base + 'situacio.png' },
+                { id: 'situacio2', texto: 'SORPRESA', imagen: base + 'situacio2.png' },
+                { id: 'situacio3', texto: 'ENFADAT', imagen: base + 'situacio3.png' }, 
+                { id: 'situacio4', texto: 'CONTENT', imagen: base + 'situacio4.png' }  
+              ]
+            },
+          ]
+          
+        })()
+      },  
+      {
+        id: 'pastelPequenoFiesta',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'TROS DE PASTÍS PETIT A LA FESTA',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'Tothom menja pastís a la festa d\'aniversari d\'un amic. A en Leo li donen un tros molt més petit que als altres, i alguns riuen.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'COM REACCIONA EN LEO?',
+              opciones: [
+                { id: 'triste', texto: 'En Leo es posa trist', imagen: 'transparente.png' },
+                { id: 'contento', texto: 'En Leo es posa content igualment', imagen: 'transparente.png' },
+                { id: 'pregunta', texto: 'En Leo pregunta per què li han donat menys', imagen: 'transparente.png' },
+                { id: 'rie', texto: 'En Leo riu amb els altres', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                triste: { texto: 'En Leo calla i no gaudeix gaire de la festa. Els altres podrien notar-ho o continuar amb la festa.', imagen: 'transparente.png' },
+                contento: { texto: 'En Leo menja el seu tros de pastís i continua participant i divertint-se a la festa.', imagen: 'transparente.png' },
+                pregunta: { texto: 'L\'amic o un adult podria donar-li una explicació (potser va ser un error o quedaven pocs trossos grans).', imagen: 'transparente.png' },
+                rie: { texto: 'La situació es pren amb humor, la festa continua i en Leo continua participant.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'jugueteRotoMisterio',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'JOGUINA TRENCADA',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La Mia deixa la seva joguina preferida a la taula i va al bany. Quan torna, la joguina està trencada i l\'Àlex li diu "no sé què ha passat".',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA LA MIA?',
+              opciones: [
+                { id: 'enfadaAcusa', texto: 'La Mia s\'enfada i acusa l\'Àlex', imagen: 'transparente.png' },
+                { id: 'tristeLlora', texto: 'La Mia es posa trista i plora', imagen: 'transparente.png' },
+                { id: 'diceNoPasaNada', texto: 'La Mia diu "està bé, no passa res"', imagen: 'transparente.png' },
+                { id: 'rieBroma', texto: 'La Mia riu pensant que és una broma', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                enfadaAcusa: { texto: 'L\'Àlex podria enfadar-se també o negar haver-ho fet, creant un conflicte.', imagen: 'transparente.png' },
+                tristeLlora: { texto: 'L\'Àlex podria sentir-se malament o intentar consolar-la. Potser un adult intervé.', imagen: 'transparente.png' },
+                diceNoPasaNada: { texto: 'L\'Àlex podria sentir-se alleujat. La Mia podria buscar una solució o quedar-se trista per dins.', imagen: 'transparente.png' },
+                rieBroma: { texto: 'L\'Àlex podria sorprendre\'s o seguir el joc si era una broma, o confondre\'s si no ho era.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'sinFelicitacionClase',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'SENSE FELICITACIÓ A CLASSE',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'A classe, la mestra felicita només alguns alumnes per la feina feta. En Lucas també la va fer però no rep cap menció.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA O PENSA EN LUCAS?',
+              opciones: [
+                { id: 'piensaMalTriste', texto: 'En Lucas pensa que no ho ha fet prou bé i es posa trist', imagen: 'transparente.png' },
+                { id: 'piensaOlvidoJuega', texto: 'En Lucas pensa que la mestra se n\'ha oblidat i se\'n va a jugar igualment', imagen: 'transparente.png' },
+                { id: 'enfadaMaestra', texto: 'En Lucas s\'enfada amb la mestra', imagen: 'transparente.png' },
+                { id: 'felicitaCompaneros', texto: 'En Lucas felicita els companys', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                piensaMalTriste: { texto: 'En Lucas podria sentir-se desanimat i menys motivat per a futures feines.', imagen: 'transparente.png' },
+                piensaOlvidoJuega: { texto: 'En Lucas no es veu afectat negativament i gaudeix del seu temps de joc.', imagen: 'transparente.png' },
+                enfadaMaestra: { texto: 'La mestra podria no entendre el seu enuig o podria portar a una conversa.', imagen: 'transparente.png' },
+                felicitaCompaneros: { texto: 'Els companys se sentiran bé i en Lucas mostrarà una actitud positiva.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'regaloNoGustado',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'REGAL QUE NO AGRADA EN UN INTERCANVI',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'A l\'escola fan un intercanvi de regals. A la Sofia li donen un regal que no li agrada gens, mentre veu que els altres reben coses que sí que els agraden.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA LA SOFIA?',
+              opciones: [
+                { id: 'diceEncanta', texto: 'La Sofia diu que li encanta per no fer sentir malament l\'altre', imagen: 'transparente.png' },
+                { id: 'caraDecepcion', texto: 'La Sofia fa cara de decepció', imagen: 'transparente.png' },
+                { id: 'preguntaCambiar', texto: 'La Sofia pregunta si pot canviar el regal', imagen: 'transparente.png' },
+                { id: 'levantaMarcha', texto: 'La Sofia s\'aixeca i se\'n va', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                diceEncanta: { texto: 'El company que li va donar el regal se sentirà bé, encara que la Sofia no sigui sincera.', imagen: 'transparente.png' },
+                caraDecepcion: { texto: 'El company podria sentir-se malament o incòmode en notar la seva decepció.', imagen: 'transparente.png' },
+                preguntaCambiar: { texto: 'Podria generar una situació incòmoda o potser es pot trobar una solució.', imagen: 'transparente.png' },
+                levantaMarcha: { texto: 'Els altres podrien sorprendre\'s o pensar que és maleducada.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'noDejanJugarFutbol',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'NO EL DEIXEN JUGAR A FUTBOL',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'L\'Hugo s\'acosta a un grup per jugar a futbol, però li diuen que no poden jugar més perquè ja estan complets.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA L\'HUGO?',
+              opciones: [
+                { id: 'estaBienTriste', texto: 'L\'Hugo diu "està bé" i se\'n va trist', imagen: 'transparente.png' },
+                { id: 'insisteEnfada', texto: 'L\'Hugo insisteix i s\'enfada', imagen: 'transparente.png' },
+                { id: 'noPasaNadaBuscaOtra', texto: 'L\'Hugo diu "no passa res" i busca una altra activitat', imagen: 'transparente.png' },
+                { id: 'gritaLlora', texto: 'L\'Hugo crida i es posa a plorar', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                estaBienTriste: { texto: 'L\'Hugo es queda sense jugar amb ells i podria sentir-se malament una estona.', imagen: 'transparente.png' },
+                insisteEnfada: { texto: 'El grup podria molestar-se i seguir sense deixar-lo jugar, o podria crear-se una discussió.', imagen: 'transparente.png' },
+                noPasaNadaBuscaOtra: { texto: 'L\'Hugo trobarà una altra manera de divertir-se i no generarà un conflicte.', imagen: 'transparente.png' },
+                gritaLlora: { texto: 'Els altres nens podrien espantar-se o allunyar-se. Potser un adult intervé.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'quiereJugueteAjeno',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'VOL LA JOGUINA D\'UN ALTRE NEN',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'En Daniel està mirant com l\'Elena juga amb una joguina que a en Daniel li agrada molt. Vol agafar-la però l\'Elena no ha acabat de jugar.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA EN DANIEL?',
+              opciones: [
+                { id: 'enfadaGrita', texto: 'En Daniel s\'enfada i crida a l\'Elena', imagen: 'transparente.png' },
+                { id: 'pideDespues', texto: 'En Daniel li demana a l\'Elena si pot jugar després', imagen: 'transparente.png' },
+                { id: 'quitaSinDecir', texto: 'En Daniel li pren la joguina sense dir res', imagen: 'transparente.png' },
+                { id: 'poneLlorar', texto: 'En Daniel es posa a plorar', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                enfadaGrita: { texto: 'L\'Elena podria espantar-se o enfadar-se, i probablement no voldrà compartir la joguina.', imagen: 'transparente.png' },
+                pideDespues: { texto: 'L\'Elena podria acceptar i en Daniel jugaria després, o podria dir que no.', imagen: 'transparente.png' },
+                quitaSinDecir: { texto: 'L\'Elena s\'enfadarà i podria haver-hi una baralla per la joguina.', imagen: 'transparente.png' },
+                poneLlorar: { texto: 'L\'Elena podria sentir-se malament o confosa. Un adult podria intervenir.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'manchaDibujoSinQuerer',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'TACA EL DIBUIX SENSE VOLER',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'L\'Adrià està pintant molt concentrat i la Júlia, sense voler, li taca el dibuix en passar pel seu costat.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA L\'ADRIÀ?',
+              opciones: [
+                { id: 'diceCuidado', texto: 'L\'Adrià diu a la Júlia que vagi amb més compte', imagen: 'transparente.png' },
+                { id: 'nerviosoGolpea', texto: 'L\'Adrià es posa molt nerviós i colpeja la Júlia', imagen: 'transparente.png' },
+                { id: 'diceAdrede', texto: 'L\'Adrià diu a la Júlia que ha espatllat el dibuix expressament', imagen: 'transparente.png' },
+                { id: 'sabeAccidenteArregla', texto: 'L\'Adrià li diu a la Júlia que sap que ha estat un accident i intenta arreglar el dibuix', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                diceCuidado: { texto: 'La Júlia podria disculpar-se i anar amb més compte la propera vegada.', imagen: 'transparente.png' },
+                nerviosoGolpea: { texto: 'La Júlia s\'espantarà o s\'enfadarà, i l\'Adrià podria tenir problemes.', imagen: 'transparente.png' },
+                diceAdrede: { texto: 'La Júlia se sentirà malament o es defensarà, negant que fos expressament.', imagen: 'transparente.png' },
+                sabeAccidenteArregla: { texto: 'La Júlia se sentirà alleujada i podrien intentar arreglar-ho junts.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'escondeZapatosBroma',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'LI AMAGUEN LES SABATES',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La Paula amaga les sabates d\'en Mateu mentre juguen, rient, i en Mateu no les troba i comença a preocupar-se.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA EN MATEU?',
+              opciones: [
+                { id: 'enfadaDiceNoGusta', texto: 'En Mateu s\'enfada i li diu a la Paula que no li ha agradat', imagen: 'transparente.png' },
+                { id: 'rieJuegaIgual', texto: 'En Mateu riu i juga igualment', imagen: 'transparente.png' },
+                { id: 'ignoraVaTriste', texto: 'En Mateu ignora la situació i se\'n va trist', imagen: 'transparente.png' },
+                { id: 'pideAyudaDocente', texto: 'En Mateu demana ajuda al docent i explica què ha passat', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                enfadaDiceNoGusta: { texto: 'La Paula podria adonar-se que la seva broma no va ser divertida i tornar les sabates.', imagen: 'transparente.png' },
+                rieJuegaIgual: { texto: 'La Paula podria pensar que a en Mateu li sembla divertit i seguir amb la broma o parar.', imagen: 'transparente.png' },
+                ignoraVaTriste: { texto: 'La Paula podria sentir-se malament o seguir amb la broma. En Mateu no resoldrà la situació.', imagen: 'transparente.png' },
+                pideAyudaDocente: { texto: 'El docent ajudarà en Mateu a trobar les sabates i parlarà amb la Paula sobre la broma.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'cogeTijerasMaestra',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'AGAFA LES TISORES DE LA MESTRA',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'En David agafa unes tisores grans de la taula de la mestra sense permís. La mestra li diu que les ha de tornar.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA EN DAVID?',
+              opciones: [
+                { id: 'noDevuelveNecesita', texto: 'En David diu que no les tornarà perquè les necessita', imagen: 'transparente.png' },
+                { id: 'devuelveNoSabia', texto: 'En David les torna i diu que no sabia que no podia agafar-les', imagen: 'transparente.png' },
+                { id: 'escondeNadieEncuentre', texto: 'En David les amaga perquè ningú les trobi', imagen: 'transparente.png' },
+                { id: 'gritaTodosCogen', texto: 'En David crida que tothom agafa coses', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                noDevuelveNecesita: { texto: 'La mestra insistirà i li explicarà per què no pot fer-les servir sense permís.', imagen: 'transparente.png' },
+                devuelveNoSabia: { texto: 'La mestra acceptarà les tisores i li recordarà que ha de demanar permís.', imagen: 'transparente.png' },
+                escondeNadieEncuentre: { texto: 'La mestra es preocuparà i buscarà les tisores. En David podria tenir problemes.', imagen: 'transparente.png' },
+                gritaTodosCogen: { texto: 'La mestra intentarà calmar-lo i li explicarà les normes de la classe.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'cogeMagdalenaAntesTiempo',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'AGAFA UNA MAGDALENA ABANS D\'HORA',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La Valèria ha agafat una magdalena de la safata que era per a després de l\'activitat. La docent li diu que no és el moment de menjar.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA LA VALÈRIA?',
+              opciones: [
+                { id: 'devuelveNoSabia', texto: 'La Valèria la torna i diu que no ho sabia', imagen: 'transparente.png' },
+                { id: 'comeRapido', texto: 'La Valèria se la menja ràpidament abans que li puguin dir res', imagen: 'transparente.png' },
+                { id: 'diceHambreNoEspera', texto: 'La Valèria diu que té gana i no vol esperar', imagen: 'transparente.png' },
+                { id: 'lloraTratoMal', texto: 'La Valèria plora i diu que tothom la tracta malament', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                devuelveNoSabia: { texto: 'La docent acceptarà la magdalena i li recordarà esperar al moment indicat.', imagen: 'transparente.png' },
+                comeRapido: { texto: 'La docent li dirà que no ha estat bé i que ha de respectar les normes.', imagen: 'transparente.png' },
+                diceHambreNoEspera: { texto: 'La docent li explicarà que ha d\'esperar com els altres i potser li ofereix alguna cosa petita si és necessari.', imagen: 'transparente.png' },
+                lloraTratoMal: { texto: 'La docent intentarà calmar-la i explicar-li la situació amb paciència.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'ignoraOrdenDocente',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'IGNORA L\'ORDRE DE LA DOCENT',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'En Martin està jugant amb peces que són per a una altra activitat i la docent li diu dues vegades que les deixi.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA EN MARTIN?',
+              opciones: [
+                { id: 'noParaSigueJugando', texto: 'En Martin diu que no vol parar i continua jugant', imagen: 'transparente.png' },
+                { id: 'noContestaHaceNoEscucha', texto: 'En Martin no contesta i fa com que no escolta', imagen: 'transparente.png' },
+                { id: 'ignoraLuegoDevuelvePideOtras', texto: 'En Martin ignora però després torna les peces i demana fer-ne servir d\'altres', imagen: 'transparente.png' },
+                { id: 'sigueJugandoDiceNoOyo', texto: 'En Martin continua jugant i després diu que no havia sentit res', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                noParaSigueJugando: { texto: 'La docent podria aturar l\'activitat o prendre mesures perquè en Martin segueixi les instruccions.', imagen: 'transparente.png' },
+                noContestaHaceNoEscucha: { texto: 'La docent s\'acostarà i li repetirà la instrucció directament.', imagen: 'transparente.png' },
+                ignoraLuegoDevuelvePideOtras: { texto: 'La docent podria apreciar que finalment va cooperar, encara que tard.', imagen: 'transparente.png' },
+                sigueJugandoDiceNoOyo: { texto: 'La docent podria no creure-se\'l i li recordarà la importància d\'escoltar.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'cogeZumoAjenoEnfado',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'AGAFA EL SUC D\'UN ALTRE I S\'ENFADA',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'L\'Olívia ha agafat el suc d\'un altre nen. Quan li diuen que no és seu, el torna però es posa a cridar i es tanca en si mateixa.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ PASSA DESPRÉS?',
+              opciones: [
+                { id: 'diceNoVolveraPidePerdon', texto: 'L\'Olívia diu que no ho tornarà a fer i demana perdó', imagen: 'transparente.png' },
+                { id: 'devuelveNoHablaMas', texto: 'L\'Olívia el torna però diu que no vol parlar amb ningú més', imagen: 'transparente.png' },
+                { id: 'lanzaZumoSuelo', texto: 'L\'Olívia llença el suc a terra', imagen: 'transparente.png' },
+                { id: 'noImportaNadieDiceQueHacer', texto: 'L\'Olívia diu que no li importa i que ningú li diu què ha de fer', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                diceNoVolveraPidePerdon: { texto: 'L\'altre nen i el docent apreciaran la seva disculpa i la situació es calmarà.', imagen: 'transparente.png' },
+                devuelveNoHablaMas: { texto: 'L\'Olívia necessitarà un temps per calmar-se. Els altres respectaran el seu espai.', imagen: 'transparente.png' },
+                lanzaZumoSuelo: { texto: 'Es crearà un desordre i l\'Olívia podria tenir conseqüències pel seu comportament.', imagen: 'transparente.png' },
+                noImportaNadieDiceQueHacer: { texto: 'La situació podria empitjorar i necessitar la intervenció d\'un adult per resoldre el conflicte.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'invitacionJugarFutbol',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'INVITACIÓ A JUGAR A FUTBOL',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La Carla s\'acosta a en Leo i li diu: "Vols jugar amb nosaltres a futbol?"',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ RESPON EN LEO?',
+              opciones: [
+                { id: 'siPreguntaQueHacer', texto: 'En Leo diu que sí i pregunta què han de fer', imagen: 'transparente.png' },
+                { id: 'noQuiereJugarNunca', texto: 'En Leo diu que no vol jugar amb ningú mai', imagen: 'transparente.png' },
+                { id: 'ignoraMarcha', texto: 'En Leo els ignora i se\'n va', imagen: 'transparente.png' },
+                { id: 'jugadVosotrosOtraCosa', texto: 'En Leo diu "jugueu vosaltres, jo faré una altra cosa" sense mirar-los', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                siPreguntaQueHacer: { texto: 'En Leo s\'unirà al joc i es divertirà amb la Carla i els altres.', imagen: 'transparente.png' },
+                noQuiereJugarNunca: { texto: 'La Carla i els altres se sorprendran i jugaran sense ell. En Leo es quedarà sol.', imagen: 'transparente.png' },
+                ignoraMarcha: { texto: 'La Carla se sentirà rebutjada i jugaran sense ell. En Leo no interactuarà.', imagen: 'transparente.png' },
+                jugadVosotrosOtraCosa: { texto: 'La Carla podria sentir-se una mica malament, però respectarà la seva decisió i jugaran sense ell.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'esperarTurnoBano',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'ESPERAR TORN PER AL BANY',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La Mia està en una fila per anar al bany. Vol passar primer, però hi ha altres nens al davant.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA LA MIA?',
+              opciones: [
+                { id: 'esperaTurno', texto: 'La Mia espera el seu torn', imagen: 'transparente.png' },
+                { id: 'enfadaAdelanta', texto: 'La Mia s\'enfada i s\'avança', imagen: 'transparente.png' },
+                { id: 'gritaNecesitaMas', texto: 'La Mia crida que ho necessita més que ningú', imagen: 'transparente.png' },
+                { id: 'intentaEntrarSinVer', texto: 'La Mia intenta entrar sense que ningú la vegi', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                esperaTurno: { texto: 'La Mia farà servir el bany quan li toqui, respectant els altres.', imagen: 'transparente.png' },
+                enfadaAdelanta: { texto: 'Els altres nens es molestaran i podrien queixar-se al professor.', imagen: 'transparente.png' },
+                gritaNecesitaMas: { texto: 'Generarà malestar a la fila i és probable que no aconsegueixi passar abans.', imagen: 'transparente.png' },
+                intentaEntrarSinVer: { texto: 'Podria ser descoberta i rebre una crida d\'atenció.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'quiereOtroJuegoGrupo',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'VOL JUGAR A UNA ALTRA COSA DIFERENT DEL GRUP',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'El grup ha decidit jugar a cartes, però en Lucas vol jugar a construccions.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA EN LUCAS?',
+              opciones: [
+                { id: 'proponeAmbas', texto: 'En Lucas proposa fer les dues coses després d\'una estona', imagen: 'transparente.png' },
+                { id: 'marchaEnfadado', texto: 'En Lucas se\'n va enfadat', imagen: 'transparente.png' },
+                { id: 'diceAburrido', texto: 'En Lucas diu que el joc del grup és avorrit', imagen: 'transparente.png' },
+                { id: 'insisteCambien', texto: 'En Lucas insisteix fins que tots canvien', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                proponeAmbas: { texto: 'El grup podria acceptar la proposta i tots podrien gaudir d\'ambdós jocs.', imagen: 'transparente.png' },
+                marchaEnfadado: { texto: 'En Lucas no jugarà amb el grup i es perdrà la diversió. El grup jugarà a cartes.', imagen: 'transparente.png' },
+                diceAburrido: { texto: 'Els membres del grup podrien sentir-se malament o ignorar el seu comentari.', imagen: 'transparente.png' },
+                insisteCambien: { texto: 'El grup podria cedir o molestar-se per la insistència.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'noCompartenGalleta',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'NO LI COMPARTEIXEN UNA GALETA',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'La Sofia vol una galeta de l\'esmorzar del seu company Samuel, però en Samuel li diu que no pot compartir perquè només en té una.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA LA SOFIA?',
+              opciones: [
+                { id: 'acuerdoComeSuyo', texto: 'La Sofia diu "d\'acord" i menja el seu esmorzar', imagen: 'transparente.png' },
+                { id: 'diceEgoista', texto: 'La Sofia diu "ets un egoista"', imagen: 'transparente.png' },
+                { id: 'quitaGalletaRapido', texto: 'La Sofia li pren la galeta ràpidament', imagen: 'transparente.png' },
+                { id: 'lloraGritando', texto: 'La Sofia es posa a plorar cridant', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                acuerdoComeSuyo: { texto: 'La Sofia respecta la decisió d\'en Samuel i tots dos mengen el seu esmorzar tranquil·lament.', imagen: 'transparente.png' },
+                diceEgoista: { texto: 'En Samuel podria sentir-se malament o enfadar-se amb la Sofia.', imagen: 'transparente.png' },
+                quitaGalletaRapido: { texto: 'En Samuel s\'enfadarà molt i podria haver-hi una discussió o baralla.', imagen: 'transparente.png' },
+                lloraGritando: { texto: 'Cridarà l\'atenció de tothom i un adult probablement intervindrà.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'unirseJuegoParque',
+        categoria: 'social',
+        nivel: 1,
+        titulo: 'UNIR-SE A UN JOC AL PARC',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'L\'Hugo arriba al parc i veu un grup de nens que coneix, però no sap com unir-se al joc.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA L\'HUGO?',
+              opciones: [
+                { id: 'holaPuedoJugar', texto: 'L\'Hugo diu "hola, puc jugar amb vosaltres?"', imagen: 'transparente.png' },
+                { id: 'miraNoDiceNada', texto: 'L\'Hugo es queda mirant i no diu res', imagen: 'transparente.png' },
+                { id: 'acercaCogeJuguete', texto: 'L\'Hugo s\'acosta i agafa una joguina sense demanar permís', imagen: 'transparente.png' },
+                { id: 'yaEstoyAquiGrita', texto: 'L\'Hugo diu "ja sóc aquí!" i crida molt fort', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                holaPuedoJugar: { texto: 'Els nens probablement li diran que sí i l\'Hugo s\'unirà al joc.', imagen: 'transparente.png' },
+                miraNoDiceNada: { texto: 'Els nens continuaran jugant i l\'Hugo es quedarà sense participar tret que algú el convidi.', imagen: 'transparente.png' },
+                acercaCogeJuguete: { texto: 'Els nens podrien enfadar-se perquè no va demanar permís i no vulguin jugar amb ell.', imagen: 'transparente.png' },
+                yaEstoyAquiGrita: { texto: 'Els nens podrien sorprendre\'s o espantar-se. Podrien acceptar-lo o rebutjar-lo.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      },
+      {
+        id: 'errorEnJuegoCorregido',
+        categoria: 'social',
+        nivel: 2,
+        titulo: 'COMET UN ERROR I EL CORREGEXEN',
+        pictos: ['transparente.png'],
+        pasos: (() => {
+          return [
+            {
+              tipo: 'situacion',
+              titulo: 'SITUACIÓ',
+              descripcion: 'En Daniel confon les instruccions d\'un joc i tots el corregeixen. Se sent avergonyit.',
+              imagen: 'transparente.png'
+            },
+            {
+              tipo: 'eleccion',
+              titulo: 'QUÈ FA EN DANIEL?',
+              opciones: [
+                { id: 'graciasNoSabia', texto: 'En Daniel diu "gràcies, no ho sabia" i continua jugant', imagen: 'transparente.png' },
+                { id: 'enfadaDejaJuego', texto: 'En Daniel s\'enfada i deixa el joc', imagen: 'transparente.png' },
+                { id: 'otrosTambienEquivocan', texto: 'En Daniel diu que els altres també s\'equivoquen', imagen: 'transparente.png' },
+                { id: 'gritaNoEsJusto', texto: 'En Daniel crida "no és just!"', imagen: 'transparente.png' }
+              ]
+            },
+            {
+              tipo: 'resultado',
+              titulo: 'CONSEQÜÈNCIA PROBABLE',
+              resultados: {
+                graciasNoSabia: { texto: 'El joc continua amb normalitat i en Daniel aprèn del seu error.', imagen: 'transparente.png' },
+                enfadaDejaJuego: { texto: 'En Daniel no gaudirà del joc i els altres continuaran jugant sense ell.', imagen: 'transparente.png' },
+                otrosTambienEquivocan: { texto: 'Podria generar una discussió i un ambient tens en el joc.', imagen: 'transparente.png' },
+                gritaNoEsJusto: { texto: 'Els altres jugadors se sentiran incòmodes i el joc podria interrompre\'s.', imagen: 'transparente.png' }
+              }
+            }
+          ]
+        })()
+      }
     ]
   }
 }
